@@ -1,5 +1,0 @@
-{
-  "dateTime": "2024-03-19T15:57:59.732361Z",
-  "message": "Not valid IE815 message",
-  "debugMessage": "Parser error: \"'{urn:publicid:-:EC:DGTAXUD:EMCS:PHASE4:TMS:V3.13}MessageSender' expected but {urn:publicid:-:EC:DGTAXUD:EMCS:PHASE4:TMS:V3.13}MessageSenders found\""
-}

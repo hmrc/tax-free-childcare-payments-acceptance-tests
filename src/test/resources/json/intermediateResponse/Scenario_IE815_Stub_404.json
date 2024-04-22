@@ -1,6 +1,0 @@
-{
-  "dateTime": "2021-12-17T09:31:12Z",
-  "message": "Received error response from server",
-  "debugMessage": "Connection refused; nested exception is java.net.ConnectException: Connection refused",
-  "correlationId": "56f73585-f0c8-4ab4-98df-ae67298f55a5"
-}

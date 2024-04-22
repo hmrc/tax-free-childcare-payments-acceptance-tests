@@ -1,5 +1,0 @@
-{
-  "dateTime": "2023-11-01T15:31:02.687433",
-  "message": "Movement Id format error",
-  "debugMessage": "The movement ID should be a valid UUID"
-}
