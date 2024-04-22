@@ -24,7 +24,7 @@ import uk.gov.hmrc.test.api.conf.TestConfiguration
 import uk.gov.hmrc.test.api.utils.Zap.{isEnabled, proxyPort, proxyServer}
 
 trait RestAssured {
-  val url: String = TestConfiguration.url("emcs") + "/" + TestConfiguration.getConfigValue("emcs-api-uri")
+  val url: String = TestConfiguration.url("tfc") + "/" + TestConfiguration.getConfigValue("tfc-api-uri")
 
   def initiateProxy(requestSpec: RequestSpecification): Unit =
     if (isEnabled) {

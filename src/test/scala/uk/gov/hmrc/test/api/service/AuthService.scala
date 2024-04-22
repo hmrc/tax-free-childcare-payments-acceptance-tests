@@ -57,11 +57,11 @@ class AuthService(filename: Any) extends HttpClient {
        |}
     """.stripMargin
 
-  def authPayloadTFC(identifier: String): String =
+  def authPayloadTFC(nino: String): String =
     s"""
        | {
        |    "authorityId": "",
-       |    "redirectionUrl": "http://localhost:9949/auth-login-stub/session",
+       |    "redirectionUrl": "$redirectUrl",
        |    "excludeGnapToken": true,
        |    "credentialStrength": "strong",
        |    "confidenceLevel": 250,
@@ -69,7 +69,7 @@ class AuthService(filename: Any) extends HttpClient {
        |    "email": "user@test.com",
        |    "credentialRole": "User",
        |    "additionalInfo.emailVerified": "N/A",
-       |    "nino":"AB123456C",
+       |    "nino":"$nino",
        |    "presets-dropdown": "IR-SA",
        |    "credId": "temp",
        |    "enrolments": [

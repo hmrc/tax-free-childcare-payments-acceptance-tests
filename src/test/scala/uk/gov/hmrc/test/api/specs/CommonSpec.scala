@@ -234,8 +234,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/$movementId/messages")
       .andReturn()
   }
-  def tfcLink(token: String): Response                                                    = {
-    println("endpoint url:" + url + s"/link")
+  def tfcLink(token: String): Response                                                    =
     requestSpecification
       .header("Authorization", token)
       .header("Content-Type", "application/json")
@@ -244,16 +243,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body(
         "{\"correlationId\":\"AAAA-BBBB-CCCC-DDDD\", \"epp_unique_customer_id\":\"EPP-ID\", \"epp_reg_reference\":\"EPP-Req-Ref\", \"outbound_child_payment_ref\":\"Out-Bound-Child-Ref\", \"child_date_of_birth\":\"01-02-2023\"}"
       )
-      .post("http://localhost:10500/individuals/tax-free-childcare/payments/link")
+      .post(url + s"/link")
       .andReturn()
-  }
   def tfcBalance(token: String): Response                                                 =
     requestSpecification
       .header("Authorization", token)
       .header("Accept", "application/vnd.hmrc.1.0+json")
       .when()
       .body("")
-      .post("http://localhost:10500/individuals/tax-free-childcare/payments/balance")
+      .post(url + s"/balance")
       .andReturn()
 
 }
