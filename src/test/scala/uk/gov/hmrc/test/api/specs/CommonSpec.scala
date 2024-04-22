@@ -60,7 +60,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Accept", "application/vnd.hmrc.1.0+json")
       .when()
       .body(
-        "{\"correlationId\":\"AAAA-BBBB-CCCC-DDDD\", \"epp_unique_customer_id\":\"EPP-ID\", \"epp_reg_reference\":\"EPP-Req-Ref\", \"outbound_child_payment_ref\":\"Out-Bound-Child-Ref\", \"child_date_of_birth\":\"01-02-2023\"}"
+        "{\"correlationId\":\"5c5ef9c2-72e8-4d4f-901e-9fec3db8c64b\", \"epp_unique_customer_id\":\"EPP-ID\", \"epp_reg_reference\":\"EPP-Req-Ref\", \"outbound_child_payment_ref\":\"Out-Bound-Child-Ref\", \"child_date_of_birth\":\"01-02-2023\"}"
       )
       .post(url + s"/link")
       .andReturn()
