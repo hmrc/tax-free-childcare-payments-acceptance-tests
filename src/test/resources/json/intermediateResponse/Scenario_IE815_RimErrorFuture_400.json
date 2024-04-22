@@ -1,0 +1,14 @@
+{
+  "correlationId": "ac3b0de6-3070-411f-89c8-1cf665767f92",
+  "message": "Validation error",
+  "debugMessage": "Validation error(s) occurred",
+  "validatorResults": [
+    {
+      "errorCategory": "business",
+      "errorType": 8083,
+      "errorReason": "You must enter a Date of Dispatch which is either today or within the next 7 days following today. Please amend your entry and resubmit.",
+      "errorLocation": "/urn:IE815[1]/urn:Body[1]/urn:SubmittedDraftOfEADESAD[1]/urn:EadEsadDraft[1]/urn:DateOfDispatch[1]",
+      "originalAttributeValue": "PLACEHOLDER_RIM_VALIDATION"
+    }
+  ]
+}

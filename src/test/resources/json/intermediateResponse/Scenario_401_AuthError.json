@@ -1,0 +1,5 @@
+{
+  "dateTime": "2024-03-19T16:38:30.395846Z",
+  "message": "Authorisation error",
+  "debugMessage": "Unauthorised Exception for /movements with error Invalid bearer token"
+}

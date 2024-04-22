@@ -1,0 +1,6 @@
+{
+  "dateTime": "2021-12-17T09:31:12Z",
+  "message": "Json validation failed",
+  "debugMessage": "user is missing but it is required",
+  "correlationId": "444814a0-6368-4175-ae71-2202aa2cd9c1"
+}

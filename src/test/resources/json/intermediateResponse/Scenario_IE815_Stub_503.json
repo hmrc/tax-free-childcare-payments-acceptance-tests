@@ -1,0 +1,6 @@
+{
+  "dateTime": "2021-12-17T09:31:12Z",
+  "message": "CIRCUIT_BREAKER - 815_CB is OPEN",
+  "debugMessage": "CircuitBreaker '815_CB' is OPEN and does not permit further calls",
+  "correlationId": "3520f865-ad86-49a2-a70e-2828bf284855"
+}

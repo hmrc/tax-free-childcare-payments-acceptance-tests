@@ -1,0 +1,13 @@
+{
+  "correlationId": "92ee7104-b38c-457b-b91c-4de72c68f124",
+  "message": "Validation error",
+  "debugMessage": "Validation error(s) occurred",
+  "validatorResults": [
+    {
+      "errorCategory": "business",
+      "errorType": 8006,
+      "errorReason": "The date and time of validation of the Report of Receipt must not be present. Please contact your software supplier for further advice.",
+      "errorLocation": "/urn:IE818[1]/urn:Body[1]/urn:AcceptedOrRejectedReportOfReceiptExport[1]/urn:Attributes[1]"
+    }
+  ]
+}
