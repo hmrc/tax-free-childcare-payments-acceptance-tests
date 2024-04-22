@@ -36,17 +36,15 @@ object JsonUtils {
       jsonBoolean = value => Map(prefix -> value.toString),
       jsonNumber = value => Map(prefix -> value.toString),
       jsonString = value => Map(prefix -> value),
-      jsonArray = elements => {
+      jsonArray = elements =>
         elements.zipWithIndex.flatMap { case (element, index) =>
           val newKey = s"$prefix[$index]"
           flatten(element, newKey)
-        }.toMap
-      },
-      jsonObject = fields => {
+        }.toMap,
+      jsonObject = fields =>
         fields.toMap.flatMap { case (key, value) =>
           val newKey = if (prefix.isEmpty) key else s"$prefix.$key"
           flatten(value, newKey)
         }
-      }
     )
 }

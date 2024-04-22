@@ -24,8 +24,8 @@ object RemoveJsonElement {
   def removeJsonElement(directory: String, filename: String, key: String): String = {
     val filePath = s"src/test/resources/json/$directory/$filename.json"
 
-    val source = scala.io.Source.fromFile(filePath)
-    val parsedJson = Json.parse(source.mkString)
+    val source       = scala.io.Source.fromFile(filePath)
+    val parsedJson   = Json.parse(source.mkString)
     val modifiedJson = removeKey(parsedJson, key)
 
     source.close()

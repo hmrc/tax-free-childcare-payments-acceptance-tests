@@ -47,7 +47,7 @@ object XmlUtils {
       node match {
         case elem: Elem =>
           elem.copy(child = elem.child.map(updateNode))
-        case other => other
+        case other      => other
       }
 
     val updatedXml = xml.map(updateNode)

@@ -31,7 +31,7 @@ object GenerateClientIdAndBoxId extends CommonSpec {
 
     val scriptPath = "src/test/resources/test-push-poll-setup-draft.sh"
 
-    val file = scala.io.Source.fromFile(scriptPath)
+    val file                   = scala.io.Source.fromFile(scriptPath)
     val templateScript: String = file.mkString
     val modifiedScript: String = templateScript.replace("PLACEHOLDER_TOKEN", token)
 

@@ -78,10 +78,10 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   }
 
   private def cleanUpActualResponse(response: Response) = {
-    val initial = convertJsonFormatAsString(response.body().prettyPrint())
+    val initial              = convertJsonFormatAsString(response.body().prettyPrint())
     val removedCorrelationId = removeJsonElement(initial, "correlationId")
-    val removedDateTime = removeJsonElement(removedCorrelationId, "dateTime")
-    val removedValue = removeJsonElement(removedDateTime, "value")
+    val removedDateTime      = removeJsonElement(removedCorrelationId, "dateTime")
+    val removedValue         = removeJsonElement(removedDateTime, "value")
 
     flatten(parse(removedValue).getOrElse(Json.Null))
 
@@ -89,14 +89,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   private def cleanUpExpectedResponse(responseFileName: String, lrnNumber: String, movementId: String, date: String) = {
     val removedCorrelationId = removeJsonElement("intermediateResponse", responseFileName, "correlationId")
-    val removedDateTime = removeJsonElement(removedCorrelationId, "dateTime")
-    val removedValue = removeJsonElement(removedDateTime, "value")
+    val removedDateTime      = removeJsonElement(removedCorrelationId, "dateTime")
+    val removedValue         = removeJsonElement(removedDateTime, "value")
 
-    val withDateUpdated = if (responseFileName.contains("Future"))
-      updateDateOnInputAndOutputTestDataString(removedValue, 1)
-    else if (responseFileName.contains("Past"))
-      updateDateOnInputAndOutputTestDataString(removedValue, -1)
-    else removedValue
+    val withDateUpdated =
+      if (responseFileName.contains("Future"))
+        updateDateOnInputAndOutputTestDataString(removedValue, 1)
+      else if (responseFileName.contains("Past"))
+        updateDateOnInputAndOutputTestDataString(removedValue, -1)
+      else removedValue
 
     val withLrnUpdated = convertJsonFormatAsString(updateLRNOnInputAndOutputTestDataString(withDateUpdated, lrnNumber))
 
@@ -112,10 +113,10 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def thenGetMovementId(
     response: Response
   ): String = {
-    val jsonResponseBodyInitial = convertJsonFormatAsString(response.body().prettyPrint())
+    val jsonResponseBodyInitial         = convertJsonFormatAsString(response.body().prettyPrint())
     val jsonResponseBodyNoCorrelationid = removeJsonElement(jsonResponseBodyInitial, "emcsCorrelationId")
-    val jsonResponseBodyNoDateTime = removeJsonElement(jsonResponseBodyNoCorrelationid, "dateTime")
-    val jsonResponseBodyFinal = removeJsonElement(jsonResponseBodyNoDateTime, "value")
+    val jsonResponseBodyNoDateTime      = removeJsonElement(jsonResponseBodyNoCorrelationid, "dateTime")
+    val jsonResponseBodyFinal           = removeJsonElement(jsonResponseBodyNoDateTime, "value")
 
     val movementId = extractValue(jsonResponseBodyFinal, "\"movementId\" : \"", "\",")
     println(s"movementId : $movementId")
@@ -139,7 +140,8 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   ): Response = {
     When(s"I post IE815 request with test file name $fileName with $dateChange and receive a response")
 
-    val requestBodyInitial = updateLRNOnInputAndOutputTestDataString(getRequestXmlFileAsString("request", fileName), lrn)
+    val requestBodyInitial =
+      updateLRNOnInputAndOutputTestDataString(getRequestXmlFileAsString("request", fileName), lrn)
     println(s"Request body : $requestBodyInitial")
 
     val requestBodyDateUpdated = if (dateChange.equals("Yes")) {
@@ -182,7 +184,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def getMovements(token: String): Response = {
     When(s"I get Get Movements request without query params and receive a response")
-    //clearQueryParam(requestSpecification)
+    // clearQueryParam(requestSpecification)
     requestSpecification
       .header("Authorization", token)
       .when()
@@ -202,7 +204,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def whenIPostRequest(token: String, scenarioName: String, administrativeCode: String, lrn: String): Response = {
     When(s"I post  request with test file name $scenarioName and receive a response")
-  //  clearQueryParam(requestSpecification)
+    //  clearQueryParam(requestSpecification)
     val requestBody = updateXmlTagValue(
       getRequestXmlFileAsString("request", scenarioName),
       "AdministrativeReferenceCode",
@@ -218,7 +220,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def whenIPostRequest(token: String, scenarioName: String, movementId: String): Response = {
     When(s"I post  request with test file name $scenarioName and receive a response")
-  //  clearQueryParam(requestSpecification)
+    //  clearQueryParam(requestSpecification)
     val requestBody = updateXmlTagValue(
       getRequestXmlFileAsString("request", scenarioName)
     )
@@ -232,19 +234,20 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/$movementId/messages")
       .andReturn()
   }
-  def tfcLink(token :String): Response = {
-    println("endpoint url:"+url + s"/link")
+  def tfcLink(token: String): Response                                                    = {
+    println("endpoint url:" + url + s"/link")
     requestSpecification
       .header("Authorization", token)
-      .header("Content-Type","application/json")
+      .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
       .when()
-      .body("{\"correlationId\":\"AAAA-BBBB-CCCC-DDDD\", \"epp_unique_customer_id\":\"EPP-ID\", \"epp_reg_reference\":\"EPP-Req-Ref\", \"outbound_child_payment_ref\":\"Out-Bound-Child-Ref\", \"child_date_of_birth\":\"01-02-2023\"}")
+      .body(
+        "{\"correlationId\":\"AAAA-BBBB-CCCC-DDDD\", \"epp_unique_customer_id\":\"EPP-ID\", \"epp_reg_reference\":\"EPP-Req-Ref\", \"outbound_child_payment_ref\":\"Out-Bound-Child-Ref\", \"child_date_of_birth\":\"01-02-2023\"}"
+      )
       .post("http://localhost:10500/individuals/tax-free-childcare/payments/link")
       .andReturn()
   }
-  def tfcBalance(token :String): Response = {
-
+  def tfcBalance(token: String): Response                                                 =
     requestSpecification
       .header("Authorization", token)
       .header("Accept", "application/vnd.hmrc.1.0+json")
@@ -252,6 +255,5 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body("")
       .post("http://localhost:10500/individuals/tax-free-childcare/payments/balance")
       .andReturn()
-  }
 
 }

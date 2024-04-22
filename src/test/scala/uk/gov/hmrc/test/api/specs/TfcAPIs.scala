@@ -22,11 +22,10 @@ class TfcAPIs extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("Excise TFC APIs") {
 
-
     Scenario(s"Connect to TFC api link") {
 
       val consignorToken = givenGetToken(isValid = true, "")
-      val response = tfcLink(consignorToken)
+      val response       = tfcLink(consignorToken)
       println(response)
       thenValidateResponseCode(response, 200)
 
@@ -34,11 +33,10 @@ class TfcAPIs extends BaseSpec with CommonSpec with HttpClient {
 
     Scenario("Connect to TFC api Balance") {
       val consignorToken = givenGetToken(isValid = true, "")
-      val response = tfcBalance(consignorToken)
+      val response       = tfcBalance(consignorToken)
       println(response)
       thenValidateResponseCode(response, 200)
 
     }
   }
 }
-

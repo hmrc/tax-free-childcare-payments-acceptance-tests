@@ -21,9 +21,9 @@ object TextUtils {
   def updateLRNOnInputAndOutputTestDataString(payload: String, dynamicLrn: String): String =
     payload.replace("LRNQA2MMddHHmmssS", dynamicLrn)
 
-  def updateDateOnInputAndOutputTestDataString(payload: String,month: Int): String =
+  def updateDateOnInputAndOutputTestDataString(payload: String, month: Int): String =
     payload.replace("YYYY-MM-DD", updateDate(month))
 
-  def updateTextString(payload: String,targetValue: String,value: String):String =
-    payload.replace(targetValue,value)
+  def updateTextString(payload: String, targetValue: String, value: String): String =
+    payload.replace(targetValue, value)
 }
