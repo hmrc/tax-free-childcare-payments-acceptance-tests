@@ -19,5 +19,5 @@ package uk.gov.hmrc.test.api.client
 import uk.gov.hmrc.test.api.conf.TestConfiguration
 
 trait RestAssured {
-  val url: String = TestConfiguration.url("tfc") + "/" + TestConfiguration.getConfigValue("tfc-api-uri")
+  val url: String = TestConfiguration.url("tfcp") + "/" + TestConfiguration.getConfigValue("tfcp-api-uri")
 }
