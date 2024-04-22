@@ -33,7 +33,7 @@ trait HttpClient {
     wsClient
       .url(url)
       .withHttpHeaders(headers: _*)
-      .get
+      .get()
 
   def post(url: String, bodyAsJson: String, headers: (String, String)*): Future[StandaloneWSRequest#Self#Response] =
     wsClient
@@ -45,5 +45,5 @@ trait HttpClient {
     wsClient
       .url(url)
       .withHttpHeaders(headers: _*)
-      .delete
+      .delete()
 }

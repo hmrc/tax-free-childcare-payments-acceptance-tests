@@ -16,34 +16,8 @@
 
 package uk.gov.hmrc.test.api.client
 
-import io.restassured.RestAssured.{`given`, config}
-import io.restassured.config.HeaderConfig.headerConfig
-import io.restassured.http.ContentType
-import io.restassured.specification.{ProxySpecification, RequestSpecification}
 import uk.gov.hmrc.test.api.conf.TestConfiguration
-import uk.gov.hmrc.test.api.utils.Zap.{isEnabled, proxyPort, proxyServer}
 
 trait RestAssured {
   val url: String = TestConfiguration.url("tfc") + "/" + TestConfiguration.getConfigValue("tfc-api-uri")
-
-  def initiateProxy(requestSpec: RequestSpecification): Unit =
-    if (isEnabled) {
-      val proxySpec = ProxySpecification.host(proxyServer).withPort(proxyPort).withScheme("http")
-      requestSpec.proxy(proxySpec)
-    }
-
-  def getRequestSpec: RequestSpecification = {
-    val requestSpec = given()
-      .config(config().headerConfig(headerConfig().overwriteHeadersWithName("Authorization", "Content-Type")))
-      .contentType(ContentType.XML)
-      .baseUri(url)
-    initiateProxy(requestSpec)
-    requestSpec
-  }
-
-//  def clearQueryParam(requestSpecification: RequestSpecification): Unit = {
-//    val filterableRequestSpecification = requestSpecification.asInstanceOf[FilterableRequestSpecification]
-//    val params                         = new ConcurrentHashMap[String, Object](filterableRequestSpecification.getQueryParams)
-//    params.forEach({ case (key, _) => filterableRequestSpecification.removeQueryParam(key) })
-//  }
 }

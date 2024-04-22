@@ -28,35 +28,6 @@ class AuthService(filename: Any) extends HttpClient {
   val host: String        = TestConfiguration.url("auth")
   val redirectUrl: String = TestConfiguration.getConfigValue("redirect-url")
 
-  def authPayload(identifier: String): String =
-    s"""
-       | {
-       |    "authorityId": "EMCSTest",
-       |    "redirectionUrl": "$redirectUrl",
-       |    "excludeGnapToken": false,
-       |    "credentialStrength": "strong",
-       |    "confidenceLevel": 50,
-       |    "affinityGroup": "Organisation",
-       |    "email": "user@test.com",
-       |    "credentialRole": "User",
-       |    "additionalInfo.emailVerified": "N/A",
-       |    "presets-dropdown": "IR-SA",
-       |    "credId": "emcsTest",
-       |    "enrolments": [
-       |        {
-       |            "key": "HMRC-EMCS-ORG",
-       |            "identifiers": [
-       |                {
-       |                    "key": "ExciseNumber",
-       |                    "value": "$identifier"
-       |                }
-       |            ],
-       |            "state": "Activated"
-       |        }
-       |    ]
-       |}
-    """.stripMargin
-
   def authPayloadTFC(nino: String): String =
     s"""
        | {
