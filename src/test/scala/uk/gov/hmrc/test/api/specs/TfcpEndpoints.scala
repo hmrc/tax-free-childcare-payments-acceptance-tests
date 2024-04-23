@@ -20,7 +20,7 @@ import uk.gov.hmrc.test.api.client.HttpClient
 
 class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
-  Feature("TFCP APIs") {
+  Feature("TFCPayments APIs") {
 
     Scenario(s"Connect to TFC api link") {
 
