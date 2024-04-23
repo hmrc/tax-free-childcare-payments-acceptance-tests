@@ -23,7 +23,6 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
   Feature("TFCPayments APIs") {
 
     Scenario(s"Connect to TFC api link") {
-
       val consignorToken = givenGetToken("AB123456C")
       val response       = tfcLink(consignorToken)
       thenValidateResponseCode(response, 200)
