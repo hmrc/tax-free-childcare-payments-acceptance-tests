@@ -26,7 +26,6 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
       val consignorToken = givenGetToken("AB123456C")
       val response       = tfcLink(consignorToken)
-      println(response)
       thenValidateResponseCode(response, 200)
 
     }
