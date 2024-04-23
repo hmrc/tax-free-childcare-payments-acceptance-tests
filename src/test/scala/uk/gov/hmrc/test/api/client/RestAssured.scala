@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.utils
+package uk.gov.hmrc.test.api.client
 
-import org.slf4j.{Logger, LoggerFactory}
+import uk.gov.hmrc.test.api.conf.TestConfiguration
 
-object ApiLogger {
-
-  val log: Logger = LoggerFactory.getLogger("[API Logger]")
-
+trait RestAssured {
+  val url: String = TestConfiguration.url("tfcp") + "/" + TestConfiguration.getConfigValue("tfcp-api-uri")
 }
