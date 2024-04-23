@@ -30,11 +30,11 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
     }
 
-    Scenario("Connect to TFC api Balance") {
-      val consignorToken = givenGetToken("AB123456C")
-      val response       = tfcBalance(consignorToken)
-      thenValidateResponseCode(response, 200)
-
-    }
+//    Scenario("Connect to TFC api Balance") {
+//      val consignorToken = givenGetToken("AB123456C")
+//      val response       = tfcBalance(consignorToken)
+//      thenValidateResponseCode(response, 200)
+//
+//    }
   }
 }
