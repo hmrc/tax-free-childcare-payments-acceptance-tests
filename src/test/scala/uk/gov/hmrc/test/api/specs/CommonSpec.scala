@@ -22,9 +22,11 @@ import io.restassured.http.ContentType
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
 import uk.gov.hmrc.test.api.client.{HttpClient, RestAssured}
+import uk.gov.hmrc.test.api.service.AuthService
 
 trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val requestSpecification: RequestSpecification = getRequestSpec
+  val payload: AuthService                       = new AuthService
 
   def givenGetToken(nino: String): String = {
     Given(s"I generate token for NINO:" + nino)
@@ -46,25 +48,33 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
     assert(response.body().prettyPrint() == responseMessage, "Response message not as expected")
   }
-  def getRequestSpec: RequestSpecification                                           = {
+
+  def getRequestSpec: RequestSpecification = {
     val requestSpec = given()
       .config(config().headerConfig(headerConfig().overwriteHeadersWithName("Authorization", "Content-Type")))
       .contentType(ContentType.XML)
       .baseUri(url)
     requestSpec
   }
-  def tfcLink(token: String): Response                                               =
+
+  def tfcLink(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    childDOB: String
+  ): Response =
     requestSpecification
       .header("Authorization", token)
       .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
       .when()
-      .body(
-        "{\"correlationId\":\"5c5ef9c2-72e8-4d4f-901e-9fec3db8c64b\", \"epp_unique_customer_id\":\"EPP-ID\", \"epp_reg_reference\":\"EPP-Req-Ref\", \"outbound_child_payment_ref\":\"Out-Bound-Child-Ref\", \"child_date_of_birth\":\"01-02-2023\"}"
-      )
+      .body(payload.linkPayload(correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
       .post(url + s"/link")
       .andReturn()
-  def tfcBalance(token: String): Response                                            =
+
+  def tfcBalance(token: String): Response =
     requestSpecification
       .header("Authorization", token)
       .header("Accept", "application/vnd.hmrc.1.0+json")
@@ -72,5 +82,4 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body("")
       .post(url + s"/balance")
       .andReturn()
-
 }
