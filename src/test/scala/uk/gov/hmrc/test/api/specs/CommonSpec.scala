@@ -82,14 +82,4 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body("")
       .post(url + s"/balance")
       .andReturn()
-
-  def thenValidateResponseBody(
-    response: Response,
-    name: String
-  ): String = {
-    val res = response.body().prettyPrint()
-    println("Body is" + res)
-    res
-
-  }
 }
