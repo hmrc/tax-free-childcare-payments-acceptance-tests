@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.client
+package uk.gov.hmrc.test.api.client
 
 import akka.actor.ActorSystem
 import play.api.libs.ws.DefaultBodyWritables._
@@ -46,5 +46,4 @@ trait HttpClient {
       .url(url)
       .withHttpHeaders(headers: _*)
       .delete()
-
 }
