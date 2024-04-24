@@ -20,20 +20,48 @@ import uk.gov.hmrc.test.api.client.HttpClient
 
 class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
-  Feature("TFCP APIs") {
+  Feature("TFCP Link APIs") {
+    val consignorToken       = givenGetToken("AB123456C")
+    val correlationId        = "5c5ef9c2-72e8-4d4f-901e-9fec3db8c64b"
+    val eppUniqueCusId       = "12345678910"
+    val eppRegReff           = "EPPRegReffEPPReg"
+    val outboundChildPayReff = "AAAA00000TFC"
+    val childDOB             = "2018-05-23"
 
-    Scenario(s"Connect to TFC api link") {
-
-      val consignorToken = givenGetToken("AB123456C")
-      val response       = tfcLink(consignorToken)
+    Scenario(s"Connect to TFCP api link with valid payload") {
+      val response = tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+      println("Response is --" + response)
       thenValidateResponseCode(response, 200)
-
     }
-
-    Scenario("Connect to TFC api Balance") {
-      val consignorToken = givenGetToken("AB123456D")
-      val response       = tfcBalance(consignorToken)
-      thenValidateResponseCode(response, 200)
+    Scenario(s"Connect to TFCP API link with a payload with an invalid correlation id") {
+      val response =
+        tfcLink(consignorToken, "correlationId", eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+      println("Response is --" + response)
+      thenValidateResponseCode(response, 400)
+    }
+    Scenario(s"Connect to TFCP API link with a payload with an invalid EPP unique customer ID") {
+      val response =
+        tfcLink(consignorToken, correlationId, "eppUniqueCusId", eppRegReff, outboundChildPayReff, childDOB)
+      println("Response is --" + response)
+      thenValidateResponseCode(response, 400)
+    }
+    Scenario(s"Connect to TFCP API link with a payload with an invalid EPP registration reference") {
+      val response =
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, "eppRegReff", outboundChildPayReff, childDOB)
+      println("Response is --" + response)
+      thenValidateResponseCode(response, 400)
+    }
+    Scenario(s"Connect to TFCP API link with a payload with an invalid Outbound child payment reference number") {
+      val response =
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, "outboundChildPayReff", childDOB)
+      println("Response is --" + response)
+      thenValidateResponseCode(response, 400)
+    }
+    Scenario(s"Connect to TFCP API link with a payload with an invalid child date of birth") {
+      val response =
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, "childDOB")
+      println("Response is --" + response)
+      thenValidateResponseCode(response, 400)
     }
   }
 }

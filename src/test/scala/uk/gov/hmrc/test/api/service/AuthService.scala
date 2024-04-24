@@ -57,6 +57,22 @@ class AuthService(filename: Any) extends HttpClient {
        |    ]
        |}
     """.stripMargin
+  def linkPayload(
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    childDOB: String
+  ): String =
+    s"""
+       | {
+       | "correlationId":"$correlationId",
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegReff",
+       | "outbound_child_payment_ref":"$outboundChildPayReff",
+       | "child_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
 
   def postLogin(identifier: String): StandaloneWSRequest#Self#Response = {
     val url = s"$host" + TestConfiguration.getConfigValue("auth-login-stub_uri")
