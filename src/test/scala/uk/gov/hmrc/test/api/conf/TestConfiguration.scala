@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.conf
+package uk.gov.hmrc.test.api.conf
 
 import com.typesafe.config.{Config, ConfigFactory}
 
 object TestConfiguration {
-
   val config: Config        = ConfigFactory.load()
   val env: String           = config.getString("environment")
   val defaultConfig: Config = config.getConfig("local")
   val envConfig: Config     = config.getConfig(env).withFallback(defaultConfig)
 
   def url(service: String): String = {
+    println("env : " + env)
     val host = env match {
       case "local" => s"$environmentHost:${servicePort(service)}"
       case _       => s"${envConfig.getString(s"services.host")}"
@@ -39,4 +39,5 @@ object TestConfiguration {
 
   def serviceRoute(serviceName: String): String = envConfig.getString(s"services.$serviceName.productionRoute")
 
+  def getConfigValue(url: String): String = envConfig.getString(url)
 }

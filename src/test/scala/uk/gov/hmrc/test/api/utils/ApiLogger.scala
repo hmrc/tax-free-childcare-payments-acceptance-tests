@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.api.specs
+package uk.gov.hmrc.test.api.utils
 
-import org.scalatest.featurespec.AnyFeatureSpec
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.GivenWhenThen
+import org.slf4j.{Logger, LoggerFactory}
 
-trait BaseSpec extends AnyFeatureSpec with GivenWhenThen with Matchers {}
+object ApiLogger {
+
+  val log: Logger = LoggerFactory.getLogger("[API Logger]")
+
+}
