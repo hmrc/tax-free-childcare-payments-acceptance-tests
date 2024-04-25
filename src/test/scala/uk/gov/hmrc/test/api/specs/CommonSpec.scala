@@ -30,6 +30,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def givenGetToken(nino: String): String = {
     Given(s"I generate token for NINO:" + nino)
+    println("NINO is-" + nino)
     authHelper.getAuthBearerToken(nino)
   }
 
@@ -39,7 +40,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     assert(response.statusCode() == responseCode, "Response is not as expected")
   }
 
-  def thenValidateResponseMessage(response: Response, responseMessage: String): Unit = {
+  def thenValidateResponseMessage(response: Response, responseMessage: String): Unit               = {
     Then(s"I get the expected status code $responseMessage")
     println("Actual Response : ")
     println(response.body().prettyPrint())
@@ -47,6 +48,13 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     println(responseMessage)
 
     assert(response.body().prettyPrint() == responseMessage, "Response message not as expected")
+  }
+  def thenRetriveJsonKeyValue(response: Response, jsonKeyName: String, jsonKeyValue: String): Unit = {
+
+    val temp      = response.body().prettyPrint()
+    val temp2     = temp.split(jsonKeyName)
+    val childName = temp2(1).replace("}", "").replace(":", "").replaceAll("\\\"", "").trim
+    assert(childName == jsonKeyValue, "Child name not matched")
   }
 
   def getRequestSpec: RequestSpecification = {

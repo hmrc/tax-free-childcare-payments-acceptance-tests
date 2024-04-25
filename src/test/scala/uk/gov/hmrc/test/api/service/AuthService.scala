@@ -57,6 +57,66 @@ class AuthService(filename: Any) extends HttpClient {
        |    ]
        |}
     """.stripMargin
+
+  def authPayloadTFC2(nino: String): String =
+    s"""
+       | {
+       |    "authorityId": "",
+       |    authorityId": "",
+       |    "gatewayToken": "",
+       |    "redirectionUrl": "http://localhost:9949/auth-login-stub/session",
+       |    "excludeGnapToken": true,
+       |    "credentialStrength": "strong",
+       |    "confidenceLevel": 250,
+       |    "affinityGroup": "Individual",
+       |    "usersName": "",
+       |    "email": "user@test.com",
+       |    "credentialRole": "User",
+       |    "oauthTokens.accessToken": "",
+       |    "oauthTokens.refreshToken": "",
+       |    "oauthTokens.idToken": "",
+       |    "additionalInfo.profile": "",
+       |    "additionalInfo.groupProfile": "",
+       |    "additionalInfo.emailVerified": "N/A",
+       |    "nino": "AB123456A",
+       |    "groupIdentifier": "",
+       |    "agent.agentId": "",
+       |    "agent.agentCode": "",
+       |    "agent.agentFriendlyName": "",
+       |    "unreadMessageCount": "",
+       |    "mdtp.sessionId": "",
+       |    "mdtp.deviceId": "",
+       |    "presets-dropdown": "IR-SA",
+       |    "enrolment[0].name": "",
+       |    "enrolment[0].taxIdentifier[0].name": "",
+       |    "enrolment[0].taxIdentifier[0].value": "",
+       |    "enrolment[0].state": "Activated",
+       |    "enrolment[1].name": "",
+       |    "enrolment[1].taxIdentifier[0].name": "",
+       |    "enrolment[1].taxIdentifier[0].value": "",
+       |    "enrolment[1].state": "Activated",
+       |    "enrolment[2].name": "",
+       |    "enrolment[2].taxIdentifier[0].name": "",
+       |    "enrolment[2].taxIdentifier[0].value": "",
+       |    "enrolment[2].state": "Activated",
+       |    "enrolment[3].name": "",
+       |    "enrolment[3].taxIdentifier[0].name": "",
+       |    "enrolment[3].taxIdentifier[0].value": "",
+       |    "enrolment[3].state": "Activated",
+       |    "itmp.givenName": "",
+       |    "itmp.middleName": "",
+       |    "itmp.familyName": "",
+       |    "itmp.dateOfBirth": "",
+       |    "itmp.address.line1": "",
+       |    "itmp.address.line2": "",
+       |    "itmp.address.line3": "",
+       |    "itmp.address.line4": "",
+       |    "itmp.address.line5": "",
+       |    "itmp.address.postCode": "",
+       |    "itmp.address.countryName": "",
+       |    "itmp.address.countryCode": "",
+       |}
+    """.stripMargin
   def linkPayload(
     correlationId: String,
     eppUniqueCusId: String,
@@ -74,8 +134,9 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
 
-  def postLogin(identifier: String): StandaloneWSRequest#Self#Response = {
+  def postLogin(nino: String): StandaloneWSRequest#Self#Response = {
     val url = s"$host" + TestConfiguration.getConfigValue("auth-login-stub_uri")
-    Await.result(post(url, authPayloadTFC(identifier), ("Content-Type", "application/json")), 10.seconds)
+    println("NINI -" + nino)
+    Await.result(post(url, authPayloadTFC(nino), ("Content-Type", "application/json")), 10.seconds)
   }
 }
