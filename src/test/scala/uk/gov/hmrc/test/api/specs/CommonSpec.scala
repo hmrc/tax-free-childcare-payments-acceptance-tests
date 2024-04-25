@@ -30,7 +30,6 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
   def givenGetToken(nino: String): String = {
     Given(s"I generate token for NINO:" + nino)
-    println("NINO is-" + nino)
     authHelper.getAuthBearerToken(nino)
   }
 
