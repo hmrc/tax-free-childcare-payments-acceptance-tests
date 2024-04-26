@@ -28,9 +28,57 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
     val outboundChildPayReff = "AAAA00000TFC"
     val childDOB             = "2018-05-23"
 
-    Scenario(s"Connect to TFCP api link with valid payload") {
-      val response = tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+    Scenario(s"Connect to TFCP api link with valid payload and NINO ends with A") {
+      val consignorToken1 = givenGetToken("AB123456A")
+      val response        = tfcLink(
+        consignorToken1,
+        correlationId,
+        eppUniqueCusId,
+        eppRegReff,
+        outboundChildPayReff,
+        childDOB
+      )
       thenValidateResponseCode(response, 200)
+      checkJsonValue(response, "child_full_name", "Peter Pan")
+    }
+    Scenario(s"Connect to TFCP api link with valid payload and NINO ends with B") {
+      val consignorToken = givenGetToken("AB123456B")
+      val response       = tfcLink(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegReff,
+        outboundChildPayReff,
+        childDOB
+      )
+      thenValidateResponseCode(response, 200)
+      checkJsonValue(response, "child_full_name", "Benjamin Button")
+    }
+    Scenario(s"Connect to TFCP api link with valid payload and NINO ends with C") {
+      val consignorToken = givenGetToken("AB123456C")
+      val response       = tfcLink(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegReff,
+        outboundChildPayReff,
+        childDOB
+      )
+      thenValidateResponseCode(response, 200)
+      checkJsonValue(response, "child_full_name", "Christopher Columbus")
+    }
+    Scenario(s"Connect to TFCP api link with valid payload and NINO ends with D") {
+      val consignorToken = givenGetToken("AB123456D")
+      val response       = tfcLink(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegReff,
+        outboundChildPayReff,
+        childDOB
+      )
+      thenValidateResponseCode(response, 200)
+      checkJsonValue(response, "child_full_name", "Donald Duck")
     }
     Scenario(s"Connect to TFCP API link with a payload with an invalid correlation id") {
       val response =
