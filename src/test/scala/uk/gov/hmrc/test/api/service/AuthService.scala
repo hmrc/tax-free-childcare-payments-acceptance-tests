@@ -28,7 +28,7 @@ class AuthService(filename: Any) extends HttpClient {
   val host: String        = TestConfiguration.url("auth")
   val redirectUrl: String = TestConfiguration.getConfigValue("redirect-url")
 
-  def payLoadTFCP(nino: String): String  =
+  def payLoadTFCP(nino: String): String =
     s"""{
      |  "credId"            : "$nino",
      |  "affinityGroup"     : "Individual",

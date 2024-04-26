@@ -39,7 +39,7 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
         childDOB
       )
       thenValidateResponseCode(response, 200)
-      thenRetriveJsonKeyValue(response, "child_full_name", "Peter Pan")
+      checkJsonValue(response, "child_full_name", "Peter Pan")
     }
     Scenario(s"Connect to TFCP api link with valid payload and NINO ends with B") {
       val consignorToken = givenGetToken("AB123456B")
@@ -52,7 +52,7 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
         childDOB
       )
       thenValidateResponseCode(response, 200)
-      thenRetriveJsonKeyValue(response, "child_full_name", "Benjamin Button")
+      checkJsonValue(response, "child_full_name", "Benjamin Button")
     }
     Scenario(s"Connect to TFCP api link with valid payload and NINO ends with C") {
       val consignorToken = givenGetToken("AB123456C")
@@ -65,7 +65,7 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
         childDOB
       )
       thenValidateResponseCode(response, 200)
-      thenRetriveJsonKeyValue(response, "child_full_name", "Christopher Columbus")
+      checkJsonValue(response, "child_full_name", "Christopher Columbus")
     }
     Scenario(s"Connect to TFCP api link with valid payload and NINO ends with D") {
       val consignorToken = givenGetToken("AB123456D")
@@ -78,7 +78,7 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
         childDOB
       )
       thenValidateResponseCode(response, 200)
-      thenRetriveJsonKeyValue(response, "child_full_name", "Donald Duck")
+      checkJsonValue(response, "child_full_name", "Donald Duck")
     }
     Scenario(s"Connect to TFCP API link with a payload with an invalid correlation id") {
       val response =

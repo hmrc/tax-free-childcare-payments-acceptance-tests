@@ -21,6 +21,7 @@ import io.restassured.config.HeaderConfig.headerConfig
 import io.restassured.http.ContentType
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
+import play.api.libs.json.Json
 import uk.gov.hmrc.test.api.client.{HttpClient, RestAssured}
 import uk.gov.hmrc.test.api.service.AuthService
 
@@ -39,7 +40,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     assert(response.statusCode() == responseCode, "Response is not as expected")
   }
 
-  def thenValidateResponseMessage(response: Response, responseMessage: String): Unit               = {
+  def thenValidateResponseMessage(response: Response, responseMessage: String): Unit      = {
     Then(s"I get the expected status code $responseMessage")
     println("Actual Response : ")
     println(response.body().prettyPrint())
@@ -48,12 +49,10 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
     assert(response.body().prettyPrint() == responseMessage, "Response message not as expected")
   }
-  def thenRetriveJsonKeyValue(response: Response, jsonKeyName: String, jsonKeyValue: String): Unit = {
-
-    val temp      = response.body().prettyPrint()
-    val temp2     = temp.split(jsonKeyName)
-    val childName = temp2(1).replace("}", "").replace(":", "").replaceAll("\\\"", "").trim
-    assert(childName == jsonKeyValue, "Child name not matched")
+  def checkJsonValue(response: Response, jsonKeyName: String, jsonKeyValue: String): Unit = {
+    val json        = Json.parse(response.body.prettyPrint)
+    val actualValue = (json \ jsonKeyName).as[String]
+    assert(actualValue == jsonKeyValue)
   }
 
   def getRequestSpec: RequestSpecification = {
