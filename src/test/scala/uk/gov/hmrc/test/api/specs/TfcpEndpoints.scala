@@ -40,5 +40,11 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
         checkJsonValue(response, "child_full_name", scenarioName.childName)
       }
     }
+    Scenario("TFCP Link Endpoints happy path"){
+      val consignorToken = givenGetToken(ninoEndsWithA.nino)
+      val response=tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+      thenValidateResponseCode(response, 200)
+      checkJsonValue(response, "tfc_account_status", "active")
+    }
   }
 }

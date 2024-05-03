@@ -80,12 +80,19 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/link")
       .andReturn()
 
-  def tfcBalance(token: String): Response =
+  def tfcBalance( token: String,
+                  correlationId: String,
+                  eppUniqueCusId: String,
+                  eppRegReff: String,
+                  outboundChildPayReff: String
+                ): Response = {
     requestSpecification
       .header("Authorization", token)
+      .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
       .when()
-      .body("")
+      .body(payload.balancePayload(correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff))
       .post(url + s"/balance")
       .andReturn()
+  }
 }

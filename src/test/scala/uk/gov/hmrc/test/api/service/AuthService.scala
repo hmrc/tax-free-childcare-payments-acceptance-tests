@@ -54,6 +54,21 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
 
+  def balancePayload(
+                   correlationId: String,
+                   eppUniqueCusId: String,
+                   eppRegReff: String,
+                   outboundChildPayReff: String
+                 ): String =
+    s"""
+       | {
+       | "correlationId":"$correlationId",
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegReff",
+       | "outbound_child_payment_ref":"$outboundChildPayReff"
+       | }
+    """.stripMargin
+
   def postLogin(nino: String): StandaloneWSRequest#Self#Response = {
     val url = s"$host" + TestConfiguration.getConfigValue("auth-login-stub_uri")
     Await.result(post(url, payLoadTFCP(nino), ("Content-Type", "application/json")), 10.seconds)

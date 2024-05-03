@@ -23,6 +23,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
 
   Feature("TFCP Link endpoints unhappy path") {
     val consignorToken = givenGetToken(ninoEndsWithA.nino)
+    println("token is "+consignorToken)
     Scenario(s"Connect to TFCP API link with a payload with an invalid correlation id") {
       val response =
         tfcLink(consignorToken, "correlationId", eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
