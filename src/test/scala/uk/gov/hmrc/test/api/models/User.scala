@@ -18,9 +18,17 @@ package uk.gov.hmrc.test.api.models
 
 import play.api.libs.json.{Json, OFormat}
 
-case class User(firstName: String, lastName: String, nino: String, dateOfBirth: String)
+case class User(nino: String, childName: String)
 
 object User {
   implicit val userJsonFormat: OFormat[User] = Json.format[User]
-  val ninoUser: User                         = User("Luke", "Wood", "EG724113D", "1960-04-06")
+  val correlationId                          = "5c5ef9c2-72e8-4d4f-901e-9fec3db8c64b"
+  val eppUniqueCusId                         = "12345678910"
+  val eppRegReff                             = "EPPRegReffEPPReg"
+  val outboundChildPayReff                   = "AAAA00000TFC"
+  val childDOB                               = "2018-05-23"
+  val ninoEndsWithA: User                    = User("AB123456A", "Peter Pan")
+  val ninoEndsWithB: User                    = User("AB123456B", "Benjamin Button")
+  val ninoEndsWithC: User                    = User("AB123456C", "Christopher Columbus")
+  val ninoEndsWithD: User                    = User("AB123456D", "Donald Duck")
 }

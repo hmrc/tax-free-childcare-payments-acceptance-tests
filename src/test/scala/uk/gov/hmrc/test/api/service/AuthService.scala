@@ -46,11 +46,26 @@ class AuthService(filename: Any) extends HttpClient {
   ): String =
     s"""
        | {
-       | "correlationId":"$correlationId",
+       | "correlation_id":"$correlationId",
        | "epp_unique_customer_id":"$eppUniqueCusId",
        | "epp_reg_reference":"$eppRegReff",
        | "outbound_child_payment_ref":"$outboundChildPayReff",
        | "child_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
+
+  def balancePayload(
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String
+  ): String =
+    s"""
+       | {
+       | "correlation_id":"$correlationId",
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegReff",
+       | "outbound_child_payment_ref":"$outboundChildPayReff"
        | }
     """.stripMargin
 
