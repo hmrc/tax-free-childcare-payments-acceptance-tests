@@ -46,5 +46,20 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
       thenValidateResponseCode(response, 200)
       checkJsonValue(response, "tfc_account_status", "active")
     }
+    Scenario("Verify Payments Endpoints happy path") {
+      val consignorToken = givenGetToken(ninoEndsWithA.nino)
+      val response       = tfcPayment(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegReff,
+        outboundChildPayReff,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 200)
+    }
   }
 }

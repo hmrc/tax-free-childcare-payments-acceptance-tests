@@ -27,6 +27,10 @@ object User {
   val eppRegReff                             = "EPPRegReffEPPReg"
   val outboundChildPayReff                   = "AAAA00000TFC"
   val childDOB                               = "2018-05-23"
+  val paymentAmount                          = 1234.56
+  val ccpRegReference                        = "string"
+  val ccpPostcode                            = "AB12 3CD"
+  val payeeType                              = "ccp"
   val ninoEndsWithA: User                    = User("AB123456A", "Peter Pan")
   val ninoEndsWithB: User                    = User("AB123456B", "Benjamin Button")
   val ninoEndsWithC: User                    = User("AB123456C", "Christopher Columbus")

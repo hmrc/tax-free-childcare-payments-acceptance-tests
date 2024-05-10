@@ -4,5 +4,5 @@ lazy val root = (project in file("."))
     version := "0.1.0",
     scalaVersion := "2.13.12",
     libraryDependencies ++= Dependencies.test,
-      scalafmtOnCompile := true
+    scalafmtOnCompile := true
   )
