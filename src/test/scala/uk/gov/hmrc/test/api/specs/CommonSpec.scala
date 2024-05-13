@@ -75,8 +75,9 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Authorization", token)
       .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Correlation-ID", correlationId)
       .when()
-      .body(payload.linkPayload(correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
+      .body(payload.linkPayload(eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
       .post(url + s"/link")
       .andReturn()
 
@@ -91,8 +92,40 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Authorization", token)
       .header("Content-Type", "application/json")
       .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Correlation-ID", correlationId)
       .when()
-      .body(payload.balancePayload(correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff))
+      .body(payload.balancePayload(eppUniqueCusId, eppRegReff, outboundChildPayReff))
       .post(url + s"/balance")
+      .andReturn()
+
+  def tfcPayment(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
+    requestSpecification
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayload(
+          eppUniqueCusId,
+          eppRegReff,
+          outboundChildPayReff,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
       .andReturn()
 }

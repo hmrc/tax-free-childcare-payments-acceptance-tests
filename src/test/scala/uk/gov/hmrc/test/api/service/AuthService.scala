@@ -37,8 +37,8 @@ class AuthService(filename: Any) extends HttpClient {
      |  "enrolments"        : [],
      |  "nino"              : "$nino"
      |}""".stripMargin
+
   def linkPayload(
-    correlationId: String,
     eppUniqueCusId: String,
     eppRegReff: String,
     outboundChildPayReff: String,
@@ -46,7 +46,6 @@ class AuthService(filename: Any) extends HttpClient {
   ): String =
     s"""
        | {
-       | "correlation_id":"$correlationId",
        | "epp_unique_customer_id":"$eppUniqueCusId",
        | "epp_reg_reference":"$eppRegReff",
        | "outbound_child_payment_ref":"$outboundChildPayReff",
@@ -55,17 +54,36 @@ class AuthService(filename: Any) extends HttpClient {
     """.stripMargin
 
   def balancePayload(
-    correlationId: String,
     eppUniqueCusId: String,
     eppRegReff: String,
     outboundChildPayReff: String
   ): String =
     s"""
        | {
-       | "correlation_id":"$correlationId",
        | "epp_unique_customer_id":"$eppUniqueCusId",
        | "epp_reg_reference":"$eppRegReff",
        | "outbound_child_payment_ref":"$outboundChildPayReff"
+       | }
+    """.stripMargin
+
+  def paymentPayload(
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegReff",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayReff"
        | }
     """.stripMargin
 
