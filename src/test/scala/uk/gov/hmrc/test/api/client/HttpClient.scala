@@ -18,16 +18,27 @@ package uk.gov.hmrc.test.api.client
 
 import akka.actor.ActorSystem
 import play.api.libs.ws.DefaultBodyWritables._
-import play.api.libs.ws.StandaloneWSRequest
+import play.api.libs.ws.{DefaultWSProxyServer, StandaloneWSRequest}
 import play.api.libs.ws.ahc.StandaloneAhcWSClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
 trait HttpClient {
 
-  implicit val actorSystem: ActorSystem = ActorSystem()
-  val wsClient: StandaloneAhcWSClient   = StandaloneAhcWSClient()
-  implicit val ec: ExecutionContext     = ExecutionContext.global
+  implicit val actorSystem: ActorSystem  = ActorSystem()
+  val wsClient: StandaloneAhcWSClient    = StandaloneAhcWSClient()
+  lazy val client: StandaloneAhcWSClient = StandaloneAhcWSClient()
+  lazy val shouldProxyForZap: Boolean    = sys.props.get("zap-proxy").exists(_.toBoolean)
+
+  def standAloneWsRequestWithProxyIfConfigSet(standAloneWsRequest: StandaloneWSRequest): StandaloneWSRequest =
+    if (shouldProxyForZap) {
+      standAloneWsRequest.withProxyServer(
+        DefaultWSProxyServer(protocol = Some("http"), host = "localhost", port = 11000)
+      )
+    } else {
+      standAloneWsRequest
+    }
+  implicit val ec: ExecutionContext                                                                          = ExecutionContext.global
 
   def get(url: String, headers: (String, String)*): Future[StandaloneWSRequest#Self#Response] =
     wsClient
