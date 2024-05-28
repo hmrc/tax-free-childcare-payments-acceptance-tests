@@ -28,7 +28,7 @@ trait HttpClient {
   implicit val actorSystem: ActorSystem = ActorSystem()
   val wsClient: StandaloneAhcWSClient   = StandaloneAhcWSClient()
   // lazy val client: StandaloneAhcWSClient = StandaloneAhcWSClient()
-  lazy val shouldProxyForZap: Boolean   = sys.props.get("zap-proxy").exists(_.toBoolean)
+  lazy val shouldProxyForZap: Boolean   = sys.props.get("zap.proxy").exists(_.toBoolean)
 
   def standAloneWsRequestWithProxyIfConfigSet(standAloneWsRequest: StandaloneWSRequest): StandaloneWSRequest =
     if (shouldProxyForZap) {
