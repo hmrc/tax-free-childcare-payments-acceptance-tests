@@ -16,11 +16,9 @@
 
 package uk.gov.hmrc.test.api.client
 
-import io.restassured.specification.{FilterableRequestSpecification, ProxySpecification, RequestSpecification}
+import io.restassured.specification.{ProxySpecification, RequestSpecification}
 import uk.gov.hmrc.test.api.conf.TestConfiguration
 import uk.gov.hmrc.test.api.utils.Zap.{isEnabled, proxyPort, proxyServer}
-
-import java.util.concurrent.ConcurrentHashMap
 
 trait RestAssured {
   val url: String                                            = TestConfiguration.url("tfcp") + "/" + TestConfiguration.getConfigValue("tfcp-api-uri")
@@ -29,26 +27,4 @@ trait RestAssured {
       val proxySpec = ProxySpecification.host(proxyServer).withPort(proxyPort).withScheme("http")
       requestSpec.proxy(proxySpec)
     }
-
-//  def getRequestSpec: RequestSpecification = {
-//    val requestSpec = given()
-//      .config(config().headerConfig(headerConfig().overwriteHeadersWithName("Authorization", "Content-Type")))
-//      .contentType(ContentType.XML)
-//      .baseUri(url)
-//    initiateProxy(requestSpec)
-//    requestSpec
-//  }
-
-  def clearQueryParam(requestSpecification: RequestSpecification): Unit = {
-    val filterableRequestSpecification = requestSpecification.asInstanceOf[FilterableRequestSpecification]
-    val params                         = new ConcurrentHashMap[String, Object](filterableRequestSpecification.getQueryParams)
-
-    // Iterate over the entries of the params map
-    val iterator = params.entrySet().iterator()
-    while (iterator.hasNext) {
-      val entry = iterator.next()
-      val key   = entry.getKey
-      filterableRequestSpecification.removeQueryParam(key)
-    }
-  }
 }
