@@ -28,11 +28,11 @@ class AuthService(filename: Any) extends HttpClient {
   val host: String        = TestConfiguration.url("auth")
   val redirectUrl: String = TestConfiguration.getConfigValue("redirect-url")
 
-  def payLoadTFCP(nino: String): String =
+  def payLoadTFCP(nino: String, confidenceLevel: Int): String =
     s"""{
      |  "credId"            : "$nino",
      |  "affinityGroup"     : "Individual",
-     |  "confidenceLevel"   : 250,
+     |  "confidenceLevel"   : $confidenceLevel,
      |  "credentialStrength": "strong",
      |  "enrolments"        : [],
      |  "nino"              : "$nino"
@@ -87,8 +87,8 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
 
-  def postLogin(nino: String): StandaloneWSRequest#Self#Response = {
+  def postLogin(nino: String, confidenceLevel: Int): StandaloneWSRequest#Self#Response = {
     val url = s"$host" + TestConfiguration.getConfigValue("auth-login-stub_uri")
-    Await.result(post(url, payLoadTFCP(nino), ("Content-Type", "application/json")), 10.seconds)
+    Await.result(post(url, payLoadTFCP(nino, confidenceLevel), ("Content-Type", "application/json")), 10.seconds)
   }
 }

@@ -29,9 +29,9 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val requestSpecification: RequestSpecification = getRequestSpec
   val payload: AuthService                       = new AuthService
 
-  def givenGetToken(nino: String): String = {
+  def givenGetToken(nino: String, confidenceLevel: Int): String = {
     Given(s"I generate token for NINO:" + nino)
-    authHelper.getAuthBearerToken(nino)
+    authHelper.getAuthBearerToken(nino, confidenceLevel)
   }
 
   def thenValidateResponseCode(response: Response, responseCode: Int): Unit = {
@@ -80,7 +80,36 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body(payload.linkPayload(eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
       .post(url + s"/link")
       .andReturn()
-
+  def tfcLinkWithoutCorelationId(
+    token: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    childDOB: String
+  ): Response =
+    requestSpecification
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .when()
+      .body(payload.linkPayload(eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
+      .post(url + s"/link")
+      .andReturn()
+  def tfcLinkWithoutAuthorizationHeader(
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    childDOB: String
+  ): Response =
+    requestSpecification
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.linkPayload(eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
+      .post(url + s"/link")
+      .andReturn()
   def tfcBalance(
     token: String,
     correlationId: String,
