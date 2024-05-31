@@ -48,29 +48,29 @@ class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
 
     scenarios.foreach { scenarioName =>
       Scenario(s"Verify Link endpoint for NSI error : ${scenarioName.nino}") {
-        val consignorToken = givenGetToken(scenarioName.nino, 250)
-        var linkResponse =
-                    tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
-                  thenValidateResponseCode(linkResponse, scenarioName.statusCode)
-                  checkJsonValue(linkResponse, "errorCode", scenarioName.errorCode)
-                  checkJsonValue(linkResponse, "errorDescription", scenarioName.errorDescription)
-          var balanceResponse =
-            tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+        val consignorToken  = givenGetToken(scenarioName.nino, 250)
+        var linkResponse    =
+          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+        thenValidateResponseCode(linkResponse, scenarioName.statusCode)
+        checkJsonValue(linkResponse, "errorCode", scenarioName.errorCode)
+        checkJsonValue(linkResponse, "errorDescription", scenarioName.errorDescription)
+        var balanceResponse =
+          tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
         thenValidateResponseCode(balanceResponse, scenarioName.statusCode)
         checkJsonValue(balanceResponse, "errorCode", scenarioName.errorCode)
         checkJsonValue(balanceResponse, "errorDescription", scenarioName.errorDescription)
-var paymentResponse=
-        tfcPayment(
-          consignorToken,
-          correlationId,
-          eppUniqueCusId,
-          eppRegReff,
-          outboundChildPayReff,
-          paymentAmount,
-          ccpRegReference,
-          ccpPostcode,
-          payeeType
-        )
+        var paymentResponse =
+          tfcPayment(
+            consignorToken,
+            correlationId,
+            eppUniqueCusId,
+            eppRegReff,
+            outboundChildPayReff,
+            paymentAmount,
+            ccpRegReference,
+            ccpPostcode,
+            payeeType
+          )
         thenValidateResponseCode(paymentResponse, scenarioName.statusCode)
         checkJsonValue(paymentResponse, "errorCode", scenarioName.errorCode)
         checkJsonValue(paymentResponse, "errorDescription", scenarioName.errorDescription)
