@@ -35,7 +35,13 @@ object User {
   val ninoEndsWithB: User                    = User("AB123456B", "Benjamin Button", 200, "", "")
   val ninoEndsWithC: User                    = User("AB123456C", "Christopher Columbus", 200, "", "")
   val ninoEndsWithD: User                    = User("AB123456D", "Donald Duck", 200, "", "")
-  val ninoE0000: User                        = User("AA110000A", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val ninoE0000: User                        = User(
+    "AA110000A",
+    "",
+    500,
+    "INTERNAL_SERVER_ERROR",
+    "The server encountered an error and couldn't process the request"
+  )
 
   val ninoE0001: User = User(
     "AA110001A",
@@ -54,7 +60,7 @@ object User {
   )
 
   val ninoE0003: User = User(
-    "AA110000A",
+    "AA110003A",
     "",
     500,
     "INTERNAL_SERVER_ERROR",
@@ -87,7 +93,7 @@ object User {
     "The server encountered an error and couldn't process the request"
   )
 
-  val ninoE0008: User = User("AA110009A", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val ninoE0008: User = User("AA110008A", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
 
   val ninoE0009: User = User("AA110009A", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
 
