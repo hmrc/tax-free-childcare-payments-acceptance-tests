@@ -21,7 +21,7 @@ import uk.gov.hmrc.test.api.models.User._
 
 class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
 
-  Feature("TFCP Link NSI error validations") {
+  Feature("TFCP Link Balance and Payments NSI error validations") {
     val scenarios =
       List(
         ninoE0000,
