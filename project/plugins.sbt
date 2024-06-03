@@ -9,7 +9,6 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.2")
 
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.6.3")
 
-addSbtPlugin("org.playframework" % "sbt-plugin"    % "3.0.2")
+addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.2")
 
 addSbtPlugin("uk.gov.hmrc" % "sbt-distributables" % "2.5.0")
-
