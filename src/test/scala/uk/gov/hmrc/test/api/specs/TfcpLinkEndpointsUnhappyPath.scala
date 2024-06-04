@@ -187,14 +187,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
 
     Scenario(s"Connect to TFCP API payments with a payload with an invalid ccp Reg Reference") {
       val response =
-        tfcPayment(
+        tfcPaymentWithInvalidccpRegReference(
           consignorToken,
           correlationId,
           eppUniqueCusId,
           eppRegReff,
           outboundChildPayReff,
           paymentAmount,
-          "ccpRegReference",
+          123.45,
           ccpPostcode,
           payeeType
         )
@@ -204,7 +204,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Connect to TFCP API payments with a payload with an invalid ccp Postcode") {
       val response =
-        tfcPayment(
+        tfcPaymentWithInvalidccpPostcode(
           consignorToken,
           correlationId,
           eppUniqueCusId,
@@ -212,7 +212,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           outboundChildPayReff,
           paymentAmount,
           ccpRegReference,
-          "ccpPostcode",
+          123.45,
           payeeType
         )
       thenValidateResponseCode(response, 400)
@@ -262,7 +262,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
 
     Scenario(s"Connect to TFCP API link with missing nino") {
-      consignorToken = givenGetToken("", 250)
+      consignorToken = givenGetToken("", 50)
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
       thenValidateResponseCode(response, 500)

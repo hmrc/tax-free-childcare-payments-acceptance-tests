@@ -183,6 +183,67 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       )
       .post(url + "/")
       .andReturn()
+  def tfcPaymentWithInvalidccpRegReference(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: BigDecimal,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithInvalidccpRegReference(
+          eppUniqueCusId,
+          eppRegReff,
+          outboundChildPayReff,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
+
+  def tfcPaymentWithInvalidccpPostcode(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: BigDecimal,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithInvalidccpPostcode(
+          eppUniqueCusId,
+          eppRegReff,
+          outboundChildPayReff,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
 
   def tfcPaymentWithoutAuthorization(
     correlationId: String,

@@ -86,6 +86,47 @@ class AuthService(filename: Any) extends HttpClient {
        |  "outbound_child_payment_ref": "$outboundChildPayReff"
        | }
     """.stripMargin
+  def paymentPayloadWithInvalidccpRegReference(
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: BigDecimal,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegReff",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": $ccpRegReference,
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayReff"
+       | }
+    """.stripMargin
+
+  def paymentPayloadWithInvalidccpPostcode(
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: BigDecimal,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegReff",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": $ccpPostcode,
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayReff"
+       | }
+    """.stripMargin
 
   def paymentInvalidPaymentAmountPayload(
     eppUniqueCusId: String,
@@ -100,7 +141,7 @@ class AuthService(filename: Any) extends HttpClient {
        | {
        |   "epp_unique_customer_id": "$eppUniqueCusId",
        |  "epp_reg_reference": "$eppRegReff",
-       |  "payment_amount": $paymentAmount,
+       |  "payment_amount": "$paymentAmount",
        |  "ccp_reg_reference": "$ccpRegReference",
        |  "ccp_postcode": "$ccpPostcode",
        |  "payee_type": "$payeeType",
