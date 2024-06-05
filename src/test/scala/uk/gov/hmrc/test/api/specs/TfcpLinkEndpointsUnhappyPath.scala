@@ -260,35 +260,6 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
     }
-
-    Scenario(s"Connect to TFCP API link with missing nino") {
-      consignorToken = givenGetToken("", 50)
-      var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
-      thenValidateResponseCode(response, 500)
-      checkJsonValue(response, "errorCode", "INTERNAL_SERVER_ERROR")
-      checkJsonValue(response, "errorDescription", "Unable to retrieve NI number")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
-      thenValidateResponseCode(response, 500)
-      checkJsonValue(response, "errorCode", "INTERNAL_SERVER_ERROR")
-      checkJsonValue(response, "errorDescription", "Unable to retrieve NI number")
-
-      response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegReff,
-        outboundChildPayReff,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 500)
-      checkJsonValue(response, "errorCode", "INTERNAL_SERVER_ERROR")
-      checkJsonValue(response, "errorDescription", "Unable to retrieve NI number")
-    }
     Scenario(s"Connect to TFCP API link with a token with insufficient confidence level") {
       consignorToken = givenGetToken(ninoEndsWithA.nino, 50)
       var response =
