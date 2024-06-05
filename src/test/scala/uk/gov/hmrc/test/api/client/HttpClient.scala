@@ -16,10 +16,11 @@
 
 package uk.gov.hmrc.test.api.client
 
-import akka.actor.ActorSystem
+//import akka.actor.ActorSystem
+import org.apache.pekko.actor.ActorSystem
 import play.api.libs.ws.DefaultBodyWritables._
-import play.api.libs.ws.{DefaultWSProxyServer, StandaloneWSRequest}
 import play.api.libs.ws.ahc.StandaloneAhcWSClient
+import play.api.libs.ws.{DefaultWSProxyServer, StandaloneWSRequest}
 
 import scala.concurrent.{ExecutionContext, Future}
 
