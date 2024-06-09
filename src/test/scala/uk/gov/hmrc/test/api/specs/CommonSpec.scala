@@ -70,7 +70,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
       .body(payload.linkPayload(eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
@@ -86,7 +86,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .when()
       .body(payload.linkPayload(eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
       .post(url + s"/link")
@@ -118,7 +118,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
       .body(payload.balancePayload(eppUniqueCusId, eppRegReff, outboundChildPayReff))
@@ -167,7 +167,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
       .body(
@@ -197,7 +197,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
       .body(
@@ -228,7 +228,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
       .body(
@@ -257,7 +257,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   ): Response =
     getRequestSpec
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
       .body(
@@ -287,7 +287,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
       .body(
@@ -316,7 +316,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
-      .header("Accept", "application/vnd.hmrc.1.0+json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
       .when()
       .body(
         payload.paymentPayload(
