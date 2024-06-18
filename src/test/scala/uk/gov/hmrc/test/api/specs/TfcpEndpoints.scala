@@ -33,7 +33,7 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
     scenarios.foreach { scenarioName =>
       Scenario(s"Verify Link endpoint for ninos: $scenarioName") {
-        val consignorToken = givenGetToken(scenarioName.nino, 250)
+        val consignorToken = givenGetToken(scenarioName.nino, 250, "Individual")
         val response       =
           tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
         thenValidateResponseCode(response, scenarioName.statusCode)
@@ -41,13 +41,13 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
       }
     }
     Scenario("Verify Balance Endpoints happy path") {
-      val consignorToken = givenGetToken(ninoEndsWithA.nino, 250)
+      val consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Individual")
       val response       = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
       thenValidateResponseCode(response, 200)
       checkJsonValue(response, "tfc_account_status", "active")
     }
     Scenario("Verify Payments Endpoints happy path") {
-      val consignorToken = givenGetToken(ninoEndsWithA.nino, 250)
+      val consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Individual")
       val response       = tfcPayment(
         consignorToken,
         correlationId,
