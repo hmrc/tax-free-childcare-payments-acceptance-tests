@@ -28,10 +28,10 @@ class AuthService(filename: Any) extends HttpClient {
   val host: String        = TestConfiguration.url("auth")
   val redirectUrl: String = TestConfiguration.getConfigValue("redirect-url")
 
-  def payLoadTFCP(nino: String, confidenceLevel: Int): String =
+  def payLoadTFCP(nino: String, confidenceLevel: Int, affinityGroup: String): String =
     s"""{
      |  "credId"            : "$nino",
-     |  "affinityGroup"     : "Individual",
+     |  "affinityGroup"     : "$affinityGroup",
      |  "confidenceLevel"   : $confidenceLevel,
      |  "credentialStrength": "strong",
      |  "enrolments"        : [],
@@ -40,36 +40,36 @@ class AuthService(filename: Any) extends HttpClient {
 
   def linkPayload(
     eppUniqueCusId: String,
-    eppRegReff: String,
-    outboundChildPayReff: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
     childDOB: String
   ): String =
     s"""
        | {
        | "epp_unique_customer_id":"$eppUniqueCusId",
-       | "epp_reg_reference":"$eppRegReff",
-       | "outbound_child_payment_ref":"$outboundChildPayReff",
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef",
        | "child_date_of_birth":"$childDOB"
        | }
     """.stripMargin
 
   def balancePayload(
     eppUniqueCusId: String,
-    eppRegReff: String,
-    outboundChildPayReff: String
+    eppRegRef: String,
+    outboundChildPayRef: String
   ): String =
     s"""
        | {
        | "epp_unique_customer_id":"$eppUniqueCusId",
-       | "epp_reg_reference":"$eppRegReff",
-       | "outbound_child_payment_ref":"$outboundChildPayReff"
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef"
        | }
     """.stripMargin
 
   def paymentPayload(
     eppUniqueCusId: String,
-    eppRegReff: String,
-    outboundChildPayReff: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
     paymentAmount: BigDecimal,
     ccpRegReference: String,
     ccpPostcode: String,
@@ -78,18 +78,18 @@ class AuthService(filename: Any) extends HttpClient {
     s"""
        | {
        |   "epp_unique_customer_id": "$eppUniqueCusId",
-       |  "epp_reg_reference": "$eppRegReff",
+       |  "epp_reg_reference": "$eppRegRef",
        |  "payment_amount": $paymentAmount,
        |  "ccp_reg_reference": "$ccpRegReference",
        |  "ccp_postcode": "$ccpPostcode",
        |  "payee_type": "$payeeType",
-       |  "outbound_child_payment_ref": "$outboundChildPayReff"
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
        | }
     """.stripMargin
-  def paymentPayloadWithInvalidccpRegReference(
+  def paymentPayloadWithInvalidCcpRegReference(
     eppUniqueCusId: String,
-    eppRegReff: String,
-    outboundChildPayReff: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
     paymentAmount: BigDecimal,
     ccpRegReference: BigDecimal,
     ccpPostcode: String,
@@ -98,19 +98,19 @@ class AuthService(filename: Any) extends HttpClient {
     s"""
        | {
        |   "epp_unique_customer_id": "$eppUniqueCusId",
-       |  "epp_reg_reference": "$eppRegReff",
+       |  "epp_reg_reference": "$eppRegRef",
        |  "payment_amount": $paymentAmount,
        |  "ccp_reg_reference": $ccpRegReference,
        |  "ccp_postcode": "$ccpPostcode",
        |  "payee_type": "$payeeType",
-       |  "outbound_child_payment_ref": "$outboundChildPayReff"
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
        | }
     """.stripMargin
 
-  def paymentPayloadWithInvalidccpPostcode(
+  def paymentPayloadWithInvalidCcpPostcode(
     eppUniqueCusId: String,
-    eppRegReff: String,
-    outboundChildPayReff: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
     paymentAmount: BigDecimal,
     ccpRegReference: String,
     ccpPostcode: BigDecimal,
@@ -119,19 +119,19 @@ class AuthService(filename: Any) extends HttpClient {
     s"""
        | {
        |   "epp_unique_customer_id": "$eppUniqueCusId",
-       |  "epp_reg_reference": "$eppRegReff",
+       |  "epp_reg_reference": "$eppRegRef",
        |  "payment_amount": $paymentAmount,
        |  "ccp_reg_reference": "$ccpRegReference",
        |  "ccp_postcode": $ccpPostcode,
        |  "payee_type": "$payeeType",
-       |  "outbound_child_payment_ref": "$outboundChildPayReff"
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
        | }
     """.stripMargin
 
   def paymentInvalidPaymentAmountPayload(
     eppUniqueCusId: String,
-    eppRegReff: String,
-    outboundChildPayReff: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
     paymentAmount: String,
     ccpRegReference: String,
     ccpPostcode: String,
@@ -140,17 +140,20 @@ class AuthService(filename: Any) extends HttpClient {
     s"""
        | {
        |   "epp_unique_customer_id": "$eppUniqueCusId",
-       |  "epp_reg_reference": "$eppRegReff",
+       |  "epp_reg_reference": "$eppRegRef",
        |  "payment_amount": "$paymentAmount",
        |  "ccp_reg_reference": "$ccpRegReference",
        |  "ccp_postcode": "$ccpPostcode",
        |  "payee_type": "$payeeType",
-       |  "outbound_child_payment_ref": "$outboundChildPayReff"
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
        | }
     """.stripMargin
 
-  def postLogin(nino: String, confidenceLevel: Int): StandaloneWSRequest#Self#Response = {
+  def postLogin(nino: String, confidenceLevel: Int, affinityGroup: String): StandaloneWSRequest#Self#Response = {
     val url = s"$host" + TestConfiguration.getConfigValue("auth-login-stub_uri")
-    Await.result(post(url, payLoadTFCP(nino, confidenceLevel), ("Content-Type", "application/json")), 10.seconds)
+    Await.result(
+      post(url, payLoadTFCP(nino, confidenceLevel, affinityGroup), ("Content-Type", "application/json")),
+      10.seconds
+    )
   }
 }

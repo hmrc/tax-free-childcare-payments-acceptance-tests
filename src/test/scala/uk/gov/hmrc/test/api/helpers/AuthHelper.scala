@@ -24,8 +24,9 @@ class AuthHelper {
 
   val authAPI: AuthService = new AuthService
 
-  def getAuthBearerToken(nino: String, confidenceLevel: Int): String = {
-    val authServiceRequestResponse: StandaloneWSRequest#Response = authAPI.postLogin(nino, confidenceLevel)
+  def getAuthBearerToken(nino: String, confidenceLevel: Int, affinityGroup: String): String = {
+    val authServiceRequestResponse: StandaloneWSRequest#Response =
+      authAPI.postLogin(nino, confidenceLevel, affinityGroup)
     authServiceRequestResponse.header("Authorization").getOrElse(fail("Could not obtain auth bearer token"))
   }
 }

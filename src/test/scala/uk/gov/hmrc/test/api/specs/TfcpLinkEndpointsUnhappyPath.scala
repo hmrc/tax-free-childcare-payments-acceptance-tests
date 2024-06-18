@@ -22,7 +22,7 @@ import uk.gov.hmrc.test.api.models.User._
 class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Link endpoints unhappy path") {
-    var consignorToken = givenGetToken(ninoEndsWithA.nino, 250)
+    var consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Individual")
     Scenario(s"Connect to TFCP APIs with a payload missing correlation id") {
       var response =
         tfcLinkWithoutCorrelationId(consignorToken, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
@@ -261,7 +261,63 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       )
     }
     Scenario(s"Connect to TFCP API link with a token with insufficient confidence level") {
-      consignorToken = givenGetToken(ninoEndsWithA.nino, 50)
+      consignorToken = givenGetToken(ninoEndsWithA.nino, 50, "Individual")
+      var response =
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+      thenValidateResponseCode(response, 401)
+      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+      thenValidateResponseCode(response, 401)
+      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+
+      response = tfcPayment(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegReff,
+        outboundChildPayReff,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 401)
+      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+    }
+    Scenario(s"Connect to TFCP API link with a token with affinity group Organisation") {
+      consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Organisation")
+      var response =
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+      thenValidateResponseCode(response, 401)
+      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+      thenValidateResponseCode(response, 401)
+      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+
+      response = tfcPayment(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegReff,
+        outboundChildPayReff,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 401)
+      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+    }
+    Scenario(s"Connect to TFCP API link with a token with affinity group Agent") {
+      consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Agent")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
       thenValidateResponseCode(response, 401)

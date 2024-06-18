@@ -28,9 +28,9 @@ import uk.gov.hmrc.test.api.service.AuthService
 trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val payload: AuthService = new AuthService
 
-  def givenGetToken(nino: String, confidenceLevel: Int): String = {
+  def givenGetToken(nino: String, confidenceLevel: Int, affinityGroup: String): String = {
     Given(s"I generate token for NINO:" + nino)
-    authHelper.getAuthBearerToken(nino, confidenceLevel)
+    authHelper.getAuthBearerToken(nino, confidenceLevel, affinityGroup)
   }
 
   def thenValidateResponseCode(response: Response, responseCode: Int): Unit = {
@@ -201,7 +201,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Correlation-ID", correlationId)
       .when()
       .body(
-        payload.paymentPayloadWithInvalidccpRegReference(
+        payload.paymentPayloadWithInvalidCcpRegReference(
           eppUniqueCusId,
           eppRegReff,
           outboundChildPayReff,
@@ -232,7 +232,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Correlation-ID", correlationId)
       .when()
       .body(
-        payload.paymentPayloadWithInvalidccpPostcode(
+        payload.paymentPayloadWithInvalidCcpPostcode(
           eppUniqueCusId,
           eppRegReff,
           outboundChildPayReff,
