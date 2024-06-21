@@ -52,7 +52,54 @@ class AuthService(filename: Any) extends HttpClient {
        | "child_date_of_birth":"$childDOB"
        | }
     """.stripMargin
-
+  def linkPayloadWithoutChildDOB(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def linkPayloadWithoutOutboundChildPayRef(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    childDOB: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef",
+       | "child_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
+  def linkPayloadWithoutEppRegRef(
+    eppUniqueCusId: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "outbound_child_payment_ref":"$outboundChildPayRef",
+       | "child_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
+  def linkPayloadWithoutEPPCusId(
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): String =
+    s"""
+       | {
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef",
+       | "child_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
   def balancePayload(
     eppUniqueCusId: String,
     eppRegRef: String,
@@ -61,6 +108,36 @@ class AuthService(filename: Any) extends HttpClient {
     s"""
        | {
        | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def balancePayloadWithoutOutboundChildPayRef(
+    eppUniqueCusId: String,
+    eppRegRef: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef"
+       | }
+    """.stripMargin
+  def balancePayloadWithoutEppRegRef(
+    eppUniqueCusId: String,
+    outboundChildPayRef: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "outbound_child_payment_ref":"$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def balancePayloadWithoutEppCusId(
+    eppRegRef: String,
+    outboundChildPayRef: String
+  ): String =
+    s"""
+       | {
        | "epp_reg_reference":"$eppRegRef",
        | "outbound_child_payment_ref":"$outboundChildPayRef"
        | }
@@ -78,6 +155,78 @@ class AuthService(filename: Any) extends HttpClient {
     s"""
        | {
        |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegRef",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def paymentPayloadWithoutPayeeType(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegRef",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def paymentPayloadWithoutOutboundChildPayRef(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegRef",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType"
+       | }
+    """.stripMargin
+  def paymentPayloadWithoutEppRegRef(
+    eppUniqueCusId: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def paymentPayloadWithoutEppCusId(
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
        |  "epp_reg_reference": "$eppRegRef",
        |  "payment_amount": $paymentAmount,
        |  "ccp_reg_reference": "$ccpRegReference",
@@ -106,6 +255,24 @@ class AuthService(filename: Any) extends HttpClient {
        |  "outbound_child_payment_ref": "$outboundChildPayRef"
        | }
     """.stripMargin
+  def paymentPayloadWithoutCcpRegReference(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegRef",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
 
   def paymentPayloadWithInvalidCcpPostcode(
     eppUniqueCusId: String,
@@ -127,7 +294,24 @@ class AuthService(filename: Any) extends HttpClient {
        |  "outbound_child_payment_ref": "$outboundChildPayRef"
        | }
     """.stripMargin
-
+  def paymentPayloadWithoutCcpPostcode(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegRef",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
   def paymentInvalidPaymentAmountPayload(
     eppUniqueCusId: String,
     eppRegRef: String,
