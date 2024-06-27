@@ -267,7 +267,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     eppUniqueCusId: String,
     eppRegReff: String,
     outboundChildPayReff: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String
@@ -526,7 +526,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     eppUniqueCusId: String,
     eppRegReff: String,
     outboundChildPayReff: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String
@@ -584,7 +584,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     eppUniqueCusId: String,
     eppRegReff: String,
     outboundChildPayReff: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String

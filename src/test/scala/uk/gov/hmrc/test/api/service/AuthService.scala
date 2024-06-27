@@ -147,7 +147,7 @@ class AuthService(filename: Any) extends HttpClient {
     eppUniqueCusId: String,
     eppRegRef: String,
     outboundChildPayRef: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String

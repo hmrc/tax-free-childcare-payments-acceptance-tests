@@ -27,7 +27,7 @@ object User {
   val eppRegReff                             = "EPPRegReffEPPReg"
   val outboundChildPayReff                   = "AAAA00000TFC"
   val childDOB                               = "2018-05-23"
-  val paymentAmount                          = 1234.56
+  val paymentAmount                          = 12345
   val ccpRegReference                        = "RegReff123456"
   val ccpPostcode                            = "AB12 3CD"
   val payeeType                              = "ccp"
