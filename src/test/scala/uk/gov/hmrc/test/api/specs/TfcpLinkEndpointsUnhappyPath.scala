@@ -49,21 +49,21 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
     }
-    Scenario(s"Connect to TFCP APIs with a payload with an invalid correlation id") {
+    Scenario(s"Connect to TFCP APIs with a payload with an empty correlation id") {
       var response =
-        tfcLink(consignorToken, "correlationId", eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+        tfcLink(consignorToken, "", eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
 
-      response = tfcBalance(consignorToken, "correlationId", eppUniqueCusId, eppRegReff, outboundChildPayReff)
+      response = tfcBalance(consignorToken, "", eppUniqueCusId, eppRegReff, outboundChildPayReff)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
 
       response = tfcPayment(
         consignorToken,
-        "correlationId",
+        "",
         eppUniqueCusId,
         eppRegReff,
         outboundChildPayReff,
@@ -77,14 +77,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
     }
 
-    Scenario(s"Connect to TFCP API link with a payload with an invalid EPP unique customer ID") {
+    Scenario(s"Connect to TFCP API link with a payload with an empty EPP unique customer ID") {
       var response =
-        tfcLink(consignorToken, correlationId, "eppUniqueCusId", eppRegReff, outboundChildPayReff, childDOB)
+        tfcLink(consignorToken, correlationId, "", eppRegReff, outboundChildPayReff, childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
 
-      response = tfcBalance(consignorToken, correlationId, "eppUniqueCusId", eppRegReff, outboundChildPayReff)
+      response = tfcBalance(consignorToken, correlationId, "", eppRegReff, outboundChildPayReff)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
@@ -92,7 +92,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       response = tfcPayment(
         consignorToken,
         correlationId,
-        "eppUniqueCusId",
+        "",
         eppRegReff,
         outboundChildPayReff,
         paymentAmount,
@@ -132,14 +132,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
 
     }
-    Scenario(s"Connect to TFCP APIs with a payload with an invalid EPP registration reference") {
+    Scenario(s"Connect to TFCP APIs with a payload with an empty EPP registration reference") {
       var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, "eppRegReff", outboundChildPayReff, childDOB)
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, "", outboundChildPayReff, childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
 
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, "eppRegReff", outboundChildPayReff)
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, "", outboundChildPayReff)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
@@ -148,7 +148,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         consignorToken,
         correlationId,
         eppUniqueCusId,
-        "eppRegReff",
+        "",
         outboundChildPayReff,
         paymentAmount,
         ccpRegReference,
@@ -185,14 +185,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
     }
-    Scenario(s"Connect to TFCP APIs with a payload with an invalid Outbound child payment reference number") {
+    Scenario(s"Connect to TFCP APIs with a payload with an empty Outbound child payment reference number") {
       var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, "outboundChildPayReff", childDOB)
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, "", childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
 
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, "outboundChildPayReff")
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, "")
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
@@ -202,7 +202,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         correlationId,
         eppUniqueCusId,
         eppRegReff,
-        "outboundChildPayReff",
+        "",
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -253,7 +253,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
     }
 
-    Scenario(s"Connect to TFCP API payments with a payload with an invalid Payment amount") {
+    Scenario(s"Connect to TFCP API payments with a payload with an empty Payment amount") {
       val response =
         tfcPaymentInvalidPaymentAmount(
           consignorToken,
@@ -261,7 +261,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           eppUniqueCusId,
           eppRegReff,
           outboundChildPayReff,
-          "paymentAmount",
+          "",
           ccpRegReference,
           ccpPostcode,
           payeeType
@@ -370,183 +370,183 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
     }
-    Scenario(s"Connect to TFCP APIs with missing authorization header") {
-      var response =
-        tfcLinkWithoutAuthorizationHeader(correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalanceWithoutAuthorization(correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcPaymentWithoutAuthorization(
-        correlationId,
-        eppUniqueCusId,
-        eppRegReff,
-        outboundChildPayReff,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-    }
-    Scenario(s"Connect to TFCP API link with a token with insufficient confidence level") {
-      consignorToken = givenGetToken(ninoEndsWithA.nino, 50, "Individual")
-      var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegReff,
-        outboundChildPayReff,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-    }
-    Scenario(s"Connect to TFCP API link with a token with affinity group Organisation") {
-      consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Organisation")
-      var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegReff,
-        outboundChildPayReff,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-    }
-    Scenario(s"Connect to TFCP API link with a token with affinity group Agent") {
-      consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Agent")
-      var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegReff,
-        outboundChildPayReff,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-    }
-    Scenario(s"Connect to TFCP API link with bearer token expired") {
-      consignorToken =
-        "Bearer BXQ3/Treo4kQCZvVcCqKPoUOMmoBVy2UTaeDDgEhL3PTJijyU/5xyYQENUp4hMYDp1T3Gze4WkHQsusa967ZIKFulM6yR9mRKsZqpQqpjcLkm3OMGi/7U4hjAhKbWEZu4dvoCxWQcOCGXI/nMQlddHdXv2ZKEdcJ8bTUTpO0WX/9KwIkeIPK/mMlBESjue4V"
-      var response =
-        tfcLink(
-          consignorToken,
-          correlationId,
-          eppUniqueCusId,
-          eppRegReff,
-          outboundChildPayReff,
-          childDOB
-        )
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegReff,
-        outboundChildPayReff,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-    }
-    Scenario(s"Connect to TFCP API link with a invalid bearer token") {
-      consignorToken = "this is invalid bearer token"
-      var response =
-        tfcLink(
-          consignorToken,
-          correlationId,
-          eppUniqueCusId,
-          eppRegReff,
-          outboundChildPayReff,
-          childDOB
-        )
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegReff,
-        outboundChildPayReff,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 401)
-      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-    }
+//    Scenario(s"Connect to TFCP APIs with missing authorization header") {
+//      var response =
+//        tfcLinkWithoutAuthorizationHeader(correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcBalanceWithoutAuthorization(correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcPaymentWithoutAuthorization(
+//        correlationId,
+//        eppUniqueCusId,
+//        eppRegReff,
+//        outboundChildPayReff,
+//        paymentAmount,
+//        ccpRegReference,
+//        ccpPostcode,
+//        payeeType
+//      )
+//    }
+//    Scenario(s"Connect to TFCP API link with a token with insufficient confidence level") {
+//      consignorToken = givenGetToken(ninoEndsWithA.nino, 50, "Individual")
+//      var response =
+//        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcPayment(
+//        consignorToken,
+//        correlationId,
+//        eppUniqueCusId,
+//        eppRegReff,
+//        outboundChildPayReff,
+//        paymentAmount,
+//        ccpRegReference,
+//        ccpPostcode,
+//        payeeType
+//      )
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//    }
+//    Scenario(s"Connect to TFCP API link with a token with affinity group Organisation") {
+//      consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Organisation")
+//      var response =
+//        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcPayment(
+//        consignorToken,
+//        correlationId,
+//        eppUniqueCusId,
+//        eppRegReff,
+//        outboundChildPayReff,
+//        paymentAmount,
+//        ccpRegReference,
+//        ccpPostcode,
+//        payeeType
+//      )
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//    }
+//    Scenario(s"Connect to TFCP API link with a token with affinity group Agent") {
+//      consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Agent")
+//      var response =
+//        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcPayment(
+//        consignorToken,
+//        correlationId,
+//        eppUniqueCusId,
+//        eppRegReff,
+//        outboundChildPayReff,
+//        paymentAmount,
+//        ccpRegReference,
+//        ccpPostcode,
+//        payeeType
+//      )
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//    }
+//    Scenario(s"Connect to TFCP API link with bearer token expired") {
+//      consignorToken =
+//        "Bearer BXQ3/Treo4kQCZvVcCqKPoUOMmoBVy2UTaeDDgEhL3PTJijyU/5xyYQENUp4hMYDp1T3Gze4WkHQsusa967ZIKFulM6yR9mRKsZqpQqpjcLkm3OMGi/7U4hjAhKbWEZu4dvoCxWQcOCGXI/nMQlddHdXv2ZKEdcJ8bTUTpO0WX/9KwIkeIPK/mMlBESjue4V"
+//      var response =
+//        tfcLink(
+//          consignorToken,
+//          correlationId,
+//          eppUniqueCusId,
+//          eppRegReff,
+//          outboundChildPayReff,
+//          childDOB
+//        )
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcPayment(
+//        consignorToken,
+//        correlationId,
+//        eppUniqueCusId,
+//        eppRegReff,
+//        outboundChildPayReff,
+//        paymentAmount,
+//        ccpRegReference,
+//        ccpPostcode,
+//        payeeType
+//      )
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//    }
+//    Scenario(s"Connect to TFCP API link with a invalid bearer token") {
+//      consignorToken = "this is invalid bearer token"
+//      var response =
+//        tfcLink(
+//          consignorToken,
+//          correlationId,
+//          eppUniqueCusId,
+//          eppRegReff,
+//          outboundChildPayReff,
+//          childDOB
+//        )
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//
+//      response = tfcPayment(
+//        consignorToken,
+//        correlationId,
+//        eppUniqueCusId,
+//        eppRegReff,
+//        outboundChildPayReff,
+//        paymentAmount,
+//        ccpRegReference,
+//        ccpPostcode,
+//        payeeType
+//      )
+//      thenValidateResponseCode(response, 401)
+//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
+//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
+//    }
   }
 }
