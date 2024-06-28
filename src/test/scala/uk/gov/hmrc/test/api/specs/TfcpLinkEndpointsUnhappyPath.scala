@@ -26,12 +26,19 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     var consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
     Scenario(s"Connect to TFCP APIs with a payload missing correlation id") {
       var response =
-        tfcLinkWithoutCorrelationId(consignorToken, eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef, childDOB)
+        tfcLinkWithoutCorrelationId(
+          consignorToken,
+          eppUniqueCusId,
+          eppRegRef,
+          e0000Resp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
 
-      response = tfcBalanceWithoutCorrelationId(consignorToken, eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef)
+      response =
+        tfcBalanceWithoutCorrelationId(consignorToken, eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
@@ -57,7 +64,8 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
 
-      response = tfcBalance(consignorToken, "correlationId", eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef)
+      response =
+        tfcBalance(consignorToken, "correlationId", eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
@@ -85,7 +93,8 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
 
-      response = tfcBalance(consignorToken, correlationId, "eppUniqueCusId", eppRegRef, e0000Resp.outboundChildPaymentRef)
+      response =
+        tfcBalance(consignorToken, correlationId, "eppUniqueCusId", eppRegRef, e0000Resp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
@@ -108,12 +117,20 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Connect to TFCP APIs with a payload with an invalid EPP registration reference") {
       var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, "eppRegReff", e0000Resp.outboundChildPaymentRef, childDOB)
+        tfcLink(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          "eppRegReff",
+          e0000Resp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
 
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, "eppRegReff", e0000Resp.outboundChildPaymentRef)
+      response =
+        tfcBalance(consignorToken, correlationId, eppUniqueCusId, "eppRegReff", e0000Resp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
@@ -257,7 +274,8 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "UNAUTHORISED")
       checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
 
-      response = tfcBalanceWithoutAuthorization(correlationId, eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef)
+      response =
+        tfcBalanceWithoutAuthorization(correlationId, eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 401)
       checkJsonValue(response, "errorCode", "UNAUTHORISED")
       checkJsonValue(response, "errorDescription", "Invalid authentication credentials")

@@ -61,12 +61,12 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     .baseUri(url)
 
   def tfcLink(
-               token: String,
-               correlationId: String,
-               eppUniqueCusId: String,
-               eppRegRef: String,
-               outboundChildPayRef: String,
-               childDOB: String
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -78,11 +78,11 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/link")
       .andReturn()
   def tfcLinkWithoutCorrelationId(
-                                   token: String,
-                                   eppUniqueCusId: String,
-                                   eppRegReff: String,
-                                   outboundChildPayRef: String,
-                                   childDOB: String
+    token: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayRef: String,
+    childDOB: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -94,11 +94,11 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
 
   def tfcLinkWithoutAuthorizationHeader(
-                                         correlationId: String,
-                                         eppUniqueCusId: String,
-                                         eppRegRef: String,
-                                         outboundChildPayReff: String,
-                                         childDOB: String
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayReff: String,
+    childDOB: String
   ): Response =
     getRequestSpec
       .header("Content-Type", "application/json")
@@ -110,11 +110,11 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
 
   def tfcBalance(
-                  token: String,
-                  correlationId: String,
-                  eppUniqueCusId: String,
-                  eppRegRef: String,
-                  outboundChildPayRef: String
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -127,10 +127,10 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
 
   def tfcBalanceWithoutAuthorization(
-                                      correlationId: String,
-                                      eppUniqueCusId: String,
-                                      eppRegRef: String,
-                                      outboundChildPayReff: String
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayReff: String
   ): Response =
     getRequestSpec
       .header("Content-Type", "application/json")
@@ -141,10 +141,10 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/balance")
       .andReturn()
   def tfcBalanceWithoutCorrelationId(
-                                      token: String,
-                                      eppUniqueCusId: String,
-                                      eppRegRef: String,
-                                      outboundChildPayReff: String
+    token: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayReff: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -155,15 +155,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/balance")
       .andReturn()
   def tfcPayment(
-                  token: String,
-                  correlationId: String,
-                  eppUniqueCusId: String,
-                  eppRegRef: String,
-                  outboundChildPayRef: User,
-                  paymentAmount: BigDecimal,
-                  ccpRegReference: String,
-                  ccpPostcode: String,
-                  payeeType: String
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: User,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -185,15 +185,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + "/")
       .andReturn()
   def tfcPaymentWithInvalidCcpRegReference(
-                                            token: String,
-                                            correlationId: String,
-                                            eppUniqueCusId: String,
-                                            eppRegRef: String,
-                                            outboundChildPayRef: String,
-                                            paymentAmount: BigDecimal,
-                                            ccpRegReference: BigDecimal,
-                                            ccpPostcode: String,
-                                            payeeType: String
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: BigDecimal,
+    ccpPostcode: String,
+    payeeType: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -216,15 +216,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
 
   def tfcPaymentWithInvalidCcpPostcode(
-                                        token: String,
-                                        correlationId: String,
-                                        eppUniqueCusId: String,
-                                        eppRegRef: String,
-                                        outboundChildPayRef: String,
-                                        paymentAmount: BigDecimal,
-                                        ccpRegReference: String,
-                                        ccpPostcode: BigDecimal,
-                                        payeeType: String
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: BigDecimal,
+    payeeType: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -247,14 +247,14 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
 
   def tfcPaymentWithoutAuthorization(
-                                      correlationId: String,
-                                      eppUniqueCusId: String,
-                                      eppRegRef: String,
-                                      outboundChildPayRef: String,
-                                      paymentAmount: BigDecimal,
-                                      ccpRegReference: String,
-                                      ccpPostcode: String,
-                                      payeeType: String
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
   ): Response =
     getRequestSpec
       .header("Content-Type", "application/json")
@@ -275,15 +275,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + "/")
       .andReturn()
   def tfcPaymentInvalidPaymentAmount(
-                                      token: String,
-                                      correlationId: String,
-                                      eppUniqueCusId: String,
-                                      eppRegRef: String,
-                                      outboundChildPayRef: String,
-                                      paymentAmount: String,
-                                      ccpRegReference: String,
-                                      ccpPostcode: String,
-                                      payeeType: String
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: String,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -305,14 +305,14 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + "/")
       .andReturn()
   def tfcPaymentWithoutCorrelationId(
-                                      token: String,
-                                      eppUniqueCusId: String,
-                                      eppRegRef: String,
-                                      outboundChildPayRef: String,
-                                      paymentAmount: BigDecimal,
-                                      ccpRegReference: String,
-                                      ccpPostcode: String,
-                                      payeeType: String
+    token: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)

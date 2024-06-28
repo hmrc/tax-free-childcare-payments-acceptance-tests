@@ -35,14 +35,22 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
       Scenario(s"Verify Link endpoint for predefined test cases: $scenarioName") {
         val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
         val response       =
-          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, scenarioName.outboundChildPaymentRef, childDOB)
+          tfcLink(
+            consignorToken,
+            correlationId,
+            eppUniqueCusId,
+            eppRegRef,
+            scenarioName.outboundChildPaymentRef,
+            childDOB
+          )
         thenValidateResponseCode(response, scenarioName.statusCode)
         checkJsonValue(response, "child_full_name", scenarioName.childName)
       }
     }
     Scenario("Verify Balance Endpoints happy path") {
       val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
-      val response       = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      val response       =
+        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 200)
       checkJsonValue(response, "tfc_account_status", "active")
     }
