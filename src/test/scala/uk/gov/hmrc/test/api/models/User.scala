@@ -104,8 +104,8 @@ object User {
     "INTERNAL_SERVER_ERROR",
     "The server encountered an error and couldn't process the request"
   )
-  val e0020Resp: User                        = User("EELL00000TFC", "", 502, "AD_GATEWAY", "Request data is invalid or missing")
-  val e0021Resp: User                        = User("EEMM00000TFC", "", 500, "BAD_GATEWAY", "Bad Gateway")
+  val e0020Resp: User                        = User("EELL00000TFC", "", 502, "BAD_GATEWAY", "Bad Gateway")
+  val e0021Resp: User                        = User("EEMM00000TFC", "", 500, "BAD_GATEWAY", "The server encountered an error and couldn't process the request\t")
   val e0022Resp: User                        = User(
     "EENN00000TFC",
     "",
@@ -114,27 +114,28 @@ object User {
     "The server encountered an error and couldn't process the request"
   )
   val e0023Resp: User                        = User(
-    "EENN00000TFC",
+    "EEOO00000TFC",
     "",
     500,
     "INTERNAL_SERVER_ERROR",
     "The server encountered an error and couldn't process the request"
   )
-  val e0024Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0025Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0026Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0401Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0030Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0031Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0032Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0033Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0034Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0035Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0040Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0041Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0042Resp: User                        = User("EEOO00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e9000Resp: User                        = User("EEPP00000TFC", "", 502, "BAD_GATEWAY", "Bad Gateway")
-  val e9999Resp: User                        = User("EEQQ00000TFC", "", 502, "BAD_GATEWAY", "Bad Gateway")
-  val e8000Resp: User                        = User("EERR00000TFC", "", 503, "SERVICE_UNAVAILABLE", "The service is currently unavailable")
-  val e8001Resp: User                        = User("EESS00000TFC", "", 503, "SERVICE_UNAVAILABLE", "The service is currently unavailable")
+  val e0024Resp: User                        = User("EEPP00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0025Resp: User                        = User("EEQQ00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0026Resp: User                        = User("EERR00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0401Resp: User                        = User("EESS00000TFC", "", 500, "INTERNAL_SERVER_ERROR", "The server encountered an error and couldn't process the request")
+  val e0030Resp: User                        = User("EETT00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0031Resp: User                        = User("EEUU00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0032Resp: User                        = User("EEVV00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0033Resp: User                        = User("EEWW00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0034Resp: User                        = User("EEXX00000TFC", "", 503, "SERVICE_UNAVAILABLE", "The service is currently unavailable")
+  val e0035Resp: User                        = User("EEYY00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0040Resp: User                        = User("EEZZ00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0041Resp: User                        = User("EEBA00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0042Resp: User                        = User("EEBC00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e0043Resp: User                        = User("EEBD00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
+  val e9000Resp: User                        = User("EEBE00000TFC", "", 503, "SERVICE_UNAVAILABLE", "The service is currently unavailable")
+  val e9999Resp: User                        = User("EEBF00000TFC", "", 503, "SERVICE_UNAVAILABLE", "The service is currently unavailable")
+  val e8000Resp: User                        = User("EEBG00000TFC", "", 503, "SERVICE_UNAVAILABLE", "The service is currently unavailable")
+  val e8001Resp: User                        = User("EEBH00000TFC", "", 503, "SERVICE_UNAVAILABLE", "The service is currently unavailable")
 }
