@@ -24,38 +24,38 @@ class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
   Feature("TFCP Link Balance and Payments NSI error validations") {
     val scenarios =
       List(
-        ninoE0000,
-        ninoE0001,
-        ninoE0002,
-        ninoE0003,
-        ninoE0004,
-        ninoE0005,
-        ninoE0006,
-        ninoE0007,
-        ninoE0008,
-        ninoE0009,
-        ninoE0010,
-        ninoE0020,
-        ninoE0021,
-        ninoE0022,
-        ninoE0024,
-        ninoE9000,
-        ninoE9999,
-        ninoE8000,
-        ninoE8001
+        e0000Resp,
+        e0001Resp,
+        e0002Resp,
+        e0003Resp,
+        e0004Resp,
+        e0005Resp,
+        e0006Resp,
+        e0007Resp,
+        e0008Resp,
+        e0009Resp,
+        e0010Resp,
+        e0020Resp,
+        e0021Resp,
+        e0022Resp,
+        e0024Resp,
+        e9000Resp,
+        e9999Resp,
+        e8000Resp,
+        e8001Resp
       )
 
     scenarios.foreach { scenarioName =>
-      Scenario(s"Verify Link endpoint for NSI error : ${scenarioName.nino}") {
-        val consignorToken = givenGetToken(scenarioName.nino, 250, "Individual")
+      Scenario(s"Verify Link endpoint for NSI error : ${scenarioName.outboundChildPaymentRef}") {
+        val consignorToken = givenGetToken(scenarioName.outboundChildPaymentRef, 250, "Individual")
         val linkResponse   =
-          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef, childDOB)
         thenValidateResponseCode(linkResponse, scenarioName.statusCode)
         checkJsonValue(linkResponse, "errorCode", scenarioName.errorCode)
         checkJsonValue(linkResponse, "errorDescription", scenarioName.errorDescription)
 
         val balanceResponse =
-          tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+          tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, e0000Resp.outboundChildPaymentRef)
         thenValidateResponseCode(balanceResponse, scenarioName.statusCode)
         checkJsonValue(balanceResponse, "errorCode", scenarioName.errorCode)
         checkJsonValue(balanceResponse, "errorDescription", scenarioName.errorDescription)
@@ -64,8 +64,8 @@ class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
           consignorToken,
           correlationId,
           eppUniqueCusId,
-          eppRegReff,
-          outboundChildPayReff,
+          eppRegRef,
+          e0000Resp,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,

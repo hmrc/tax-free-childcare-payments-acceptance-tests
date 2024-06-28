@@ -25,35 +25,35 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
     val scenarios =
       List(
-        ninoEndsWithA,
-        ninoEndsWithB,
-        ninoEndsWithC,
-        ninoEndsWithD
+        aaResp,
+        bbResp,
+        ccResp,
+        ddResp
       )
 
     scenarios.foreach { scenarioName =>
-      Scenario(s"Verify Link endpoint for ninos: $scenarioName") {
-        val consignorToken = givenGetToken(scenarioName.nino, 250, "Individual")
+      Scenario(s"Verify Link endpoint for predefined test cases: $scenarioName") {
+        val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
         val response       =
-          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, scenarioName.outboundChildPaymentRef, childDOB)
         thenValidateResponseCode(response, scenarioName.statusCode)
         checkJsonValue(response, "child_full_name", scenarioName.childName)
       }
     }
     Scenario("Verify Balance Endpoints happy path") {
-      val consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Individual")
-      val response       = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+      val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
+      val response       = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 200)
       checkJsonValue(response, "tfc_account_status", "active")
     }
     Scenario("Verify Payments Endpoints happy path") {
-      val consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Individual")
+      val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
       val response       = tfcPayment(
         consignorToken,
         correlationId,
         eppUniqueCusId,
-        eppRegReff,
-        outboundChildPayReff,
+        eppRegRef,
+        aaResp,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
