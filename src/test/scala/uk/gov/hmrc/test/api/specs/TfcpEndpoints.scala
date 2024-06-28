@@ -34,16 +34,16 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
     scenarios.foreach { scenarioName =>
       Scenario(s"Verify Link endpoint for ninos: $scenarioName") {
         val consignorToken = givenGetToken(scenarioName.nino, 250, "Individual")
-        var response =
+        var response       =
           tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
         thenValidateResponseCode(response, scenarioName.statusCode)
         checkJsonValue(response, "child_full_name", scenarioName.childName)
 
-        response       = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+        response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
         thenValidateResponseCode(response, 200)
         // checkJsonValue(response, "tfc_account_status", "active")
 
-        response       = tfcPayment(
+        response = tfcPayment(
           consignorToken,
           correlationId,
           eppUniqueCusId,
@@ -57,26 +57,5 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
         thenValidateResponseCode(response, 200)
       }
     }
-//    Scenario("Verify Balance Endpoints happy path") {
-//      val consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Individual")
-//      val response       = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
-//      thenValidateResponseCode(response, 200)
-//      // checkJsonValue(response, "tfc_account_status", "active")
-//    }
-//    Scenario("Verify Payments Endpoints happy path") {
-//      val consignorToken = givenGetToken(ninoEndsWithA.nino, 250, "Individual")
-//      val response       = tfcPayment(
-//        consignorToken,
-//        correlationId,
-//        eppUniqueCusId,
-//        eppRegReff,
-//        outboundChildPayReff,
-//        paymentAmount,
-//        ccpRegReference,
-//        ccpPostcode,
-//        payeeType
-//      )
-//      thenValidateResponseCode(response, 200)
-//    }
   }
 }
