@@ -76,6 +76,70 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body(payload.linkPayload(eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB))
       .post(url + s"/link")
       .andReturn()
+  def tfcLinkWithoutChildDOB(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.linkPayloadWithoutChildDOB(eppUniqueCusId, eppRegReff, outboundChildPayReff))
+      .post(url + s"/link")
+      .andReturn()
+  def tfcLinkWithoutOutboundChildPayRef(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    childDOB: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.linkPayloadWithoutOutboundChildPayRef(eppUniqueCusId, eppRegReff, childDOB))
+      .post(url + s"/link")
+      .andReturn()
+  def tfcLinkWithoutEppRegRef(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    outboundChildPayReff: String,
+    childDOB: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.linkPayloadWithoutEppRegRef(eppUniqueCusId, outboundChildPayReff, childDOB))
+      .post(url + s"/link")
+      .andReturn()
+  def tfcLinkWithoutEPPCusId(
+    token: String,
+    correlationId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    childDOB: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.linkPayloadWithoutEPPCusId(eppRegReff, outboundChildPayReff, childDOB))
+      .post(url + s"/link")
+      .andReturn()
   def tfcLinkWithoutCorrelationId(
     token: String,
     eppUniqueCusId: String,
@@ -124,7 +188,51 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body(payload.balancePayload(eppUniqueCusId, eppRegReff, outboundChildPayReff))
       .post(url + s"/balance")
       .andReturn()
-
+  def tfcBalanceWithoutOutboundChildPayRef(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.balancePayloadWithoutOutboundChildPayRef(eppUniqueCusId, eppRegReff))
+      .post(url + s"/balance")
+      .andReturn()
+  def tfcBalanceWithoutEppRegRef(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    outboundChildPayReff: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.balancePayloadWithoutEppRegRef(eppUniqueCusId, outboundChildPayReff))
+      .post(url + s"/balance")
+      .andReturn()
+  def tfcBalanceWithoutEppRegReff(
+    token: String,
+    correlationId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.balancePayloadWithoutEppCusId(eppRegReff, outboundChildPayReff))
+      .post(url + s"/balance")
+      .andReturn()
   def tfcBalanceWithoutAuthorization(
     correlationId: String,
     eppUniqueCusId: String,
@@ -159,7 +267,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     eppUniqueCusId: String,
     eppRegReff: String,
     outboundChildPayReff: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String
@@ -173,6 +281,118 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body(
         payload.paymentPayload(
           eppUniqueCusId,
+          eppRegReff,
+          outboundChildPayReff,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
+  def tfcPaymentWithoutPayeeType(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithoutPayeeType(
+          eppUniqueCusId,
+          eppRegReff,
+          outboundChildPayReff,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode
+        )
+      )
+      .post(url + "/")
+      .andReturn()
+  def tfcPaymentWithoutOutboundChildPayRef(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithoutOutboundChildPayRef(
+          eppUniqueCusId,
+          eppRegReff,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
+  def tfcPaymentWithoutEppRegReff(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithoutEppRegRef(
+          eppUniqueCusId,
+          outboundChildPayReff,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
+  def tfcPaymentWithoutEppCusId(
+    token: String,
+    correlationId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithoutEppCusId(
           eppRegReff,
           outboundChildPayReff,
           paymentAmount,
@@ -213,6 +433,34 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       )
       .post(url + "/")
       .andReturn()
+  def tfcPaymentWithoutCcpRegReference(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithoutCcpRegReference(
+          eppUniqueCusId,
+          eppRegReff,
+          outboundChildPayReff,
+          paymentAmount,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
 
   def tfcPaymentWithInvalidccpPostcode(
     token: String,
@@ -244,13 +492,41 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       )
       .post(url + "/")
       .andReturn()
+  def tfcPaymentWithoutCcpPostcode(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegReff: String,
+    outboundChildPayReff: String,
+    paymentAmount: BigDecimal,
+    ccpRegReference: String,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithoutCcpPostcode(
+          eppUniqueCusId,
+          eppRegReff,
+          outboundChildPayReff,
+          paymentAmount,
+          ccpRegReference,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
 
   def tfcPaymentWithoutAuthorization(
     correlationId: String,
     eppUniqueCusId: String,
     eppRegReff: String,
     outboundChildPayReff: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String
@@ -308,7 +584,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     eppUniqueCusId: String,
     eppRegReff: String,
     outboundChildPayReff: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String
