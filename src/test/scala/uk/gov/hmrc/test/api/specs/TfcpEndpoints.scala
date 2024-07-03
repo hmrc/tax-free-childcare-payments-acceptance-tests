@@ -21,25 +21,32 @@ import uk.gov.hmrc.test.api.models.User
 import User._
 class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
-  Feature("TFCP Link Balance and Payments Endpoints happy path for different ninos") {
+  Feature("TFCP Link Balance and Payments Endpoints happy path for different outbound child reference") {
 
     val scenarios =
       List(
-        ninoEndsWithA,
-        ninoEndsWithB,
-        ninoEndsWithC,
-        ninoEndsWithD
+        aaResp,
+        bbResp,
+        ccResp,
+        ddResp
       )
 
     scenarios.foreach { scenarioName =>
-      Scenario(s"Verify Link endpoint for ninos: $scenarioName") {
-        val consignorToken = givenGetToken(scenarioName.nino, 250, "Individual")
+      Scenario(s"Verify Link Balance and Payments endpoint for predefined test cases: $scenarioName") {
+        val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
         var response       =
-          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff, childDOB)
+          tfcLink(
+            consignorToken,
+            correlationId,
+            eppUniqueCusId,
+            eppRegRef,
+            scenarioName.outboundChildPaymentRef,
+            childDOB
+          )
         thenValidateResponseCode(response, scenarioName.statusCode)
         checkJsonValue(response, "child_full_name", scenarioName.childName)
 
-        response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegReff, outboundChildPayReff)
+        response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
         thenValidateResponseCode(response, 200)
         // checkJsonValue(response, "tfc_account_status", "active")
 
@@ -47,8 +54,8 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
           consignorToken,
           correlationId,
           eppUniqueCusId,
-          eppRegReff,
-          outboundChildPayReff,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,
