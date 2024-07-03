@@ -28,9 +28,9 @@ class AuthService(filename: Any) extends HttpClient {
   val host: String        = TestConfiguration.url("auth")
   val redirectUrl: String = TestConfiguration.getConfigValue("redirect-url")
 
-  def authLoginPayload(nino: String, confidenceLevel: Int, affinityGroup: String): String =
+  def authLoginPayload(outboundChildPaymentReference: String, confidenceLevel: Int, affinityGroup: String): String =
     s"""{
-     |  "credId"            : "$nino",
+     |  "credId"            : "$outboundChildPaymentReference",
      |  "affinityGroup"     : "$affinityGroup",
      |  "confidenceLevel"   : $confidenceLevel,
      |  "credentialStrength": "strong",
@@ -333,10 +333,18 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
 
-  def postLogin(nino: String, confidenceLevel: Int, affinityGroup: String): StandaloneWSRequest#Self#Response = {
+  def postLogin(
+    outboundChildPaymentReference: String,
+    confidenceLevel: Int,
+    affinityGroup: String
+  ): StandaloneWSRequest#Self#Response = {
     val url = s"$host" + TestConfiguration.getConfigValue("auth-login-stub_uri")
     Await.result(
-      post(url, authLoginPayload(nino, confidenceLevel, affinityGroup), ("Content-Type", "application/json")),
+      post(
+        url,
+        authLoginPayload(outboundChildPaymentReference, confidenceLevel, affinityGroup),
+        ("Content-Type", "application/json")
+      ),
       10.seconds
     )
   }

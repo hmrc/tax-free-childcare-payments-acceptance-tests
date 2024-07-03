@@ -21,7 +21,7 @@ import uk.gov.hmrc.test.api.models.User
 import User._
 class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
-  Feature("TFCP Link Balance and Payments Endpoints happy path for different ninos") {
+  Feature("TFCP Link Balance and Payments Endpoints happy path for different outbound child reference") {
 
     val scenarios =
       List(
@@ -32,7 +32,7 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
       )
 
     scenarios.foreach { scenarioName =>
-      Scenario(s"Verify Link endpoint for predefined test cases: $scenarioName") {
+      Scenario(s"Verify Link Balance and Payments endpoint for predefined test cases: $scenarioName") {
         val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
         var response       =
           tfcLink(

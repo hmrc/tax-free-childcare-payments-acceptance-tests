@@ -28,9 +28,9 @@ import uk.gov.hmrc.test.api.service.AuthService
 trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val payload: AuthService = new AuthService
 
-  def givenGetToken(nino: String, confidenceLevel: Int, affinityGroup: String): String = {
-    Given(s"I generate token for NINO:" + nino)
-    authHelper.getAuthBearerToken(nino, confidenceLevel, affinityGroup)
+  def givenGetToken(outboundChildPaymentReference: String, confidenceLevel: Int, affinityGroup: String): String = {
+    Given(s"I generate token for Outbound child payment reference:" + outboundChildPaymentReference)
+    authHelper.getAuthBearerToken(outboundChildPaymentReference, confidenceLevel, affinityGroup)
   }
 
   def thenValidateResponseCode(response: Response, responseCode: Int): Unit = {
