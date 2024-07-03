@@ -106,7 +106,13 @@ object User {
   )
   val e0020Resp: User                        = User("EELL00000TFC", "", 502, "BAD_GATEWAY", "Bad Gateway")
   val e0021Resp: User                        =
-    User("EEMM00000TFC", "", 500, "BAD_GATEWAY", "The server encountered an error and couldn't process the request\t")
+    User(
+      "EEMM00000TFC",
+      "",
+      500,
+      "INTERNAL_SERVER_ERROR",
+      "The server encountered an error and couldn't process the request"
+    )
   val e0022Resp: User                        = User(
     "EENN00000TFC",
     "",
