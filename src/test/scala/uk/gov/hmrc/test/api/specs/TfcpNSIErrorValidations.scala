@@ -61,7 +61,14 @@ class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
       Scenario(s"Verify Link endpoint for NSI error : ${scenarioName.outboundChildPaymentRef}") {
         val consignorToken = givenGetToken(scenarioName.outboundChildPaymentRef, 250, "Individual")
         val linkResponse   =
-          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, scenarioName.outboundChildPaymentRef, childDOB)
+          tfcLink(
+            consignorToken,
+            correlationId,
+            eppUniqueCusId,
+            eppRegRef,
+            scenarioName.outboundChildPaymentRef,
+            childDOB
+          )
         thenValidateResponseCode(linkResponse, scenarioName.statusCode)
         checkJsonValue(linkResponse, "errorCode", scenarioName.errorCode)
         checkJsonValue(linkResponse, "errorDescription", scenarioName.errorDescription)

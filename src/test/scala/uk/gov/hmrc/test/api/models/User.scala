@@ -18,7 +18,13 @@ package uk.gov.hmrc.test.api.models
 
 import play.api.libs.json.{Json, OFormat}
 
-case class User(outboundChildPaymentRef: String, childName: String, statusCode: Int, errorCode: String, errorDescription: String)
+case class User(
+  outboundChildPaymentRef: String,
+  childName: String,
+  statusCode: Int,
+  errorCode: String,
+  errorDescription: String
+)
 
 object User {
   implicit val userJsonFormat: OFormat[User] = Json.format[User]
@@ -30,7 +36,7 @@ object User {
   val paymentAmount                          = 1234
   val ccpRegReference                        = "string"
   val ccpPostcode                            = "AB12 3CD"
-  val payeeType                              = "ccp"
+  val payeeType                              = "CCP"
   val aaResp: User                           = User("AAAA00000TFC", "Peter Pan", 200, "", "")
   val bbResp: User                           = User("AABB00000TFC", "Benjamin Button", 200, "", "")
   val ccResp: User                           = User("AACC00000TFC", "Christopher Columbus", 200, "", "")
@@ -99,7 +105,8 @@ object User {
     "The server encountered an error and couldn't process the request"
   )
   val e0020Resp: User                        = User("EELL00000TFC", "", 502, "BAD_GATEWAY", "Bad Gateway")
-  val e0021Resp: User                        = User("EEMM00000TFC", "", 500, "BAD_GATEWAY", "The server encountered an error and couldn't process the request\t")
+  val e0021Resp: User                        =
+    User("EEMM00000TFC", "", 500, "BAD_GATEWAY", "The server encountered an error and couldn't process the request\t")
   val e0022Resp: User                        = User(
     "EENN00000TFC",
     "",
@@ -117,7 +124,13 @@ object User {
   val e0024Resp: User                        = User("EEPP00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
   val e0025Resp: User                        = User("EEQQ00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
   val e0026Resp: User                        = User("EERR00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
-  val e0401Resp: User                        = User("EESS00000TFC", "", 500, "INTERNAL_SERVER_ERROR", "The server encountered an error and couldn't process the request")
+  val e0401Resp: User                        = User(
+    "EESS00000TFC",
+    "",
+    500,
+    "INTERNAL_SERVER_ERROR",
+    "The server encountered an error and couldn't process the request"
+  )
   val e0030Resp: User                        = User("EETT00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
   val e0031Resp: User                        = User("EEUU00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
   val e0032Resp: User                        = User("EEVV00000TFC", "", 400, "BAD_REQUEST", "Request data is invalid or missing")
