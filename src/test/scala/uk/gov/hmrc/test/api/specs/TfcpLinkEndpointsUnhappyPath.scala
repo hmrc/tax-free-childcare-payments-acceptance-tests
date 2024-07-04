@@ -374,6 +374,23 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
       checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
     }
+    Scenario(s"Connect to TFCP API payments with a payload with payee Type as EPP") {
+      val response =
+        tfcPayment(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          e0000Resp.outboundChildPaymentRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          "EPP"
+        )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "BAD_REQUEST")
+      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+    }
     Scenario(s"Connect to TFCP API payments with a payload with an missing payee Type") {
       val response =
         tfcPaymentWithoutPayeeType(
