@@ -29,14 +29,24 @@ class AuthService(filename: Any) extends HttpClient {
   val redirectUrl: String = TestConfiguration.getConfigValue("redirect-url")
 
   def authLoginPayload(outboundChildPaymentReference: String, confidenceLevel: Int, affinityGroup: String): String =
-    s"""{
-     |  "credId"            : "$outboundChildPaymentReference",
-     |  "affinityGroup"     : "$affinityGroup",
-     |  "confidenceLevel"   : $confidenceLevel,
-     |  "credentialStrength": "strong",
-     |  "enrolments"        : [],
-     |  "nino"              : "AA110000A"
-     |}""".stripMargin
+    if(confidenceLevel==50){
+      s"""{
+         |  "credId"            : "$outboundChildPaymentReference",
+         |  "affinityGroup"     : "$affinityGroup",
+         |  "confidenceLevel"   : $confidenceLevel,
+         |  "credentialStrength": "strong",
+         |  "enrolments"        : []
+         |}""".stripMargin
+    }else {
+      s"""{
+         |  "credId"            : "$outboundChildPaymentReference",
+         |  "affinityGroup"     : "$affinityGroup",
+         |  "confidenceLevel"   : $confidenceLevel,
+         |  "credentialStrength": "strong",
+         |  "enrolments"        : [],
+         |  "nino"              : "AA110000A"
+         |}""".stripMargin
+    }
 
   def linkPayload(
     eppUniqueCusId: String,
@@ -312,6 +322,26 @@ class AuthService(filename: Any) extends HttpClient {
        |  "outbound_child_payment_ref": "$outboundChildPayRef"
        | }
     """.stripMargin
+
+  def paymentPayloadWithoutPaymentAmount(
+                                          eppUniqueCusId: String,
+                                          eppRegRef: String,
+                                          outboundChildPayRef: String,
+                                          ccpRegReference: String,
+                                          ccpPostcode: String,
+                                          payeeType: String
+                                        ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegRef",
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
+
   def paymentInvalidPaymentAmountPayload(
     eppUniqueCusId: String,
     eppRegRef: String,

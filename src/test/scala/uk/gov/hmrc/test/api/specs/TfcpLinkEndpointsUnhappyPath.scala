@@ -21,9 +21,9 @@ import uk.gov.hmrc.test.api.models.User._
 
 class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpClient {
 
-  Feature("TFCP Link endpoints unhappy path") {
+  Feature("Connect to TFCP API endpoints unhappy path") {
     var consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
-    Scenario(s"Connect to TFCP APIs with a payload missing correlation id") {
+    Scenario(s"Endpoints with payload missing correlation id") {
       var response =
         tfcLinkWithoutCorrelationId(
           consignorToken,
@@ -33,14 +33,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           childDOB
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response =
         tfcBalanceWithoutCorrelationId(consignorToken, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcPaymentWithoutCorrelationId(
         consignorToken,
@@ -53,20 +53,20 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP APIs with a payload with an empty correlation id") {
+    Scenario(s"Endpoints payload with an empty correlation id") {
       var response =
         tfcLink(consignorToken, "", eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcBalance(consignorToken, "", eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcPayment(
         consignorToken,
@@ -80,21 +80,20 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Correlation-ID header is invalid or missing")
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-
-    Scenario(s"Connect to TFCP API link with a payload with an empty EPP unique customer ID") {
+    Scenario(s"Endpoints with a payload with an empty EPP unique customer ID") {
       var response =
         tfcLink(consignorToken, correlationId, "", eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcBalance(consignorToken, correlationId, "", eppRegRef, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcPayment(
         consignorToken,
@@ -108,21 +107,21 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
     }
-    Scenario(s"Connect to TFCP API link with a payload with an missing EPP unique customer ID") {
+    Scenario(s"Endpoints with a payload with an missing EPP unique customer ID") {
       var response =
         tfcLinkWithoutEPPCusId(consignorToken, correlationId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0004")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcBalanceWithoutEppRegRef(consignorToken, correlationId, eppRegRef, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0004")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcPaymentWithoutEppCusId(
         consignorToken,
@@ -135,21 +134,21 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0004")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
     }
-    Scenario(s"Connect to TFCP APIs with a payload with an empty EPP registration reference") {
+    Scenario(s"Payload with an empty EPP registration reference") {
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, "", aaResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, "", aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcPayment(
         consignorToken,
@@ -163,10 +162,10 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP APIs with a payload with an missing EPP registration reference") {
+    Scenario(s"Payload with an missing EPP registration reference") {
       var response =
         tfcLinkWithoutEppRegRef(
           consignorToken,
@@ -176,14 +175,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           childDOB
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0002")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response =
         tfcBalanceWithoutEppRegRef(consignorToken, correlationId, eppUniqueCusId, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0002")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcPaymentWithouteppRegRef(
         consignorToken,
@@ -196,20 +195,20 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0002")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP APIs with a payload with an empty Outbound child payment reference number") {
+    Scenario(s"Payload with an empty Outbound child payment reference number") {
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "", childDOB)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "")
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcPayment(
         consignorToken,
@@ -223,20 +222,20 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP APIs with a payload with an missing Outbound child payment reference number") {
+    Scenario(s"Payload with an missing Outbound child payment reference number") {
       var response =
         tfcLinkWithoutOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef, childDOB)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcBalanceWithoutOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef)
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
       response = tfcPaymentWithoutOutboundChildPayRef(
         consignorToken,
@@ -249,17 +248,17 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP API link with a payload with an invalid child date of birth") {
+    Scenario(s"Link endpoint with a payload with an invalid child date of birth") {
       val response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, "childDOB")
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0021")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP API link with a payload with an missing child date of birth") {
+    Scenario(s"Link with a payload with an missing child date of birth") {
       val response =
         tfcLinkWithoutChildDOB(
           consignorToken,
@@ -269,11 +268,10 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           aaResp.outboundChildPaymentRef
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0006")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-
-    Scenario(s"Connect to TFCP API payments with a payload with an empty Payment amount") {
+    Scenario(s"Payments with a payload with an empty Payment amount") {
       val response =
         tfcPaymentInvalidPaymentAmount(
           consignorToken,
@@ -287,13 +285,28 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-
-    Scenario(s"Connect to TFCP API payments with a payload with an invalid ccp Reg Reference") {
+    Scenario(s"Payments with a payload with an missing Payment amount") {
       val response =
-        tfcPaymentWithInvalidccpRegReference(
+        tfcPaymentWithoutPaymentAmount(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0008")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Payments with a payload with an invalid ccp Reg Reference") {
+      val response =
+        tfcPaymentWithInvalidCCPRegReference(
           consignorToken,
           correlationId,
           eppUniqueCusId,
@@ -305,10 +318,10 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP API payments with a payload with an missing ccp Reg Reference") {
+    Scenario(s"Payments with a payload with an missing ccp Reg Reference") {
       val response =
         tfcPaymentWithoutCcpRegReference(
           consignorToken,
@@ -321,10 +334,10 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0003")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP API payments with a payload with an invalid ccp Postcode") {
+    Scenario(s"Payments with a payload with an invalid ccp Postcode") {
       val response =
         tfcPaymentWithInvalidccpPostcode(
           consignorToken,
@@ -338,10 +351,10 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP API payments with a payload with an missing ccp Postcode") {
+    Scenario(s"Payments with a payload with an missing ccp Postcode") {
       val response =
         tfcPaymentWithoutCcpPostcode(
           consignorToken,
@@ -355,9 +368,9 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP API payments with a payload with an invalid payee Type") {
+    Scenario(s"Payments with a payload with an invalid payee Type") {
       val response =
         tfcPayment(
           consignorToken,
@@ -371,10 +384,10 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           "payeeType"
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0022")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP API payments with a payload with payee Type as EPP") {
+    Scenario(s"Payments with a payload with payee Type as EPP") {
       val response =
         tfcPayment(
           consignorToken,
@@ -388,10 +401,10 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           "EPP"
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0022")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP API payments with a payload with an missing payee Type") {
+    Scenario(s"Payments with a payload with an missing payee Type") {
       val response =
         tfcPaymentWithoutPayeeType(
           consignorToken,
@@ -404,10 +417,10 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           ccpPostcode
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
-      checkJsonValue(response, "errorDescription", "Request data is invalid or missing")
+      checkJsonValue(response, "errorCode", "E0007")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Connect to TFCP APIs with missing authorization header") {
+    Scenario(s"Endpoints missing authorization header") {
       var response =
         tfcLinkWithoutAuthorizationHeader(
           correlationId,
@@ -437,7 +450,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         payeeType
       )
     }
-    Scenario(s"Connect to TFCP API link with a token with insufficient confidence level") {
+    Scenario(s"Endpoints with a token with insufficient confidence level") {
       consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 50, "Individual")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
@@ -465,7 +478,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
 //      checkJsonValue(response, "errorCode", "UNAUTHORISED")
 //      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
-    Scenario(s"Connect to TFCP API link with a token with affinity group Organisation") {
+    Scenario(s"Endpoints with a token with affinity group Organisation") {
       consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Organisation")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
@@ -493,7 +506,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
 //      checkJsonValue(response, "errorCode", "UNAUTHORISED")
 //      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
-    Scenario(s"Connect to TFCP API link with a token with affinity group Agent") {
+    Scenario(s"Endpoints with a token with affinity group Agent") {
       consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Agent")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
@@ -521,7 +534,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
 //      checkJsonValue(response, "errorCode", "UNAUTHORISED")
 //      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
-    Scenario(s"Connect to TFCP API link with bearer token expired") {
+    Scenario(s"Endpoints with bearer token expired") {
       consignorToken =
         "Bearer BXQ3/Treo4kQCZvVcCqKPoUOMmoBVy2UTaeDDgEhL3PTJijyU/5xyYQENUp4hMYDp1T3Gze4WkHQsusa967ZIKFulM6yR9mRKsZqpQqpjcLkm3OMGi/7U4hjAhKbWEZu4dvoCxWQcOCGXI/nMQlddHdXv2ZKEdcJ8bTUTpO0WX/9KwIkeIPK/mMlBESjue4V"
       var response =
@@ -557,7 +570,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
 //      checkJsonValue(response, "errorCode", "UNAUTHORISED")
 //      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
-    Scenario(s"Connect to TFCP API link with a invalid bearer token") {
+    Scenario(s"Endpoints with a invalid bearer token") {
       consignorToken = "this is invalid bearer token"
       var response =
         tfcLink(
