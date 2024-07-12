@@ -285,7 +285,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorCode", "E0023")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Payments with a payload with an missing Payment amount") {
