@@ -54,6 +54,11 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
             "tfc_account_status"
           ) == "BLOCKED"
         )
+        validateJsonValueIsInteger(response,"government_top_up")
+        validateJsonValueIsInteger(response,"top_up_allowance")
+        validateJsonValueIsInteger(response,"paid_in_by_you")
+        validateJsonValueIsInteger(response,"total_balance")
+        validateJsonValueIsInteger(response,"cleared_funds")
         response = tfcPayment(
           consignorToken,
           correlationId,
@@ -66,6 +71,8 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
           payeeType
         )
         thenValidateResponseCode(response, 200)
+        returnJsonValueIsNumbers(response,"payment_reference")
+        returnJsonValueIsDate(response,"estimated_payment_date")
       }
     }
   }

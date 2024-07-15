@@ -25,6 +25,8 @@ import play.api.libs.json.Json
 import uk.gov.hmrc.test.api.client.{HttpClient, RestAssured}
 import uk.gov.hmrc.test.api.service.AuthService
 
+import java.text.SimpleDateFormat
+
 trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val payload: AuthService = new AuthService
 
@@ -56,6 +58,26 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   def returnJsonValue(response: Response, jsonKeyName: String): String                    = {
     val json        = Json.parse(response.body.prettyPrint)
     val actualValue = (json \ jsonKeyName).as[String]
+    actualValue
+  }
+
+  def returnJsonValueIsNumbers(response: Response, jsonKeyName: String): Boolean = {
+    val json = Json.parse(response.body.prettyPrint)
+    val actualValue = (json \ jsonKeyName).as[String]
+    assert(actualValue.forall(Character.isDigit))
+    actualValue.forall(Character.isDigit)
+  }
+  def returnJsonValueIsDate(response: Response, jsonKeyName: String): String = {
+    val json = Json.parse(response.body.prettyPrint)
+    val actualValue = (json \ jsonKeyName).as[String]
+    val df = new SimpleDateFormat("yyyy-MM-dd")
+    df.parse(actualValue)
+    actualValue
+  }
+  def validateJsonValueIsInteger(response: Response, jsonKeyName: String): Int                    = {
+    val json        = Json.parse(response.body.prettyPrint)
+    val actualValue = (json \ jsonKeyName).as[Int]
+    assert(actualValue.isValidInt)
     actualValue
   }
 
