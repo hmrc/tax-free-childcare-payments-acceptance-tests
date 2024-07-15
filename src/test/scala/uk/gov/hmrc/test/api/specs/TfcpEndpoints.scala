@@ -48,8 +48,12 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
 
         response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
         thenValidateResponseCode(response, 200)
-        // checkJsonValue(response, "tfc_account_status", "active")
-
+        assert(
+          returnJsonValue(response, "tfc_account_status") == "ACTIVE" || returnJsonValue(
+            response,
+            "tfc_account_status"
+          ) == "BLOCKED"
+        )
         response = tfcPayment(
           consignorToken,
           correlationId,

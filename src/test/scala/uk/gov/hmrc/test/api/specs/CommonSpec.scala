@@ -53,6 +53,11 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     val actualValue = (json \ jsonKeyName).as[String]
     assert(actualValue == jsonKeyValue)
   }
+  def returnJsonValue(response: Response, jsonKeyName: String): String                    = {
+    val json        = Json.parse(response.body.prettyPrint)
+    val actualValue = (json \ jsonKeyName).as[String]
+    actualValue
+  }
 
   def getRequestSpec: RequestSpecification = given()
     .config(config().headerConfig(headerConfig().overwriteHeadersWithName("Authorization", "Content-Type")))
@@ -580,15 +585,15 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + "/")
       .andReturn()
   def tfcPaymentWithoutPaymentAmount(
-                                      token: String,
-                                      correlationId: String,
-                                      eppUniqueCusId: String,
-                                      eppRegRef: String,
-                                      outboundChildPayRef: String,
-                                      ccpRegReference: String,
-                                      ccpPostcode: String,
-                                      payeeType: String
-                                    ): Response =
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")

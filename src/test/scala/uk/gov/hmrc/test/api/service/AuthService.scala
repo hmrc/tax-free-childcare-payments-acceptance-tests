@@ -29,7 +29,7 @@ class AuthService(filename: Any) extends HttpClient {
   val redirectUrl: String = TestConfiguration.getConfigValue("redirect-url")
 
   def authLoginPayload(outboundChildPaymentReference: String, confidenceLevel: Int, affinityGroup: String): String =
-    if(confidenceLevel==50){
+    if (confidenceLevel == 50) {
       s"""{
          |  "credId"            : "$outboundChildPaymentReference",
          |  "affinityGroup"     : "$affinityGroup",
@@ -37,7 +37,7 @@ class AuthService(filename: Any) extends HttpClient {
          |  "credentialStrength": "strong",
          |  "enrolments"        : []
          |}""".stripMargin
-    }else {
+    } else {
       s"""{
          |  "credId"            : "$outboundChildPaymentReference",
          |  "affinityGroup"     : "$affinityGroup",
@@ -324,13 +324,13 @@ class AuthService(filename: Any) extends HttpClient {
     """.stripMargin
 
   def paymentPayloadWithoutPaymentAmount(
-                                          eppUniqueCusId: String,
-                                          eppRegRef: String,
-                                          outboundChildPayRef: String,
-                                          ccpRegReference: String,
-                                          ccpPostcode: String,
-                                          payeeType: String
-                                        ): String =
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
     s"""
        | {
        |   "epp_unique_customer_id": "$eppUniqueCusId",
