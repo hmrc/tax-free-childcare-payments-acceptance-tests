@@ -221,6 +221,60 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
+    Scenario(s"Payload with an invalid json field of EPP registration reference") {
+      var response =
+        tfcLinkInvalidFieldEPPRegRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcBalanceInvalidFieldEPPRegRef(consignorToken, correlationId, eppUniqueCusId,eppRegRef, aaResp.outboundChildPaymentRef)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcPaymentInvalidFieldEPPRegRef(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Payload with an different data type of EPP registration reference") {
+      var response =
+        tfcLinkInvalidDataTypeEPPRegRef(consignorToken, correlationId, eppUniqueCusId, 123, aaResp.outboundChildPaymentRef, childDOB)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcBalanceInvalidDataTypeEPPRegRef(consignorToken, correlationId, eppUniqueCusId, 123, aaResp.outboundChildPaymentRef)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcPaymentInvalidDataTypeEPPRegRef(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        123,
+        aaResp.outboundChildPaymentRef,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
     Scenario(s"Payload with an missing EPP registration reference") {
       var response =
         tfcLinkWithoutEppRegRef(
