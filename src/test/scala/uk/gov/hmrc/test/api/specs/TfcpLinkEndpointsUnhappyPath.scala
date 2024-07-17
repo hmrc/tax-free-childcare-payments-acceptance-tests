@@ -310,30 +310,70 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Payload with an empty Outbound child payment reference number") {
       var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "", childDOB)
-      thenValidateResponseCode(response, 400)
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "AAaa00000TFC", childDOB)
+      thenValidateResponseCode(response, 500)
       checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+      checkJsonValue(response, "errorDescription", "The server encountered an error and couldn't process the request")
 
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "")
-      thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "AAaa00000TFC")
+      thenValidateResponseCode(response, 500)
+      checkJsonValue(response, "errorCode", "INTERNAL_SERVER_ERROR")
+      checkJsonValue(response, "errorDescription", "The server encountered an error and couldn't process the request")
 
       response = tfcPayment(
         consignorToken,
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        "",
+        "AAaa00000TFC",
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+      thenValidateResponseCode(response, 500)
+      checkJsonValue(response, "errorCode", "INTERNAL_SERVER_ERROR")
+      checkJsonValue(response, "errorDescription", "The server encountered an error and couldn't process the request")
+    }
+    val scenarios =
+      List(
+        "",
+        "AAAA00000TFC123",
+        "123AAAA00000TFC",
+        "ABBdddddddddddddddddBB",
+        "AAAA00000tfc",
+        "AAAAXXXXXXTFC",
+        "AAAA123456789TFC"
+      )
+
+    scenarios.foreach { outboundPayRef =>
+      Scenario(s"Verify Link Balance and Payments endpoint for predefined outbound child Payment reference number: $outboundPayRef") {
+        var response =
+          tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, outboundPayRef, childDOB)
+        thenValidateResponseCode(response, 400)
+        checkJsonValue(response, "errorCode", "E0000")
+        checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+        response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, outboundPayRef)
+        thenValidateResponseCode(response, 400)
+        checkJsonValue(response, "errorCode", "E0000")
+        checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+        response = tfcPayment(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          outboundPayRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+        thenValidateResponseCode(response, 400)
+        checkJsonValue(response, "errorCode", "E0000")
+        checkJsonValue(response, "errorDescription", jsonErrorDescription)
+      }
     }
     Scenario(s"Payload with an missing Outbound child payment reference number") {
       var response =
@@ -352,6 +392,60 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
         correlationId,
         eppUniqueCusId,
         eppRegRef,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Payload with an invalid data type Outbound child payment reference number") {
+      var response =
+        tfcLinkInvalidDataTypeOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef,123, childDOB)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcBalanceInvalidDataTypeOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef,123)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcPaymentInvalidDataTypeOutboundChildPayRef(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegRef,
+        paymentAmount,
+        123,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Payload with an invalid Field Outbound child payment reference number") {
+      var response =
+        tfcLinkInvalidFieldOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef,aaResp.outboundChildPaymentRef, childDOB)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcBalanceInvalidFieldOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef,aaResp.outboundChildPaymentRef)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcPaymentInvalidFieldOutboundChildPayRef(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
