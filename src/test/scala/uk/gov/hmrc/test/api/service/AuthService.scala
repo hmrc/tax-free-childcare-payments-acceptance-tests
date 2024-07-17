@@ -62,6 +62,34 @@ class AuthService(filename: Any) extends HttpClient {
        | "child_date_of_birth":"$childDOB"
        | }
     """.stripMargin
+  def linkPayloadInvalidFieldChildDOB(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef",
+       | "CHILD_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
+  def linkPayloadInvalidDataTypeChildDOB(
+                   eppUniqueCusId: String,
+                   eppRegRef: String,
+                   outboundChildPayRef: String,
+                   childDOB: BigDecimal
+                 ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef",
+       | "child_date_of_birth":$childDOB
+       | }
+    """.stripMargin
   def linkPayloadInvalidDataTypeEPPUniqueCusId(
                    eppUniqueCusId: Int,
                    eppRegRef: String,

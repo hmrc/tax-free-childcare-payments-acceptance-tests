@@ -368,6 +368,34 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "E0021")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
+    Scenario(s"Link endpoint with a payload with an child date of birth different date format") {
+      val response =
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, "23-05-2018")
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0021")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Link endpoint with a payload with an empty child date of birth") {
+      val response =
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, "")
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0021")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Link endpoint with a payload with an child date of birth data type as int") {
+      val response =
+        tfcLinkInvalidDataTypeChildDOB(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, 123.45)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0021")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Link endpoint with a payload with an child date of birth invalid field") {
+      val response =
+        tfcLinkInvalidFieldChildDOB(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0021")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
     Scenario(s"Link with a payload with an missing child date of birth") {
       val response =
         tfcLinkWithoutChildDOB(

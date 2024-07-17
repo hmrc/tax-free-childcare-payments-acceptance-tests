@@ -103,6 +103,41 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body(payload.linkPayload(eppUniqueCusId, eppRegRef, outboundChildPayRef, childDOB))
       .post(url + s"/link")
       .andReturn()
+  def tfcLinkInvalidDataTypeChildDOB(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: BigDecimal
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.linkPayloadInvalidDataTypeChildDOB(eppUniqueCusId, eppRegRef, outboundChildPayRef, childDOB))
+      .post(url + s"/link")
+      .andReturn()
+  def tfcLinkInvalidFieldChildDOB(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(payload.linkPayloadInvalidFieldChildDOB(eppUniqueCusId, eppRegRef, outboundChildPayRef, childDOB))
+      .post(url + s"/link")
+      .andReturn()
+
   def tfcLinkInvalidDataTypeEPPUniqueCusId(
                token: String,
                correlationId: String,
