@@ -62,6 +62,34 @@ class AuthService(filename: Any) extends HttpClient {
        | "child_date_of_birth":"$childDOB"
        | }
     """.stripMargin
+  def linkPayloadInvalidDataTypeEPPUniqueCusId(
+                   eppUniqueCusId: Int,
+                   eppRegRef: String,
+                   outboundChildPayRef: String,
+                   childDOB: String
+                 ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":$eppUniqueCusId,
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef",
+       | "child_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
+  def linkPayloadInvalidFieldEPPUniqueCusId(
+                   eppUniqueCusId: String,
+                   eppRegRef: String,
+                   outboundChildPayRef: String,
+                   childDOB: String
+                 ): String =
+    s"""
+       | {
+       | "EPP_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef",
+       | "child_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
   def linkPayloadWithoutChildDOB(
     eppUniqueCusId: String,
     eppRegRef: String,
@@ -122,6 +150,30 @@ class AuthService(filename: Any) extends HttpClient {
        | "outbound_child_payment_ref":"$outboundChildPayRef"
        | }
     """.stripMargin
+  def balancePayloadInvalidDataTypeEPPUniqueCusId(
+    eppUniqueCusId: Int,
+    eppRegRef: String,
+    outboundChildPayRef: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":$eppUniqueCusId,
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def balancePayloadInvalidFieldEPPUniqueCusId(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String
+  ): String =
+    s"""
+       | {
+       | "EPP_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef",
+       | "outbound_child_payment_ref":"$outboundChildPayRef"
+       | }
+    """.stripMargin
   def balancePayloadWithoutOutboundChildPayRef(
     eppUniqueCusId: String,
     eppRegRef: String
@@ -173,11 +225,51 @@ class AuthService(filename: Any) extends HttpClient {
        |  "outbound_child_payment_ref": "$outboundChildPayRef"
        | }
     """.stripMargin
+  def paymentPayloadInvalidDataTypeEPPUniqueCusId(
+    eppUniqueCusId: Int,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": $eppUniqueCusId,
+       |  "epp_reg_reference": "$eppRegRef",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def paymentPayloadInvalidFieldEPPUniqueCusId(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "EPP_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegRef",
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
   def paymentPayloadWithoutPayeeType(
     eppUniqueCusId: String,
     eppRegRef: String,
     outboundChildPayRef: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String
   ): String =
@@ -194,7 +286,7 @@ class AuthService(filename: Any) extends HttpClient {
   def paymentPayloadWithoutOutboundChildPayRef(
     eppUniqueCusId: String,
     eppRegRef: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String
@@ -212,7 +304,7 @@ class AuthService(filename: Any) extends HttpClient {
   def paymentPayloadWithoutEppRegRef(
     eppUniqueCusId: String,
     outboundChildPayRef: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String
@@ -230,7 +322,7 @@ class AuthService(filename: Any) extends HttpClient {
   def paymentPayloadWithoutEppCusId(
     eppRegRef: String,
     outboundChildPayRef: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
     payeeType: String
@@ -249,8 +341,8 @@ class AuthService(filename: Any) extends HttpClient {
     eppUniqueCusId: String,
     eppRegRef: String,
     outboundChildPayRef: String,
-    paymentAmount: BigDecimal,
-    ccpRegReference: BigDecimal,
+    paymentAmount: Int,
+    ccpRegReference: Int,
     ccpPostcode: String,
     payeeType: String
   ): String =
@@ -269,7 +361,7 @@ class AuthService(filename: Any) extends HttpClient {
     eppUniqueCusId: String,
     eppRegRef: String,
     outboundChildPayRef: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpPostcode: String,
     payeeType: String
   ): String =
@@ -288,9 +380,9 @@ class AuthService(filename: Any) extends HttpClient {
     eppUniqueCusId: String,
     eppRegRef: String,
     outboundChildPayRef: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
-    ccpPostcode: BigDecimal,
+    ccpPostcode: Int,
     payeeType: String
   ): String =
     s"""
@@ -308,7 +400,7 @@ class AuthService(filename: Any) extends HttpClient {
     eppUniqueCusId: String,
     eppRegRef: String,
     outboundChildPayRef: String,
-    paymentAmount: BigDecimal,
+    paymentAmount: Int,
     ccpRegReference: String,
     payeeType: String
   ): String =

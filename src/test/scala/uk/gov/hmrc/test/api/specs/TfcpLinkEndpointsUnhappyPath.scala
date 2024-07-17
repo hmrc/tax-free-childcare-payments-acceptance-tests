@@ -111,6 +111,62 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
     }
+    Scenario(s"Endpoints with a payload containing a different data type of EPP unique customer ID") {
+      var response =
+        tfcLinkInvalidDataTypeEPPUniqueCusId(consignorToken, correlationId, 123, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcBalanceInvalidDataTypeEPPUniqueCusId(consignorToken, correlationId, 123, eppRegRef, aaResp.outboundChildPaymentRef)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcPaymentInvalidDataTypeEPPUniqueCusId(
+        consignorToken,
+        correlationId,
+        123,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+    }
+    Scenario(s"Endpoints with a payload containing a invalid json field of EPP unique customer ID") {
+      var response =
+        tfcLinkInvalidFieldEPPUniqueCusId(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcBalanceInvalidFieldEPPUniqueCusId(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcPaymentInvalidFieldEPPUniqueCusId(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+    }
     Scenario(s"Endpoints with a payload with an missing EPP unique customer ID") {
       var response =
         tfcLinkWithoutEPPCusId(consignorToken, correlationId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
@@ -313,7 +369,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           eppRegRef,
           aaResp.outboundChildPaymentRef,
           paymentAmount,
-          123.45,
+          123,
           ccpPostcode,
           payeeType
         )
@@ -347,7 +403,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           aaResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
-          123.45,
+          123,
           payeeType
         )
       thenValidateResponseCode(response, 400)
