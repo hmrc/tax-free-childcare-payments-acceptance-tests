@@ -62,19 +62,19 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   }
 
   def returnJsonValueIsNumbers(response: Response, jsonKeyName: String): Boolean = {
-    val json = Json.parse(response.body.prettyPrint)
+    val json        = Json.parse(response.body.prettyPrint)
     val actualValue = (json \ jsonKeyName).as[String]
     assert(actualValue.forall(Character.isDigit))
     actualValue.forall(Character.isDigit)
   }
-  def returnJsonValueIsDate(response: Response, jsonKeyName: String): String = {
-    val json = Json.parse(response.body.prettyPrint)
+  def returnJsonValueIsDate(response: Response, jsonKeyName: String): String     = {
+    val json        = Json.parse(response.body.prettyPrint)
     val actualValue = (json \ jsonKeyName).as[String]
-    val df = new SimpleDateFormat("yyyy-MM-dd")
+    val df          = new SimpleDateFormat("yyyy-MM-dd")
     df.parse(actualValue)
     actualValue
   }
-  def validateJsonValueIsInteger(response: Response, jsonKeyName: String): Int                    = {
+  def validateJsonValueIsInteger(response: Response, jsonKeyName: String): Int   = {
     val json        = Json.parse(response.body.prettyPrint)
     val actualValue = (json \ jsonKeyName).as[Int]
     assert(actualValue.isValidInt)
@@ -117,7 +117,9 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
-      .body(payload.linkPayloadInvalidDataTypeOutboundChildPayRef(eppUniqueCusId, eppRegRef, outboundChildPayRef, childDOB))
+      .body(
+        payload.linkPayloadInvalidDataTypeOutboundChildPayRef(eppUniqueCusId, eppRegRef, outboundChildPayRef, childDOB)
+      )
       .post(url + s"/link")
       .andReturn()
   def tfcLinkInvalidFieldOutboundChildPayRef(
@@ -134,7 +136,9 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Accept", "application/vnd.hmrc.1.2+json")
       .header("Correlation-ID", correlationId)
       .when()
-      .body(payload.linkPayloadInvalidFieldOutboundChildPayRef(eppUniqueCusId, eppRegRef, outboundChildPayRef, childDOB))
+      .body(
+        payload.linkPayloadInvalidFieldOutboundChildPayRef(eppUniqueCusId, eppRegRef, outboundChildPayRef, childDOB)
+      )
       .post(url + s"/link")
       .andReturn()
   def tfcLinkInvalidDataTypeChildDOB(
@@ -173,13 +177,13 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .andReturn()
 
   def tfcLinkInvalidDataTypeEPPUniqueCusId(
-               token: String,
-               correlationId: String,
-               eppUniqueCusId: Int,
-               eppRegRef: String,
-               outboundChildPayRef: String,
-               childDOB: String
-             ): Response =
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: Int,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): Response =
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
@@ -190,13 +194,13 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/link")
       .andReturn()
   def tfcLinkInvalidFieldEPPUniqueCusId(
-               token: String,
-               correlationId: String,
-               eppUniqueCusId: String,
-               eppRegRef: String,
-               outboundChildPayRef: String,
-               childDOB: String
-             ): Response =
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): Response =
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
@@ -223,13 +227,13 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/link")
       .andReturn()
   def tfcLinkInvalidDataTypeEPPRegRef(
-               token: String,
-               correlationId: String,
-               eppUniqueCusId: String,
-               eppRegRef: Int,
-               outboundChildPayRef: String,
-               childDOB: String
-             ): Response =
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: Int,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): Response =
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
@@ -240,13 +244,13 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + s"/link")
       .andReturn()
   def tfcLinkInvalidFieldEPPRegRef(
-               token: String,
-               correlationId: String,
-               eppUniqueCusId: String,
-               eppRegRef: String,
-               outboundChildPayRef: String,
-               childDOB: String
-             ): Response =
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): Response =
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
@@ -672,16 +676,16 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + "/")
       .andReturn()
   def tfcPaymentInvalidFieldEPPUniqueCusId(
-                                               token: String,
-                                               correlationId: String,
-                                               eppUniqueCusId: String,
-                                               eppRegRef: String,
-                                               outboundChildPayRef: String,
-                                               paymentAmount: Int,
-                                               ccpRegReference: String,
-                                               ccpPostcode: String,
-                                               payeeType: String
-                                             ): Response =
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")
@@ -702,16 +706,16 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + "/")
       .andReturn()
   def tfcPaymentInvalidFieldEPPRegRef(
-                                               token: String,
-                                               correlationId: String,
-                                               eppUniqueCusId: String,
-                                               eppRegRef: String,
-                                               outboundChildPayRef: String,
-                                               paymentAmount: Int,
-                                               ccpRegReference: String,
-                                               ccpPostcode: String,
-                                               payeeType: String
-                                             ): Response =
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
     getRequestSpec
       .header("Authorization", token)
       .header("Content-Type", "application/json")

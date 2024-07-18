@@ -113,12 +113,25 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Endpoints with a payload containing a different data type of EPP unique customer ID") {
       var response =
-        tfcLinkInvalidDataTypeEPPUniqueCusId(consignorToken, correlationId, 123, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLinkInvalidDataTypeEPPUniqueCusId(
+          consignorToken,
+          correlationId,
+          123,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
-      response = tfcBalanceInvalidDataTypeEPPUniqueCusId(consignorToken, correlationId, 123, eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalanceInvalidDataTypeEPPUniqueCusId(
+        consignorToken,
+        correlationId,
+        123,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef
+      )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
@@ -141,12 +154,25 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Endpoints with a payload containing a invalid json field of EPP unique customer ID") {
       var response =
-        tfcLinkInvalidFieldEPPUniqueCusId(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLinkInvalidFieldEPPUniqueCusId(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
-      response = tfcBalanceInvalidFieldEPPUniqueCusId(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalanceInvalidFieldEPPUniqueCusId(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef
+      )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
@@ -223,12 +249,25 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Payload with an invalid json field of EPP registration reference") {
       var response =
-        tfcLinkInvalidFieldEPPRegRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLinkInvalidFieldEPPRegRef(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
-      response = tfcBalanceInvalidFieldEPPRegRef(consignorToken, correlationId, eppUniqueCusId,eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalanceInvalidFieldEPPRegRef(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef
+      )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
@@ -250,12 +289,25 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Payload with an different data type of EPP registration reference") {
       var response =
-        tfcLinkInvalidDataTypeEPPRegRef(consignorToken, correlationId, eppUniqueCusId, 123, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLinkInvalidDataTypeEPPRegRef(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          123,
+          aaResp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
-      response = tfcBalanceInvalidDataTypeEPPRegRef(consignorToken, correlationId, eppUniqueCusId, 123, aaResp.outboundChildPaymentRef)
+      response = tfcBalanceInvalidDataTypeEPPRegRef(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        123,
+        aaResp.outboundChildPaymentRef
+      )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
@@ -347,7 +399,9 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       )
 
     scenarios.foreach { outboundPayRef =>
-      Scenario(s"Verify Link Balance and Payments endpoint for predefined outbound child Payment reference number: $outboundPayRef") {
+      Scenario(
+        s"Verify Link Balance and Payments endpoint for predefined outbound child Payment reference number: $outboundPayRef"
+      ) {
         var response =
           tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, outboundPayRef, childDOB)
         thenValidateResponseCode(response, 400)
@@ -403,12 +457,20 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Payload with an invalid data type Outbound child payment reference number") {
       var response =
-        tfcLinkInvalidDataTypeOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef,123, childDOB)
+        tfcLinkInvalidDataTypeOutboundChildPayRef(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          123,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
-      response = tfcBalanceInvalidDataTypeOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef,123)
+      response =
+        tfcBalanceInvalidDataTypeOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef, 123)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
@@ -430,12 +492,25 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Payload with an invalid Field Outbound child payment reference number") {
       var response =
-        tfcLinkInvalidFieldOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef,aaResp.outboundChildPaymentRef, childDOB)
+        tfcLinkInvalidFieldOutboundChildPayRef(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
-      response = tfcBalanceInvalidFieldOutboundChildPayRef(consignorToken, correlationId, eppUniqueCusId, eppRegRef,aaResp.outboundChildPaymentRef)
+      response = tfcBalanceInvalidFieldOutboundChildPayRef(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef
+      )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
@@ -478,14 +553,28 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Link endpoint with a payload with an child date of birth data type as int") {
       val response =
-        tfcLinkInvalidDataTypeChildDOB(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, 123.45)
+        tfcLinkInvalidDataTypeChildDOB(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          123.45
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0021")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Link endpoint with a payload with an child date of birth invalid field") {
       val response =
-        tfcLinkInvalidFieldChildDOB(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLinkInvalidFieldChildDOB(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0021")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)

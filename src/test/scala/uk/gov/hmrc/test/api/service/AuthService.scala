@@ -105,11 +105,11 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
   def linkPayloadInvalidDataTypeChildDOB(
-                   eppUniqueCusId: String,
-                   eppRegRef: String,
-                   outboundChildPayRef: String,
-                   childDOB: BigDecimal
-                 ): String =
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: BigDecimal
+  ): String =
     s"""
        | {
        | "epp_unique_customer_id":"$eppUniqueCusId",
@@ -119,11 +119,11 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
   def linkPayloadInvalidDataTypeEPPUniqueCusId(
-                   eppUniqueCusId: Int,
-                   eppRegRef: String,
-                   outboundChildPayRef: String,
-                   childDOB: String
-                 ): String =
+    eppUniqueCusId: Int,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): String =
     s"""
        | {
        | "epp_unique_customer_id":$eppUniqueCusId,
@@ -133,11 +133,11 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
   def linkPayloadInvalidFieldEPPUniqueCusId(
-                   eppUniqueCusId: String,
-                   eppRegRef: String,
-                   outboundChildPayRef: String,
-                   childDOB: String
-                 ): String =
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): String =
     s"""
        | {
        | "EPP_unique_customer_id":"$eppUniqueCusId",
@@ -147,11 +147,11 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
   def linkPayloadInvalidDataTypeEPPRegRef(
-                   eppUniqueCusId: String,
-                   eppRegRef: Int,
-                   outboundChildPayRef: String,
-                   childDOB: String
-                 ): String =
+    eppUniqueCusId: String,
+    eppRegRef: Int,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): String =
     s"""
        | {
        | "epp_unique_customer_id":"$eppUniqueCusId",
@@ -161,11 +161,11 @@ class AuthService(filename: Any) extends HttpClient {
        | }
     """.stripMargin
   def linkPayloadInvalidFieldEPPRegRef(
-                   eppUniqueCusId: String,
-                   eppRegRef: String,
-                   outboundChildPayRef: String,
-                   childDOB: String
-                 ): String =
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): String =
     s"""
        | {
        | "epp_unique_customer_id":"$eppUniqueCusId",
