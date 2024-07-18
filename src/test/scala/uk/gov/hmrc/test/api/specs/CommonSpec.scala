@@ -763,6 +763,66 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       )
       .post(url + "/")
       .andReturn()
+  def tfcPaymentInvalidFieldPayeeType(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType:String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadInvalidFieldPayeeType(
+          eppUniqueCusId,
+          eppRegRef,
+          outboundChildPayRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
+  def tfcPaymentInvalidDataTypePayeeType(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType:Int
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadInvalidDataTypePayeeType(
+          eppUniqueCusId,
+          eppRegRef,
+          outboundChildPayRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
   def tfcPaymentWithoutOutboundChildPayRef(
     token: String,
     correlationId: String,
@@ -866,6 +926,36 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .when()
       .body(
         payload.paymentPayloadWithInvalidCcpRegReference(
+          eppUniqueCusId,
+          eppRegRef,
+          outboundChildPayRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
+  def tfcPaymentWithInvalidFieldCCPRegReference(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentPayloadWithInvalidFieldCcpRegReference(
           eppUniqueCusId,
           eppRegRef,
           outboundChildPayRef,
