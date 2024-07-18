@@ -609,6 +609,74 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "E0023")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
+    Scenario(s"Payments with a payload with an invalid field Payment amount") {
+      val response =
+        tfcPaymentInvalidFieldPaymentAmount(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0023")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Payments with a payload with an invalid data type Payment amount") {
+      val response =
+        tfcPaymentInvalidPaymentAmount(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          "1234",
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0023")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+//    Scenario(s"Payments with a payload with an Payment amount zero") {
+//      val response =
+//        tfcPayment(
+//          consignorToken,
+//          correlationId,
+//          eppUniqueCusId,
+//          eppRegRef,
+//          aaResp.outboundChildPaymentRef,
+//          0,
+//          ccpRegReference,
+//          ccpPostcode,
+//          payeeType
+//        )
+//      thenValidateResponseCode(response, 400)
+//      checkJsonValue(response, "errorCode", "E0023")
+//      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+//    }
+//    Scenario(s"Payments with a payload with an Payment amount negative number") {
+//      val response =
+//        tfcPayment(
+//          consignorToken,
+//          correlationId,
+//          eppUniqueCusId,
+//          eppRegRef,
+//          aaResp.outboundChildPaymentRef,
+//          -123,
+//          ccpRegReference,
+//          ccpPostcode,
+//          payeeType
+//        )
+//      thenValidateResponseCode(response, 400)
+//      checkJsonValue(response, "errorCode", "E0023")
+//      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+//    }
     Scenario(s"Payments with a payload with an missing Payment amount") {
       val response =
         tfcPaymentWithoutPaymentAmount(
