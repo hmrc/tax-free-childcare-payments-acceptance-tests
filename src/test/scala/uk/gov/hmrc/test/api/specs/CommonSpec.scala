@@ -555,6 +555,36 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       )
       .post(url + "/")
       .andReturn()
+  def tfcPaymentInvalidFieldPostcode(
+    token: String,
+    correlationId: String,
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): Response =
+    getRequestSpec
+      .header("Authorization", token)
+      .header("Content-Type", "application/json")
+      .header("Accept", "application/vnd.hmrc.1.2+json")
+      .header("Correlation-ID", correlationId)
+      .when()
+      .body(
+        payload.paymentInvalidFieldPostcodePayload(
+          eppUniqueCusId,
+          eppRegRef,
+          outboundChildPayRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      )
+      .post(url + "/")
+      .andReturn()
   def tfcPaymentInvalidDataTypeOutboundChildPayRef(
     token: String,
     correlationId: String,

@@ -761,7 +761,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "E0003")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-    Scenario(s"Payments with a payload with an invalid ccp Postcode") {
+    Scenario(s"Payments with a payload with an invalid ccp Postcode data type") {
       val response =
         tfcPaymentWithInvalidccpPostcode(
           consignorToken,
@@ -772,6 +772,23 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           paymentAmount,
           ccpRegReference,
           123,
+          payeeType
+        )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
+    Scenario(s"Payments with a payload with an invalid field ccp Postcode") {
+      val response =
+        tfcPaymentInvalidFieldPostcode(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
           payeeType
         )
       thenValidateResponseCode(response, 400)
