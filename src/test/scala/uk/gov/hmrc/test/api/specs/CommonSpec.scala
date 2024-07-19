@@ -772,7 +772,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
-    payeeType:String
+    payeeType: String
   ): Response =
     getRequestSpec
       .header("Authorization", token)
@@ -802,7 +802,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     paymentAmount: Int,
     ccpRegReference: String,
     ccpPostcode: String,
-    payeeType:Int
+    payeeType: Int
   ): Response =
     getRequestSpec
       .header("Authorization", token)
