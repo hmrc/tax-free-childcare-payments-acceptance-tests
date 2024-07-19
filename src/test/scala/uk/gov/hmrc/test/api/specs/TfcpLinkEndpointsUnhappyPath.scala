@@ -83,6 +83,33 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
+    Scenario(s"Endpoints payload with an correlation id as int") {
+      var response =
+        tfcLinkInvalidDataTypeCorrelationID(consignorToken, 123, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcBalanceInvalidDataTypeCorrelationID(consignorToken, 123, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+
+      response = tfcPaymentInvalidDataTypeCorrelationID(
+        consignorToken,
+        123,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "ETFC1")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
     Scenario(s"Endpoints payload with an invalid correlation id") {
       var response =
         tfcLink(consignorToken, "1234", eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
