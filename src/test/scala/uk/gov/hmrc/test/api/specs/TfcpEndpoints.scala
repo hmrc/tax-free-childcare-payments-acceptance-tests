@@ -32,9 +32,9 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
       )
 
     scenarios.foreach { scenarioName =>
-      Scenario(s"Verify Link Balance and Payments endpoint for predefined test cases: $scenarioName") {
-        val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
-        var response       =
+      Scenario(s"Verify Link endpoint for predefined test cases: $scenarioName") {
+        val consignorToken = givenGetToken(scenarioName.outboundChildPaymentRef, 250, "Individual")
+        val response       =
           tfcLink(
             consignorToken,
             correlationId,
@@ -45,35 +45,41 @@ class TfcpEndpoints extends BaseSpec with CommonSpec with HttpClient {
           )
         thenValidateResponseCode(response, scenarioName.statusCode)
         checkJsonValue(response, "child_full_name", scenarioName.childName)
-
-        response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
-        thenValidateResponseCode(response, 200)
-        assert(
-          returnJsonValue(response, "tfc_account_status") == "ACTIVE" || returnJsonValue(
-            response,
-            "tfc_account_status"
-          ) == "BLOCKED"
-        )
-        validateJsonValueIsInteger(response, "government_top_up")
-        validateJsonValueIsInteger(response, "top_up_allowance")
-        validateJsonValueIsInteger(response, "paid_in_by_you")
-        validateJsonValueIsInteger(response, "total_balance")
-        validateJsonValueIsInteger(response, "cleared_funds")
-        response = tfcPayment(
-          consignorToken,
-          correlationId,
-          eppUniqueCusId,
-          eppRegRef,
-          aaResp.outboundChildPaymentRef,
-          paymentAmount,
-          ccpRegReference,
-          ccpPostcode,
-          payeeType
-        )
-        thenValidateResponseCode(response, 200)
-        returnJsonValueIsNumbers(response, "payment_reference")
-        returnJsonValueIsDate(response, "estimated_payment_date")
       }
+    }
+    Scenario(s"Verify Balance endpoint for predefined test cases") {
+      val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
+      val response       =
+        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      thenValidateResponseCode(response, 200)
+      assert(
+        returnJsonValue(response, "tfc_account_status") == "ACTIVE" || returnJsonValue(
+          response,
+          "tfc_account_status"
+        ) == "BLOCKED"
+      )
+      validateJsonValueIsInteger(response, "government_top_up")
+      validateJsonValueIsInteger(response, "top_up_allowance")
+      validateJsonValueIsInteger(response, "paid_in_by_you")
+      validateJsonValueIsInteger(response, "total_balance")
+      validateJsonValueIsInteger(response, "cleared_funds")
+    }
+    Scenario(s"Verify Payments endpoint for predefined test cases: $aaResp.outboundChildPaymentRef") {
+      val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
+      val response       = tfcPayment(
+        consignorToken,
+        correlationId,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef,
+        paymentAmount,
+        ccpRegReference,
+        ccpPostcode,
+        payeeType
+      )
+      thenValidateResponseCode(response, 200)
+      returnJsonValueIsNumbers(response, "payment_reference")
+      returnJsonValueIsDate(response, "estimated_payment_date")
     }
   }
 }

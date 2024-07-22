@@ -85,12 +85,25 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Endpoints payload with an correlation id as int") {
       var response =
-        tfcLinkInvalidDataTypeCorrelationID(consignorToken, 123, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLinkInvalidDataTypeCorrelationID(
+          consignorToken,
+          123,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          childDOB
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
-      response = tfcBalanceInvalidDataTypeCorrelationID(consignorToken, 123, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalanceInvalidDataTypeCorrelationID(
+        consignorToken,
+        123,
+        eppUniqueCusId,
+        eppRegRef,
+        aaResp.outboundChildPaymentRef
+      )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
@@ -782,23 +795,23 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
-        Scenario(s"Payments with a payload with an ccp Reg Reference as empty") {
-          val response =
-            tfcPayment(
-              consignorToken,
-              correlationId,
-              eppUniqueCusId,
-              eppRegRef,
-              aaResp.outboundChildPaymentRef,
-              paymentAmount,
-              "",
-              ccpPostcode,
-              payeeType
-            )
-          thenValidateResponseCode(response, 400)
-          checkJsonValue(response, "errorCode", "E0000")
-          checkJsonValue(response, "errorDescription", jsonErrorDescription)
-        }
+    Scenario(s"Payments with a payload with an ccp Reg Reference as empty") {
+      val response =
+        tfcPayment(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          paymentAmount,
+          "",
+          ccpPostcode,
+          payeeType
+        )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", jsonErrorDescription)
+    }
     Scenario(s"Payments with a payload with an missing ccp Reg Reference") {
       val response =
         tfcPaymentWithoutCcpRegReference(
