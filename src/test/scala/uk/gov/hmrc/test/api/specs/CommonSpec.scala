@@ -30,10 +30,20 @@ import java.text.SimpleDateFormat
 trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
   val payload: AuthService = new AuthService
 
-  def givenGetToken(outboundChildPaymentReference: String, confidenceLevel: Int, affinityGroup: String): String = {
-    Given(s"I generate token for Outbound child payment reference:" + outboundChildPaymentReference)
-    authHelper.getAuthBearerToken(outboundChildPaymentReference, confidenceLevel, affinityGroup)
-  }
+  def givenGetToken(outboundChildPaymentReference: String, confidenceLevel: Int, affinityGroup: String): String =
+    if (url.contains("development")) {
+      "Bearer 136e3b996e7f1ca30b9736a9379081c6"
+    } else if (url.contains("qa.tax")) {
+      "Bearer 30d392aa625dea0de6072ff16957d23b"
+    } else if (url.contains("staging")) {
+      "Bearer 8a417203b9462d6e92d33606d4fef199"
+    } else if (url.contains("test-api.service")) {
+      "Bearer e080e72f7aa024d4c59bb6c41cd906f0"
+    } else {
+      Given(s"I generate token for Outbound child payment reference:" + outboundChildPaymentReference)
+      authHelper.getAuthBearerToken(outboundChildPaymentReference, confidenceLevel, affinityGroup)
+
+    }
 
   def thenValidateResponseCode(response: Response, responseCode: Int): Unit = {
     Then(s"I get the expected status code $responseCode")

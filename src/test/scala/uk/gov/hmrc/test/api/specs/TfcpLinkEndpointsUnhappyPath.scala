@@ -24,7 +24,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
   Feature("Connect to TFCP API Link endpoints unhappy path") {
     val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
     Scenario(s"Link endpoints with payload missing correlation id") {
-      var response =
+      val response =
         tfcLinkWithoutCorrelationId(
           consignorToken,
           eppUniqueCusId,

@@ -248,7 +248,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       Scenario(
         s"Verify Payments endpoint for predefined outbound child Payment reference number: $outboundPayRef"
       ) {
-       val response = tfcPayment(
+        val response = tfcPayment(
           consignorToken,
           correlationId,
           eppUniqueCusId,
