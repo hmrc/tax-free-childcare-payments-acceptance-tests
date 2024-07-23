@@ -96,7 +96,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           childDOB
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Link endpoints with a payload with an missing EPP unique customer ID") {
@@ -124,7 +124,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           childDOB
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Link endpoint payload with an different data type of EPP registration reference") {
@@ -202,7 +202,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           childDOB
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Link endpoint payload with an invalid Field Outbound child payment reference number") {
@@ -265,7 +265,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           childDOB
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0021")
+      checkJsonValue(response, "errorCode", "E0006")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Link with a payload with an missing child date of birth") {

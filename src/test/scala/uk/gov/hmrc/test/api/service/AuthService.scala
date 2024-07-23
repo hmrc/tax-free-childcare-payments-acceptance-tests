@@ -643,7 +643,7 @@ class AuthService(filename: Any) extends HttpClient {
        |  "epp_unique_customer_id": "$eppUniqueCusId",
        |  "epp_reg_reference": "$eppRegRef",
        |  "payment_amount": $paymentAmount,
-       |  "Ccp_reg_reference": $ccpRegReference,
+       |  "Ccp_reg_reference": "$ccpRegReference",
        |  "ccp_postcode": "$ccpPostcode",
        |  "payee_type": "$payeeType",
        |  "outbound_child_payment_ref": "$outboundChildPayRef"

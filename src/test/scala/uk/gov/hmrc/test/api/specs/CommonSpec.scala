@@ -525,7 +525,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .body(payload.balancePayloadWithoutEppRegRef(eppUniqueCusId, outboundChildPayRef))
       .post(url + s"/balance")
       .andReturn()
-  def tfcBalanceWithouteppRegRef(
+  def tfcBalanceWithoutEPPUniqueCusID(
     token: String,
     correlationId: String,
     eppRegRef: String,
@@ -706,7 +706,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .header("Correlation-ID", correlationId)
       .when()
       .body(
-        payload.paymentPayload(
+        payload.paymentPayloadInvalidFieldOutboundChildPayRef(
           eppUniqueCusId,
           eppRegRef,
           outboundChildPayRef,

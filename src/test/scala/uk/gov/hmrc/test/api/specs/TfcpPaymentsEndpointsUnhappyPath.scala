@@ -120,7 +120,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
     }
-    Scenario(s"Endpoints with a payload containing a invalid json field of EPP unique customer ID") {
+    Scenario(s"Payments endpoints with a payload containing a invalid json field of EPP unique customer ID") {
       val response = tfcPaymentInvalidFieldEPPUniqueCusId(
         consignorToken,
         correlationId,
@@ -133,7 +133,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
 
     }
@@ -182,7 +182,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Payload with an different data type of EPP registration reference") {
@@ -292,7 +292,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         payeeType
       )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0001")
+      checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Payload with an invalid Field Outbound child payment reference number") {
@@ -342,7 +342,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0023")
+      checkJsonValue(response, "errorCode", "E0008")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Payments with a payload with an invalid data type Payment amount") {
@@ -443,7 +443,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorCode", "E0003")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Payments with a payload with an ccp Reg Reference as empty") {
@@ -526,7 +526,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
+      checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     Scenario(s"Payments with a payload with an ccp Postcode as empty") {
@@ -543,7 +543,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           payeeType
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "BAD_REQUEST")
+      checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
     val ccpSscenarios =
@@ -622,7 +622,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           123
         )
       thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0007")
+      checkJsonValue(response, "errorCode", "E0022")
       checkJsonValue(response, "errorDescription", jsonErrorDescription)
     }
   }
