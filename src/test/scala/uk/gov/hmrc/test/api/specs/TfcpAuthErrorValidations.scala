@@ -54,7 +54,7 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
       )
     }
     Scenario(s"Endpoints with a token with insufficient confidence level") {
-      consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 50, "Individual")
+      consignorToken = givenGetToken("AAAA12345TFC", 50, "Individual")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 401)
