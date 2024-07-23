@@ -231,7 +231,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       )
       thenValidateResponseCode(response, 500)
       checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(response, "errorDescription", "The server encountered an error and couldn't process the request")
+      checkJsonValue(response, "errorDescription", EXPECTED_500_ERROR_DESC)
     }
     val scenarios =
       List(
