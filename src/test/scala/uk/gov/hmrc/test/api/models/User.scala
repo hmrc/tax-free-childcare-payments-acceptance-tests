@@ -28,10 +28,6 @@ case class User(
 
 object User {
   implicit val userJsonFormat: OFormat[User] = Json.format[User]
-  val nsiErrorDescription                    =
-    "The server encountered an error and couldn't process the request. Please refer to API Documentation for further information"
-  val jsonErrorDescription                   =
-    "Request data is invalid or missing. Please refer to API Documentation for further information"
   val EXPECTED_400_ERROR_DESC                =
     "Request data is invalid or missing. Please refer to API Documentation for further information"
   val EXPECTED_500_ERROR_DESC                =
