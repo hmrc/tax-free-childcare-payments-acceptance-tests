@@ -248,7 +248,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           eppUniqueCusId,
           eppRegRef,
           aaResp.outboundChildPaymentRef,
-          123.45
+          123
         )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0021")
