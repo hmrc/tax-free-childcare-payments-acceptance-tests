@@ -38,7 +38,7 @@ class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Verify Balance endpoint for predefined test cases for INACTIVE status") {
       val response       =
-        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, bbResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 200)
       assert(
         returnJsonValue(response, "tfc_account_status") == "INACTIVE")
