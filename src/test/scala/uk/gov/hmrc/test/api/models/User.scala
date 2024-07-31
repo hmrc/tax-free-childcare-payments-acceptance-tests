@@ -79,4 +79,5 @@ object User {
   val e9999Resp: User                        = User("EEBF00000TFC", "", 503, "E9999", EXPECTED_503_ERROR_DESC)
   val e8000Resp: User                        = User("EEBG00000TFC", "", 503, "E8000", EXPECTED_503_ERROR_DESC)
   val e8001Resp: User                        = User("EEBH00000TFC", "", 503, "E8001", EXPECTED_503_ERROR_DESC)
+  val unknownResp: User                      = User("EEBI00000TFC", "", 502, "ETFC4", EXPECTED_502_ERROR_DESC)
 }
