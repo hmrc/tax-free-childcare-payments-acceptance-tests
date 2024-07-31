@@ -37,7 +37,7 @@ class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpCl
         payeeType
       )
       thenValidateResponseCode(response, 200)
-      checkJsonValue(response, "payment_reference","8327950288419716")
+      checkJsonValue(response, "payment_reference", "8327950288419716")
       returnJsonValueIsDate(response, "estimated_payment_date")
       checkJsonValue(response, "estimated_payment_date", "2024-10-01")
     }

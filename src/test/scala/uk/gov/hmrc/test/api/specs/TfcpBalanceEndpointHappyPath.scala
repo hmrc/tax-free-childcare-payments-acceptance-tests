@@ -25,28 +25,37 @@ class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpCli
     val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
     Scenario(s"Verify Balance endpoint for predefined test cases for ACTIVE status") {
 
-      val response       =
+      val response =
         tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 200)
-      assert(
-        returnJsonValue(response, "tfc_account_status") == "ACTIVE")
-      assert(validateJsonValueIsInteger(response, "government_top_up")==14159)
-      assert(validateJsonValueIsInteger(response, "top_up_allowance")==26535)
-        assert(validateJsonValueIsInteger(response, "paid_in_by_you")==89793)
-        assert(validateJsonValueIsInteger(response, "total_balance")==23846)
-        assert(validateJsonValueIsInteger(response, "cleared_funds")==26433)
+      assert(returnJsonValue(response, "tfc_account_status") == "ACTIVE")
+      assert(validateJsonValueIsInteger(response, "government_top_up") == 14159)
+      assert(validateJsonValueIsInteger(response, "top_up_allowance") == 26535)
+      assert(validateJsonValueIsInteger(response, "paid_in_by_you") == 89793)
+      assert(validateJsonValueIsInteger(response, "total_balance") == 23846)
+      assert(validateJsonValueIsInteger(response, "cleared_funds") == 26433)
     }
     Scenario(s"Verify Balance endpoint for predefined test cases for INACTIVE status") {
-      val response       =
+      val response =
         tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, bbResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 200)
-      assert(
-        returnJsonValue(response, "tfc_account_status") == "INACTIVE")
-      assert(validateJsonValueIsInteger(response, "government_top_up")==14159)
-      assert(validateJsonValueIsInteger(response, "top_up_allowance")==26535)
-      assert(validateJsonValueIsInteger(response, "paid_in_by_you")==89793)
-      assert(validateJsonValueIsInteger(response, "total_balance")==23846)
-      assert(validateJsonValueIsInteger(response, "cleared_funds")==26433)
+      assert(returnJsonValue(response, "tfc_account_status") == "INACTIVE")
+      assert(validateJsonValueIsInteger(response, "government_top_up") == 14159)
+      assert(validateJsonValueIsInteger(response, "top_up_allowance") == 26535)
+      assert(validateJsonValueIsInteger(response, "paid_in_by_you") == 89793)
+      assert(validateJsonValueIsInteger(response, "total_balance") == 23846)
+      assert(validateJsonValueIsInteger(response, "cleared_funds") == 26433)
+    }
+    Scenario(s"Verify Balance endpoint for predefined test cases for UNKNOWN status") {
+      val response =
+        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "AAEE12345TFC")
+      thenValidateResponseCode(response, 502)
+      checkJsonValue(response, "errorCode", "ETFC3")
+      checkJsonValue(
+        response,
+        "errorDescription",
+        "Bad Gateway. Please refer to API Documentation for further information"
+      )
     }
   }
 }
