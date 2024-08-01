@@ -481,7 +481,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
     }
     Scenario(s"Payments endpoint with a payload with an invalid ccp Postcode data type") {
       val response =
-        tfcPaymentWithInvalidccpPostcode(
+        tfcPaymentWithInvalidCCPPostcode(
           consignorToken,
           correlationId,
           eppUniqueCusId,

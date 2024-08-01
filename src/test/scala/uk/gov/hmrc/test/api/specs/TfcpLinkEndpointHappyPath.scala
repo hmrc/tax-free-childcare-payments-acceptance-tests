@@ -19,7 +19,7 @@ package uk.gov.hmrc.test.api.specs
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User
 import User._
-class TfcpEndpointsHappyPath extends BaseSpec with CommonSpec with HttpClient {
+class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Link Balance and Payments Endpoints happy path for different outbound child reference") {
 
@@ -46,40 +46,6 @@ class TfcpEndpointsHappyPath extends BaseSpec with CommonSpec with HttpClient {
         thenValidateResponseCode(response, scenarioName.statusCode)
         checkJsonValue(response, "child_full_name", scenarioName.childName)
       }
-    }
-    Scenario(s"Verify Balance endpoint for predefined test cases") {
-      val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
-      val response       =
-        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
-      thenValidateResponseCode(response, 200)
-      assert(
-        returnJsonValue(response, "tfc_account_status") == "ACTIVE" || returnJsonValue(
-          response,
-          "tfc_account_status"
-        ) == "BLOCKED"
-      )
-      validateJsonValueIsInteger(response, "government_top_up")
-      validateJsonValueIsInteger(response, "top_up_allowance")
-      validateJsonValueIsInteger(response, "paid_in_by_you")
-      validateJsonValueIsInteger(response, "total_balance")
-      validateJsonValueIsInteger(response, "cleared_funds")
-    }
-    Scenario(s"Verify Payments endpoint for predefined test cases: $aaResp.outboundChildPaymentRef") {
-      val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
-      val response       = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegRef,
-        aaResp.outboundChildPaymentRef,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 200)
-      returnJsonValueIsNumbers(response, "payment_reference")
-      returnJsonValueIsDate(response, "estimated_payment_date")
     }
   }
 }

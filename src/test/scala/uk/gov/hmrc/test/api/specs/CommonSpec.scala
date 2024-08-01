@@ -70,21 +70,14 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     val actualValue = (json \ jsonKeyName).as[String]
     actualValue
   }
-
-  def returnJsonValueIsNumbers(response: Response, jsonKeyName: String): Boolean = {
-    val json        = Json.parse(response.body.prettyPrint)
-    val actualValue = (json \ jsonKeyName).as[String]
-    assert(actualValue.forall(Character.isDigit))
-    actualValue.forall(Character.isDigit)
-  }
-  def returnJsonValueIsDate(response: Response, jsonKeyName: String): String     = {
+  def returnJsonValueIsDate(response: Response, jsonKeyName: String): String              = {
     val json        = Json.parse(response.body.prettyPrint)
     val actualValue = (json \ jsonKeyName).as[String]
     val df          = new SimpleDateFormat("yyyy-MM-dd")
     df.parse(actualValue)
     actualValue
   }
-  def validateJsonValueIsInteger(response: Response, jsonKeyName: String): Int   = {
+  def validateJsonValueIsInteger(response: Response, jsonKeyName: String): Int            = {
     val json        = Json.parse(response.body.prettyPrint)
     val actualValue = (json \ jsonKeyName).as[Int]
     assert(actualValue.isValidInt)
@@ -1099,7 +1092,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
       .post(url + "/")
       .andReturn()
 
-  def tfcPaymentWithInvalidccpPostcode(
+  def tfcPaymentWithInvalidCCPPostcode(
     token: String,
     correlationId: String,
     eppUniqueCusId: String,
