@@ -28,56 +28,117 @@ case class User(
 
 object User {
   implicit val userJsonFormat: OFormat[User] = Json.format[User]
-  val EXPECTED_400_ERROR_DESC                =
-    "Request data is invalid or missing. Please refer to API Documentation for further information"
-  val EXPECTED_500_ERROR_DESC                =
-    "The server encountered an error and couldn't process the request. Please refer to API Documentation for further information"
-  val EXPECTED_502_ERROR_DESC                = "Bad Gateway. Please refer to API Documentation for further information"
-  val EXPECTED_503_ERROR_DESC                =
-    "The service is currently unavailable. Please refer to API Documentation for further information"
-  val correlationId                          = "5c5ef9c2-72e8-4d4f-901e-9fec3db8c64b"
-  val eppUniqueCusId                         = "12345678910"
-  val eppRegRef                              = "EPPRegRefEPPReg"
-  val nino                                   = "AA110000A"
-  val childDOB                               = "2018-05-23"
-  val paymentAmount                          = 1234
-  val ccpRegReference                        = "string"
-  val ccpPostcode                            = "AB12 3CD"
-  val payeeType                              = "CCP"
-  val aaResp: User                           = User("AAAA00000TFC", "Peter Pan", 200, "", "")
-  val bbResp: User                           = User("AABB00000TFC", "Benjamin Button", 200, "", "")
-  val ccResp: User                           = User("AACC00000TFC", "Christopher Columbus", 200, "", "")
-  val ddResp: User                           = User("AADD00000TFC", "Donald Duck", 200, "", "")
-  val e0000Resp: User                        = User("EEAA00000TFC", "", 500, "E0000", EXPECTED_500_ERROR_DESC)
-  val e0001Resp: User                        = User("EEBB00000TFC", "", 500, "E0001", EXPECTED_500_ERROR_DESC)
-  val e0002Resp: User                        = User("EECC00000TFC", "", 500, "E0002", EXPECTED_500_ERROR_DESC)
-  val e0003Resp: User                        = User("EEDD00000TFC", "", 500, "E0003", EXPECTED_500_ERROR_DESC)
-  val e0004Resp: User                        = User("EEEE00000TFC", "", 500, "E0004", EXPECTED_500_ERROR_DESC)
-  val e0005Resp: User                        = User("EEFF00000TFC", "", 500, "E0005", EXPECTED_500_ERROR_DESC)
-  val e0006Resp: User                        = User("EEGG00000TFC", "", 500, "E0006", EXPECTED_500_ERROR_DESC)
-  val e0007Resp: User                        = User("EEHH00000TFC", "", 500, "E0007", EXPECTED_500_ERROR_DESC)
-  val e0008Resp: User                        = User("EEII00000TFC", "", 500, "E0008", EXPECTED_500_ERROR_DESC)
-  val e0020Resp: User                        = User("EELL00000TFC", "", 502, "E0020", EXPECTED_502_ERROR_DESC)
-  val e0021Resp: User                        = User("EEMM00000TFC", "", 500, "E0021", EXPECTED_500_ERROR_DESC)
-  val e0022Resp: User                        = User("EENN00000TFC", "", 500, "E0022", EXPECTED_500_ERROR_DESC)
-  val e0023Resp: User                        = User("EEOO00000TFC", "", 500, "E0023", EXPECTED_500_ERROR_DESC)
-  val e0024Resp: User                        = User("EEPP00000TFC", "", 400, "E0024", EXPECTED_400_ERROR_DESC)
-  val e0025Resp: User                        = User("EEQQ00000TFC", "", 400, "E0025", EXPECTED_400_ERROR_DESC)
-  val e0026Resp: User                        = User("EERR00000TFC", "", 400, "E0026", EXPECTED_400_ERROR_DESC)
-  val e0401Resp: User                        = User("EESS00000TFC", "", 500, "E0401", EXPECTED_500_ERROR_DESC)
-  val e0030Resp: User                        = User("EETT00000TFC", "", 400, "E0030", EXPECTED_400_ERROR_DESC)
-  val e0031Resp: User                        = User("EEUU00000TFC", "", 400, "E0031", EXPECTED_400_ERROR_DESC)
-  val e0032Resp: User                        = User("EEVV00000TFC", "", 400, "E0032", EXPECTED_400_ERROR_DESC)
-  val e0033Resp: User                        = User("EEWW00000TFC", "", 400, "E0033", EXPECTED_400_ERROR_DESC)
-  val e0034Resp: User                        = User("EEXX00000TFC", "", 503, "E0034", EXPECTED_503_ERROR_DESC)
-  val e0035Resp: User                        = User("EEYY00000TFC", "", 400, "E0035", EXPECTED_400_ERROR_DESC)
-  val e0040Resp: User                        = User("EEZZ00000TFC", "", 400, "E0040", EXPECTED_400_ERROR_DESC)
-  val e0041Resp: User                        = User("EEBA00000TFC", "", 400, "E0041", EXPECTED_400_ERROR_DESC)
-  val e0042Resp: User                        = User("EEBC00000TFC", "", 400, "E0042", EXPECTED_400_ERROR_DESC)
-  val e0043Resp: User                        = User("EEBD00000TFC", "", 400, "E0043", EXPECTED_400_ERROR_DESC)
-  val e9000Resp: User                        = User("EEBE00000TFC", "", 503, "E9000", EXPECTED_503_ERROR_DESC)
-  val e9999Resp: User                        = User("EEBF00000TFC", "", 503, "E9999", EXPECTED_503_ERROR_DESC)
-  val e8000Resp: User                        = User("EEBG00000TFC", "", 503, "E8000", EXPECTED_503_ERROR_DESC)
-  val e8001Resp: User                        = User("EEBH00000TFC", "", 503, "E8001", EXPECTED_503_ERROR_DESC)
-  val unknownResp: User                      = User("EEBI00000TFC", "", 502, "ETFC4", EXPECTED_502_ERROR_DESC)
+
+  val EXPECTED_500_ERROR_DESC =
+    "We encountered an error on our servers and did not process your request, please try again later."
+  val EXPECTED_502_ERROR_DESC = "Bad Gateway"
+  val EXPECTED_503_ERROR_DESC =
+    "The service is currently unavailable."
+  val correlationId           = "5c5ef9c2-72e8-4d4f-901e-9fec3db8c64b"
+  val eppUniqueCusId          = "12345678910"
+  val eppRegRef               = "EPPRegRefEPPReg"
+  val nino                    = "AA110000A"
+  val childDOB                = "2018-05-23"
+  val paymentAmount           = 1234
+  val ccpRegReference         = "string"
+  val ccpPostcode             = "AB12 3CD"
+  val payeeType               = "CCP"
+  val aaResp: User            = User("AAAA00000TFC", "Peter Pan", 200, "", "")
+  val bbResp: User            = User("AABB00000TFC", "Benjamin Button", 200, "", "")
+  val ccResp: User            = User("AACC00000TFC", "Christopher Columbus", 200, "", "")
+  val ddResp: User            = User("AADD00000TFC", "Donald Duck", 200, "", "")
+  val e0000Resp: User         = User("EEAA00000TFC", "", 500, "E0000", EXPECTED_500_ERROR_DESC)
+  val e0001Resp: User         = User("EEBB00000TFC", "", 500, "E0001", EXPECTED_500_ERROR_DESC)
+  val e0002Resp: User         = User("EECC00000TFC", "", 500, "E0002", EXPECTED_500_ERROR_DESC)
+  val e0003Resp: User         = User("EEDD00000TFC", "", 500, "E0003", EXPECTED_500_ERROR_DESC)
+  val e0004Resp: User         = User("EEEE00000TFC", "", 500, "E0004", EXPECTED_500_ERROR_DESC)
+  val e0005Resp: User         = User("EEFF00000TFC", "", 500, "E0005", EXPECTED_500_ERROR_DESC)
+  val e0006Resp: User         = User("EEGG00000TFC", "", 500, "E0006", EXPECTED_500_ERROR_DESC)
+  val e0007Resp: User         = User("EEHH00000TFC", "", 500, "E0007", EXPECTED_500_ERROR_DESC)
+  val e0008Resp: User         = User("EEII00000TFC", "", 500, "E0008", EXPECTED_500_ERROR_DESC)
+  val e0020Resp: User         = User("EELL00000TFC", "", 502, "E0020", EXPECTED_502_ERROR_DESC)
+  val e0021Resp: User         = User("EEMM00000TFC", "", 500, "E0021", EXPECTED_500_ERROR_DESC)
+  val e0022Resp: User         = User("EENN00000TFC", "", 500, "E0022", EXPECTED_500_ERROR_DESC)
+  val e0023Resp: User         = User("EEOO00000TFC", "", 500, "E0023", EXPECTED_500_ERROR_DESC)
+  val e0024Resp: User         = User(
+    "EEPP00000TFC",
+    "",
+    400,
+    "E0024",
+    "Please check that the epp_reg_reference and epp_unique_customer_id are both correct"
+  )
+  val e0025Resp: User         = User(
+    "EEQQ00000TFC",
+    "",
+    400,
+    "E0025",
+    "Please check that the child_date_of_birth and outbound_child_payment_reference are both correct"
+  )
+  val e0026Resp: User         = User("EERR00000TFC", "", 400, "E0026", "Please check the outbound_child_payment_ref supplied")
+  val e0027Resp: User         = User(
+    "EERS00000TFC",
+    "",
+    400,
+    "E0027",
+    "The CCP you have specified is not linked to the TFC Account. Please ensure that the parent goes into their TFC Portal and adds the CCP to their account first before attempting payment again later."
+  )
+  val e0401Resp: User         = User("EESS00000TFC", "", 500, "E0401", EXPECTED_500_ERROR_DESC)
+  val e0030Resp: User         = User(
+    "EETT00000TFC",
+    "",
+    400,
+    "E0030",
+    "The External Payment Provider (EPP) record is inactive on the TFC system. Please ensure EPP completes sign up process on TFC Portal or contact HMRC POC for further information"
+  )
+  val e0031Resp: User         = User(
+    "EEUU00000TFC",
+    "",
+    400,
+    "E0031",
+    "The CCP is inactive, please check the CCP details and ensure that the CCP is still registered with their childcare regulator and that they have also signed up to TFC via the TFC portal to receive TFC funds."
+  )
+  val e0033Resp: User         =
+    User("EEWW00000TFC", "", 400, "E0033", "The TFC account used to request payment contains insufficient funds.")
+  val e0034Resp: User         = User("EEXX00000TFC", "", 503, "E0034", EXPECTED_503_ERROR_DESC)
+  val e0035Resp: User         = User(
+    "EEYY00000TFC",
+    "",
+    400,
+    "E0035",
+    "There is an issue with this TFC Account, please advise parent / carer to contact TFC customer Services"
+  )
+  val e0036Resp: User         = User("EEYZ00000TFC", "", 400, "E0036", "Error processing payment due to Payee bank details")
+  val e0040Resp: User         = User(
+    "EEZZ00000TFC",
+    "",
+    400,
+    "E0040",
+    "The outbound_child_payment_ref could not be found in the TFC system - please ensure parent checks their details and tries again."
+  )
+  val e0041Resp: User         = User(
+    "EEBA00000TFC",
+    "",
+    400,
+    "E0041",
+    "The epp_reg_reference could not be found in the TFC system. Please check the details and try again."
+  )
+  val e0042Resp: User         = User(
+    "EEBC00000TFC",
+    "",
+    400,
+    "E0042",
+    "The ccp_reg_reference could not be found in the TFC system or does not correlate with the ccp_postcode. Please check the details and try again."
+  )
+  val e0043Resp: User         = User(
+    "EEBD00000TFC",
+    "",
+    400,
+    "E0043",
+    "Parent associated with the bearer token does not have a TFC account. Please ask the parent to create a TFC account first."
+  )
+  val e9000Resp: User         = User("EEBE00000TFC", "", 503, "E9000", EXPECTED_503_ERROR_DESC)
+  val e9999Resp: User         = User("EEBF00000TFC", "", 503, "E9999", EXPECTED_503_ERROR_DESC)
+  val e8000Resp: User         = User("EEBG00000TFC", "", 503, "E8000", EXPECTED_503_ERROR_DESC)
+  val e8001Resp: User         = User("EEBH00000TFC", "", 503, "E8001", EXPECTED_503_ERROR_DESC)
+  val unknownResp: User       = User("EEBI00000TFC", "", 502, "ETFC4", EXPECTED_502_ERROR_DESC)
 }
