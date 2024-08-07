@@ -230,8 +230,12 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         payeeType
       )
       thenValidateResponseCode(response, 500)
-      checkJsonValue(response, "errorCode", "E0001")
-      checkJsonValue(response, "errorDescription", "outbound_child_payment_reference is in invalid format or missing")
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(
+        response,
+        "errorDescription",
+        "We encountered an error on our servers and did not process your request, please try again later."
+      )
     }
     val scenarios =
       List(
@@ -261,7 +265,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         )
         thenValidateResponseCode(response, 400)
         checkJsonValue(response, "errorCode", "E0001")
-        checkJsonValue(response, "errorDescription", "outbound_child_payment_reference is in invalid format or missing")
+        checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
       }
     }
     Scenario(s"Payments endpoint payload with an missing Outbound child payment reference number") {
@@ -277,7 +281,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
-      checkJsonValue(response, "errorDescription", "outbound_child_payment_reference is in invalid format or missing")
+      checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
     }
     Scenario(s"Payments endpoint payload with an invalid data type Outbound child payment reference number") {
       val response = tfcPaymentInvalidDataTypeOutboundChildPayRef(
@@ -293,7 +297,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
-      checkJsonValue(response, "errorDescription", "outbound_child_payment_reference is in invalid format or missing")
+      checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
     }
     Scenario(s"Payments endpoint payload with an invalid Field Outbound child payment reference number") {
       val response = tfcPaymentInvalidFieldOutboundChildPayRef(
@@ -309,7 +313,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
-      checkJsonValue(response, "errorDescription", "outbound_child_payment_reference is in invalid format or missing")
+      checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
     }
     Scenario(s"Payments endpoint payments with a payload with an empty Payment amount") {
       val response =
@@ -444,7 +448,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0003")
-      checkJsonValue(response, "errorDescription", "ccp_reg_reference is in invalid format or missing3")
+      checkJsonValue(response, "errorDescription", "ccp_reg_reference is in invalid format or missing")
     }
     Scenario(s"Payments endpoint with a payload with an ccp Reg Reference as empty") {
       val response =
