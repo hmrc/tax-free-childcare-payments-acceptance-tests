@@ -56,7 +56,7 @@ object User {
   val e0006Resp: User         = User("EEGG00000TFC", "", 500, "E0006", EXPECTED_500_ERROR_DESC)
   val e0007Resp: User         = User("EEHH00000TFC", "", 500, "E0007", EXPECTED_500_ERROR_DESC)
   val e0008Resp: User         = User("EEII00000TFC", "", 500, "E0008", EXPECTED_500_ERROR_DESC)
-  val e0009Resp: User         = User("EEIJ00000TFC", "", 502, "ETFC4", EXPECTED_502_ERROR_DESC)
+  val e0009Resp: User         = User("EEIJ00000TFC", "", 500, "E0009", EXPECTED_500_ERROR_DESC)
   val e0020Resp: User         = User("EELL00000TFC", "", 502, "E0020", EXPECTED_502_ERROR_DESC)
   val e0021Resp: User         = User("EEMM00000TFC", "", 500, "E0021", EXPECTED_500_ERROR_DESC)
   val e0022Resp: User         = User("EENN00000TFC", "", 500, "E0022", EXPECTED_500_ERROR_DESC)
