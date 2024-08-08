@@ -58,7 +58,7 @@ class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
         e9999Resp,
         e8000Resp,
         e8001Resp
-      //  unknownResp
+        //  unknownResp
       )
 
     scenarios.foreach { scenarioName =>
