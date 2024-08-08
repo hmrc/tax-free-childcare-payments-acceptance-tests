@@ -103,7 +103,7 @@ object User {
     "",
     400,
     "E0032",
-    "EPP is not linked to Child Account"
+    "The epp_unique_customer_id or epp_reg_reference is not associated with the outbound_child_payment_ref"
   )
   val e0033Resp: User         =
     User("EEWW00000TFC", "", 400, "E0033", "The TFC account used to request payment contains insufficient funds.")
