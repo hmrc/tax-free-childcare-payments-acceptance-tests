@@ -56,6 +56,7 @@ object User {
   val e0006Resp: User         = User("EEGG00000TFC", "", 500, "E0006", EXPECTED_500_ERROR_DESC)
   val e0007Resp: User         = User("EEHH00000TFC", "", 500, "E0007", EXPECTED_500_ERROR_DESC)
   val e0008Resp: User         = User("EEII00000TFC", "", 500, "E0008", EXPECTED_500_ERROR_DESC)
+  val e0009Resp: User         = User("EEIJ00000TFC", "", 502, "ETFC4", EXPECTED_502_ERROR_DESC)
   val e0020Resp: User         = User("EELL00000TFC", "", 502, "E0020", EXPECTED_502_ERROR_DESC)
   val e0021Resp: User         = User("EEMM00000TFC", "", 500, "E0021", EXPECTED_500_ERROR_DESC)
   val e0022Resp: User         = User("EENN00000TFC", "", 500, "E0022", EXPECTED_500_ERROR_DESC)
@@ -96,6 +97,13 @@ object User {
     400,
     "E0031",
     "The CCP is inactive, please check the CCP details and ensure that the CCP is still registered with their childcare regulator and that they have also signed up to TFC via the TFC portal to receive TFC funds."
+  )
+  val e0032Resp: User         = User(
+    "EEVV00000TFC",
+    "",
+    400,
+    "E0032",
+    "EPP is not linked to Child Account"
   )
   val e0033Resp: User         =
     User("EEWW00000TFC", "", 400, "E0033", "The TFC account used to request payment contains insufficient funds.")
