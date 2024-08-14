@@ -47,6 +47,7 @@ object User {
   val bbResp: User            = User("AABB00000TFC", "Benjamin Button", 200, "", "")
   val ccResp: User            = User("AACC00000TFC", "Christopher Columbus", 200, "", "")
   val ddResp: User            = User("AADD00000TFC", "Donald Duck", 200, "", "")
+  val ffResp: User            = User("AAFF00000TFC", "Fred Flintstone", 200, "", "")
   val e0000Resp: User         = User("EEAA00000TFC", "", 500, "E0000", EXPECTED_500_ERROR_DESC)
   val e0001RespLink: User     = User("EEBB00000TFC", "", 500, "E0001", EXPECTED_500_ERROR_DESC)
   val e0001RespBalance: User  = User("EEBL00000TFC", "", 500, "E0001", EXPECTED_500_ERROR_DESC)

@@ -21,14 +21,15 @@ import uk.gov.hmrc.test.api.models.User
 import User._
 class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
-  Feature("TFCP Link Balance and Payments Endpoints happy path for different outbound child reference") {
+  Feature("TFCP Link Endpoint happy path for different outbound child reference") {
 
     val scenarios =
       List(
         aaResp,
         bbResp,
         ccResp,
-        ddResp
+        ddResp,
+        ffResp
       )
 
     scenarios.foreach { scenarioName =>
