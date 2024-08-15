@@ -54,7 +54,7 @@ class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(
         response,
         "errorDescription",
-        "Bad Gateway"
+        EXPECTED_502_ERROR_DESC
       )
     }
   }

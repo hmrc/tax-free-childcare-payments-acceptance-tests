@@ -629,5 +629,22 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       checkJsonValue(response, "errorCode", "E0007")
       checkJsonValue(response, "errorDescription", "payee_type is in invalid format or missing")
     }
+    Scenario(s"Payments endpoint for un matching responses") {
+      val response =
+        tfcPayment(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          ffResp.outboundChildPaymentRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      thenValidateResponseCode(response, 502)
+      checkJsonValue(response, "errorCode", "ETFC3")
+      checkJsonValue(response, "errorDescription", EXPECTED_502_ERROR_DESC)
+    }
   }
 }
