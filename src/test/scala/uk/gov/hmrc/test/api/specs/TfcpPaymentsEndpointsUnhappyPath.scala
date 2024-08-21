@@ -533,9 +533,23 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       checkJsonValue(response, "errorCode", "E0009")
       checkJsonValue(response, "errorDescription", "ccp_postcode is in invalid format or missing")
     }
-    Scenario(s"Payments endpoint with a payload with an ccp Postcode as empty") {
-      val response =
-        tfcPayment(
+
+    val postcodeScenarios =
+      List(
+        "",
+        "AB12345",
+        "1234AB",
+        "AB12_3CD",
+        "AB12 3C",
+        "AB12 3_@",
+        "@£12 3CD",
+        "A 3CD",
+        "INVALID",
+        "123456"
+      )
+    postcodeScenarios.foreach { postcode =>
+      Scenario(s"Payments endpoint with a payload with an invalid Postcode : $postcode") {
+        val response = tfcPayment(
           consignorToken,
           correlationId,
           eppUniqueCusId,
@@ -543,13 +557,15 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           aaResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
-          "",
+          postcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
-      checkJsonValue(response, "errorCode", "E0009")
-      checkJsonValue(response, "errorDescription", "ccp_postcode is in invalid format or missing")
+        thenValidateResponseCode(response, 400)
+        checkJsonValue(response, "errorCode", "E0009")
+        checkJsonValue(response, "errorDescription", "ccp_postcode is in invalid format or missing")
+      }
     }
+
     val ccpSscenarios =
       List(
         "",
