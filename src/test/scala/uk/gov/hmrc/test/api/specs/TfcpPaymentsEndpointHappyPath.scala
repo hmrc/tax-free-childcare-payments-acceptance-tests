@@ -22,10 +22,9 @@ import uk.gov.hmrc.test.api.models.User._
 class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Payment Endpoints happy path") {
-
+    val consignorToken    = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
     Scenario(s"Verify Payments endpoint for predefined test cases: $aaResp.outboundChildPaymentRef") {
-      val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
-      val response       = tfcPayment(
+      val response = tfcPayment(
         consignorToken,
         correlationId,
         eppUniqueCusId,
@@ -40,6 +39,35 @@ class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpCl
       checkJsonValue(response, "payment_reference", "8327950288419716")
       returnJsonValueIsDate(response, "estimated_payment_date")
       checkJsonValue(response, "estimated_payment_date", "2024-10-01")
+    }
+    val postcodeScenarios =
+      List(
+        "AB12 3CD ",
+        " AB12 3CD",
+        "AB123CD",
+        "AB13CD",
+        "AB3CD",
+        "A123CD",
+        "A13CD"
+      )
+    postcodeScenarios.foreach { postcode =>
+      Scenario(s"Payments endpoint with a payload with different postcode formats : $postcode") {
+        val response = tfcPayment(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          paymentAmount,
+          ccpRegReference,
+          postcode,
+          payeeType
+        )
+        thenValidateResponseCode(response, 200)
+        checkJsonValue(response, "payment_reference", "8327950288419716")
+        returnJsonValueIsDate(response, "estimated_payment_date")
+        checkJsonValue(response, "estimated_payment_date", "2024-10-01")
+      }
     }
   }
 }
