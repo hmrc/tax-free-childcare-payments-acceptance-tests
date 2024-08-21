@@ -537,14 +537,14 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
     val postcodeScenarios =
       List(
         "",
-        "AB12345",
         "AB12_3CD",
         "AB12 3C",
         "AB12 3_@",
         "@£12 3CD",
         "A 3CD",
         "INVALID",
-        "123456"
+        "123456",
+        " B 13CD "
       )
     postcodeScenarios.foreach { postcode =>
       Scenario(s"Payments endpoint with a payload with an invalid Postcode : $postcode") {
