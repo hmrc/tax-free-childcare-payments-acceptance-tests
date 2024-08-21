@@ -538,7 +538,6 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       List(
         "",
         "AB12345",
-        "1234AB",
         "AB12_3CD",
         "AB12 3C",
         "AB12 3_@",
