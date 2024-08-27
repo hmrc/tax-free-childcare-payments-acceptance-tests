@@ -1,4 +1,5 @@
 lazy val root = (project in file("."))
+  .disablePlugins(JUnitXmlReportPlugin)
   .settings(
     name := "tax-free-childcare-payments-acceptance-tests",
     version := "0.1.0",
