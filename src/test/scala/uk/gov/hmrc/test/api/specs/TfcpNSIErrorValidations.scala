@@ -52,6 +52,7 @@ class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
         e0034Resp,
         e0035Resp,
         e0036Resp,
+        e0040Resp,
         e0041Resp,
         e0042Resp,
         e0043Resp,
