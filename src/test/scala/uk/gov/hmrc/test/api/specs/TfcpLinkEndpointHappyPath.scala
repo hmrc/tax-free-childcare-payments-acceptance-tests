@@ -17,8 +17,8 @@
 package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
-import uk.gov.hmrc.test.api.models.User
-import User._
+import uk.gov.hmrc.test.api.models.User._
+import uk.gov.hmrc.test.api.models.UsersHappyPath._
 class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Link Endpoint happy path for different outbound child reference") {
