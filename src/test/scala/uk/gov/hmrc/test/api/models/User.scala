@@ -84,7 +84,7 @@ object User {
     "",
     400,
     "E0027",
-    "The CCP you have specified is not linked to the TFC Account. Please ensure that the parent goes into their TFC Portal and adds the CCP to their account first before attempting payment again later."
+    "The Childcare Provider (CCP) you have specified is not linked to the TFC Account. The parent must go into their TFC Portal and add the CCP to their account first before attempting payment again later."
   )
   val e0401Resp: User         = User("EESS00000TFC", "", 500, "E0401", EXPECTED_500_ERROR_DESC)
   val e0030Resp: User         = User(
@@ -92,7 +92,7 @@ object User {
     "",
     400,
     "E0030",
-    "The External Payment Provider (EPP) record is inactive on the TFC system. Please ensure EPP completes sign up process on TFC Portal or contact HMRC POC for further information"
+    "The External Payment Provider (EPP) record is inactive on the TFC system. The EPP must complete the sign up process on the TFC Portal or contact their HMRC POC for further information."
   )
   val e0031Resp: User         = User(
     "EEUU00000TFC",
@@ -139,7 +139,7 @@ object User {
     "",
     400,
     "E0043",
-    "Parent associated with the bearer token does not have a TFC account. Please ask the parent to create a TFC account first."
+    "Parent associated with the bearer token does not have a TFC account. The parent must create a TFC account."
   )
   val e9000Resp: User         = User("EEBE00000TFC", "", 503, "E9000", EXPECTED_503_ERROR_DESC)
   val e9999Resp: User         = User("EEBF00000TFC", "", 503, "E9999", EXPECTED_503_ERROR_DESC)
