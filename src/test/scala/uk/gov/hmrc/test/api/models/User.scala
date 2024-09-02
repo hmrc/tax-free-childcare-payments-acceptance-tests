@@ -143,7 +143,7 @@ object User {
     "EEPP00000TFC",
     400,
     "E0024",
-    "Please check that the epp_reg_reference and epp_unique_customer_id are both correct"
+    "EPP details are invalid"
   )
   val e0025Resp: User         = User(
     "EEQQ00000TFC",
@@ -188,12 +188,7 @@ object User {
   )
   val e0036Resp: User         = User("EEYZ00000TFC", 400, "E0036", "Error processing payment due to Payee bank details")
   val e0040Resp: User         = User("EEZZ00000TFC", 500, "E0000", EXPECTED_500_ERROR_DESC)
-  val e0041Resp: User         = User(
-    "EEBA00000TFC",
-    400,
-    "E0041",
-    "The epp_reg_reference could not be found in the TFC system. Please check the details and try again."
-  )
+  val e0041Resp: User         = User("EEBA00000TFC", 502, "ETFC3", EXPECTED_502_ERROR_DESC)
   val e0042Resp: User         = User(
     "EEBC00000TFC",
     400,
