@@ -44,11 +44,11 @@ object UsersHappyPath {
     "Peter Pan",
     "ACTIVE",
     31415,
-    100,
-    100,
-    100,
-    100,
-    "8327950288419716",
+    65,
+    66,
+    67,
+    68,
+    "1234567887654321",
     "2024-10-01"
   )
   val bbResp: UsersHappyPath = UsersHappyPath(
@@ -57,12 +57,12 @@ object UsersHappyPath {
     "Benjamin Button",
     "INACTIVE",
     92653,
-    100,
-    100,
-    100,
-    100,
-    "8327950288419716",
-    "2024-10-01"
+    69,
+    70,
+    71,
+    72,
+    "1234567887654322",
+    "2024-10-02"
   )
   val ccResp: UsersHappyPath = UsersHappyPath(
     "AACC00000TFC",
@@ -70,12 +70,12 @@ object UsersHappyPath {
     "Christopher Columbus",
     "ACTIVE",
     58979,
-    100,
-    100,
-    100,
-    100,
-    "8327950288419716",
-    "2024-10-01"
+    73,
+    74,
+    75,
+    76,
+    "1234567887654323",
+    "2024-10-03"
   )
   val ddResp: UsersHappyPath = UsersHappyPath(
     "AADD00000TFC",
@@ -83,12 +83,12 @@ object UsersHappyPath {
     "Donald Duck",
     "ACTIVE",
     32384,
-    100,
-    100,
-    100,
-    100,
-    "8327950288419716",
-    "2024-10-01"
+    77,
+    78,
+    79,
+    80,
+    "1234567887654324",
+    "2024-10-04"
   )
   val ffResp: UsersHappyPath = UsersHappyPath(
     "AAFF00000TFC",
@@ -96,12 +96,12 @@ object UsersHappyPath {
     "Fred Flintstone",
     "ACTIVE",
     38327,
-    100,
-    100,
-    100,
-    100,
-    "8327950288419716",
-    "2024-10-01"
+    85,
+    86,
+    87,
+    88,
+    "ETFC3",
+    "Bad Gateway"
   )
 }
 object User {
