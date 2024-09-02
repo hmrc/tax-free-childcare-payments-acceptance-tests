@@ -18,44 +18,32 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
+import uk.gov.hmrc.test.api.models.UsersHappyPath.{aaResp, bbResp, ccResp, ddResp, ffResp}
 
 class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Balance Endpoint happy path") {
     val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
-    Scenario(s"Verify Balance endpoint for predefined test cases for ACTIVE status") {
-
-      val response =
-        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
-      thenValidateResponseCode(response, 200)
-      assert(returnJsonValue(response, "tfc_account_status") == "ACTIVE")
-      assert(validateJsonValueIsInteger(response, "government_top_up") == 14159)
-      assert(validateJsonValueIsInteger(response, "top_up_allowance") == 26535)
-      assert(validateJsonValueIsInteger(response, "paid_in_by_you") == 89793)
-      assert(validateJsonValueIsInteger(response, "total_balance") == 23846)
-      assert(validateJsonValueIsInteger(response, "cleared_funds") == 26433)
-    }
-    Scenario(s"Verify Balance endpoint for predefined test cases for INACTIVE status") {
-      val response =
-        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, bbResp.outboundChildPaymentRef)
-      thenValidateResponseCode(response, 200)
-      assert(returnJsonValue(response, "tfc_account_status") == "INACTIVE")
-      assert(validateJsonValueIsInteger(response, "government_top_up") == 14159)
-      assert(validateJsonValueIsInteger(response, "top_up_allowance") == 26535)
-      assert(validateJsonValueIsInteger(response, "paid_in_by_you") == 89793)
-      assert(validateJsonValueIsInteger(response, "total_balance") == 23846)
-      assert(validateJsonValueIsInteger(response, "cleared_funds") == 26433)
-    }
-    Scenario(s"Verify Balance endpoint for predefined test cases for UNKNOWN status") {
-      val response =
-        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "AAEE12345TFC")
-      thenValidateResponseCode(response, 502)
-      checkJsonValue(response, "errorCode", "ETFC3")
-      checkJsonValue(
-        response,
-        "errorDescription",
-        EXPECTED_502_ERROR_DESC
+    val scenarios      =
+      List(
+        aaResp,
+        bbResp,
+        ccResp,
+        ddResp,
+        ffResp
       )
+    scenarios.foreach { scenarioName =>
+      Scenario(s"Verify Balance endpoint for predefined test cases: $scenarioName") {
+        val response =
+          tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, scenarioName.outboundChildPaymentRef)
+        thenValidateResponseCode(response, scenarioName.statusCode)
+        assert(returnJsonValue(response, "tfc_account_status") == scenarioName.tfcAccountStatus)
+        assert(validateJsonValueIsInteger(response, "government_top_up") == scenarioName.govTopUp)
+        assert(validateJsonValueIsInteger(response, "top_up_allowance") == scenarioName.topUpAllowance)
+        assert(validateJsonValueIsInteger(response, "paid_in_by_you") == scenarioName.paidInByYou)
+        assert(validateJsonValueIsInteger(response, "total_balance") == scenarioName.totalBalance)
+        assert(validateJsonValueIsInteger(response, "cleared_funds") == scenarioName.clearedFunds)
+      }
     }
   }
 }

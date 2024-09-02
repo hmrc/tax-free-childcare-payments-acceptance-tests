@@ -18,6 +18,7 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
+import uk.gov.hmrc.test.api.models.UsersHappyPath.aaResp
 
 class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpClient {
 
@@ -186,6 +187,17 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
       checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
+    }
+    Scenario(s"Verify Balance endpoint for predefined test cases for UNKNOWN status") {
+      val response =
+        tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, etfc3Resp.outboundChildPaymentRef)
+      thenValidateResponseCode(response, etfc3Resp.statusCode)
+      checkJsonValue(response, "errorCode", etfc3Resp.errorCode)
+      checkJsonValue(
+        response,
+        "errorDescription",
+        etfc3Resp.errorDescription
+      )
     }
   }
 }

@@ -18,27 +18,37 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
+import uk.gov.hmrc.test.api.models.UsersHappyPath.{aaResp, bbResp, ccResp, ddResp}
 
 class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Payment Endpoints happy path") {
     val consignorToken    = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
-    Scenario(s"Verify Payments endpoint for predefined test cases: $aaResp.outboundChildPaymentRef") {
-      val response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegRef,
-        aaResp.outboundChildPaymentRef,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
+    val scenarios         =
+      List(
+        aaResp,
+        bbResp,
+        ccResp,
+        ddResp
       )
-      thenValidateResponseCode(response, 200)
-      checkJsonValue(response, "payment_reference", "8327950288419716")
-      returnJsonValueIsDate(response, "estimated_payment_date")
-      checkJsonValue(response, "estimated_payment_date", "2024-10-01")
+    scenarios.foreach { scenarioName =>
+      Scenario(s"Verify Balance endpoint for predefined test cases: $scenarioName") {
+        val response = tfcPayment(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          scenarioName.outboundChildPaymentRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+        thenValidateResponseCode(response, scenarioName.statusCode)
+        checkJsonValue(response, "payment_reference", scenarioName.paymentReference)
+        returnJsonValueIsDate(response, "estimated_payment_date")
+        checkJsonValue(response, "estimated_payment_date", scenarioName.estimatedPaymentDate)
+      }
     }
     val postcodeScenarios =
       List(
@@ -64,9 +74,9 @@ class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpCl
           payeeType
         )
         thenValidateResponseCode(response, 200)
-        checkJsonValue(response, "payment_reference", "8327950288419716")
+        checkJsonValue(response, "payment_reference", aaResp.paymentReference)
         returnJsonValueIsDate(response, "estimated_payment_date")
-        checkJsonValue(response, "estimated_payment_date", "2024-10-01")
+        checkJsonValue(response, "estimated_payment_date", aaResp.estimatedPaymentDate)
       }
     }
   }
