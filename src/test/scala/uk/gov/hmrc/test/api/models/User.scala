@@ -143,7 +143,7 @@ object User {
     "EEPP00000TFC",
     400,
     "E0024",
-    "EPP details are invalid"
+    "Please check that the epp_reg_reference and epp_unique_customer_id are both correct"
   )
   val e0025Resp: User         = User(
     "EEQQ00000TFC",
