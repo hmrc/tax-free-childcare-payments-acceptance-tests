@@ -188,7 +188,7 @@ object User {
   )
   val e0036Resp: User         = User("EEYZ00000TFC", 400, "E0036", "Error processing payment due to Payee bank details")
   val e0040Resp: User         = User("EEZZ00000TFC", 500, "E0000", EXPECTED_500_ERROR_DESC)
-  val e0041Resp: User         = User("EEBA00000TFC", 502, "ETFC3", EXPECTED_502_ERROR_DESC)
+  val e0041Resp: User         = User("EEBA00000TFC", 502, "E0000", EXPECTED_500_ERROR_DESC)
   val e0042Resp: User         = User(
     "EEBC00000TFC",
     400,
