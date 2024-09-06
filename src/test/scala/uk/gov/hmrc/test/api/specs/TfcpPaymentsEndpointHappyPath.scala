@@ -44,7 +44,7 @@ class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpCl
           ccpPostcode,
           payeeType
         )
-        thenValidateResponseCode(response, scenarioName.statusCode)
+        thenValidateResponseCodeAndSecurityHeader(response, scenarioName.statusCode)
         checkJsonValue(response, "payment_reference", scenarioName.paymentReference)
         returnJsonValueIsDate(response, "estimated_payment_date")
         checkJsonValue(response, "estimated_payment_date", scenarioName.estimatedPaymentDate)
@@ -73,7 +73,7 @@ class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpCl
           postcode,
           payeeType
         )
-        thenValidateResponseCode(response, 200)
+        thenValidateResponseCodeAndSecurityHeader(response, 200)
         checkJsonValue(response, "payment_reference", aaResp.paymentReference)
         returnJsonValueIsDate(response, "estimated_payment_date")
         checkJsonValue(response, "estimated_payment_date", aaResp.estimatedPaymentDate)

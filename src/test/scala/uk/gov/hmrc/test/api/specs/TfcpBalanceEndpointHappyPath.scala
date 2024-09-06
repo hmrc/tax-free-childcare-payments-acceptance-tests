@@ -36,7 +36,7 @@ class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpCli
       Scenario(s"Verify Balance endpoint for predefined test cases: $scenarioName") {
         val response =
           tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, scenarioName.outboundChildPaymentRef)
-        thenValidateResponseCode(response, scenarioName.statusCode)
+        thenValidateResponseCodeAndSecurityHeader(response, scenarioName.statusCode)
         assert(returnJsonValue(response, "tfc_account_status") == scenarioName.tfcAccountStatus)
         assert(validateJsonValueIsInteger(response, "government_top_up") == scenarioName.govTopUp)
         assert(validateJsonValueIsInteger(response, "top_up_allowance") == scenarioName.topUpAllowance)

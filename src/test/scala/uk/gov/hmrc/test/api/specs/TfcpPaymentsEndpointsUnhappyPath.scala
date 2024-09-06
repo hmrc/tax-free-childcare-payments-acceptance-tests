@@ -35,7 +35,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
     }
@@ -51,7 +51,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
     }
@@ -67,7 +67,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
     }
@@ -83,7 +83,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
     }
@@ -99,7 +99,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", "epp_unique_customer_id is in invalid format or missing")
 
@@ -116,7 +116,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", "epp_unique_customer_id is in invalid format or missing")
 
@@ -133,7 +133,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", "epp_unique_customer_id is in invalid format or missing")
 
@@ -149,7 +149,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", "epp_unique_customer_id is in invalid format or missing")
 
@@ -166,7 +166,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
     }
@@ -182,7 +182,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
     }
@@ -198,7 +198,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
     }
@@ -213,7 +213,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
     }
@@ -230,7 +230,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 500)
+      thenValidateResponseCodeAndSecurityHeader(response, 500)
       checkJsonValue(response, "errorCode", "E0000")
       checkJsonValue(
         response,
@@ -264,7 +264,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-        thenValidateResponseCode(response, 400)
+        thenValidateResponseCodeAndSecurityHeader(response, 400)
         checkJsonValue(response, "errorCode", "E0001")
         checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
       }
@@ -280,7 +280,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
       checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
     }
@@ -296,7 +296,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
       checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
     }
@@ -312,7 +312,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0001")
       checkJsonValue(response, "errorDescription", "outbound_child_payment_ref is in invalid format or missing")
     }
@@ -329,7 +329,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0008")
       checkJsonValue(response, "errorDescription", "payment_amount is in invalid format or missing")
     }
@@ -346,7 +346,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0008")
       checkJsonValue(response, "errorDescription", "payment_amount is in invalid format or missing")
     }
@@ -363,7 +363,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0008")
       checkJsonValue(response, "errorDescription", "payment_amount is in invalid format or missing")
     }
@@ -380,7 +380,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0008")
       checkJsonValue(response, "errorDescription", "payment_amount is in invalid format or missing")
     }
@@ -397,7 +397,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0008")
       checkJsonValue(response, "errorDescription", "payment_amount is in invalid format or missing")
     }
@@ -413,7 +413,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0008")
       checkJsonValue(response, "errorDescription", "payment_amount is in invalid format or missing")
     }
@@ -430,7 +430,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0003")
       checkJsonValue(response, "errorDescription", "ccp_reg_reference is in invalid format or missing")
     }
@@ -447,7 +447,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0003")
       checkJsonValue(response, "errorDescription", "ccp_reg_reference is in invalid format or missing")
     }
@@ -464,7 +464,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0003")
       checkJsonValue(response, "errorDescription", "ccp_reg_reference is in invalid format or missing")
     }
@@ -480,7 +480,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0003")
       checkJsonValue(response, "errorDescription", "ccp_reg_reference is in invalid format or missing")
     }
@@ -497,7 +497,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           123,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0009")
       checkJsonValue(response, "errorDescription", "ccp_postcode is in invalid format or missing")
     }
@@ -514,7 +514,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0009")
       checkJsonValue(response, "errorDescription", "ccp_postcode is in invalid format or missing")
     }
@@ -530,7 +530,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpRegReference,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0009")
       checkJsonValue(response, "errorDescription", "ccp_postcode is in invalid format or missing")
     }
@@ -560,7 +560,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           postcode,
           payeeType
         )
-        thenValidateResponseCode(response, 400)
+        thenValidateResponseCodeAndSecurityHeader(response, 400)
         checkJsonValue(response, "errorCode", "E0009")
         checkJsonValue(response, "errorDescription", "ccp_postcode is in invalid format or missing")
       }
@@ -590,7 +590,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           ccp
         )
-        thenValidateResponseCode(response, 400)
+        thenValidateResponseCodeAndSecurityHeader(response, 400)
         checkJsonValue(response, "errorCode", "E0007")
         checkJsonValue(response, "errorDescription", "payee_type is in invalid format or missing")
       }
@@ -607,7 +607,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpRegReference,
           ccpPostcode
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0007")
       checkJsonValue(response, "errorDescription", "payee_type is in invalid format or missing")
     }
@@ -624,7 +624,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0007")
       checkJsonValue(response, "errorDescription", "payee_type is in invalid format or missing")
     }
@@ -641,7 +641,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           123
         )
-      thenValidateResponseCode(response, 400)
+      thenValidateResponseCodeAndSecurityHeader(response, 400)
       checkJsonValue(response, "errorCode", "E0007")
       checkJsonValue(response, "errorDescription", "payee_type is in invalid format or missing")
     }
@@ -658,7 +658,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           ccpPostcode,
           payeeType
         )
-      thenValidateResponseCode(response, 502)
+      thenValidateResponseCodeAndSecurityHeader(response, 502)
       checkJsonValue(response, "errorCode", "ETFC3")
       checkJsonValue(response, "errorDescription", EXPECTED_502_ERROR_DESC)
     }

@@ -44,7 +44,7 @@ class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient
             scenarioName.outboundChildPaymentRef,
             childDOB
           )
-        thenValidateResponseCode(response, scenarioName.statusCode)
+        thenValidateResponseCodeAndSecurityHeader(response, scenarioName.statusCode)
         checkJsonValue(response, "child_full_name", scenarioName.childName)
       }
     }

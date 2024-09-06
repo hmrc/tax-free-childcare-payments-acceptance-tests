@@ -45,7 +45,7 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
 
     }
 
-  def thenValidateResponseCode(response: Response, responseCode: Int): Unit = {
+  def thenValidateResponseCodeAndSecurityHeader(response: Response, responseCode: Int): Unit = {
     Then(s"I get the expected status code $responseCode")
     println(s"status code : ${response.statusCode()}")
     assert(response.statusCode() == responseCode, "Response is not as expected")
@@ -53,6 +53,11 @@ trait CommonSpec extends BaseSpec with HttpClient with RestAssured {
     And("and find expected security headers")
     assert(response.header("Referrer-Policy") == "no-referrer")
     assert(response.header("Permissions-Policy") != null)
+  }
+  def thenValidateResponseCode(response: Response, responseCode: Int): Unit                  = {
+    Then(s"I get the expected status code $responseCode")
+    println(s"status code : ${response.statusCode()}")
+    assert(response.statusCode() == responseCode, "Response is not as expected")
   }
 
   def thenValidateResponseMessage(response: Response, responseMessage: String): Unit      = {

@@ -75,13 +75,13 @@ class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
             scenarioName.outboundChildPaymentRef,
             childDOB
           )
-        thenValidateResponseCode(linkResponse, scenarioName.statusCode)
+        thenValidateResponseCodeAndSecurityHeader(linkResponse, scenarioName.statusCode)
         checkJsonValue(linkResponse, "errorCode", scenarioName.errorCode)
         checkJsonValue(linkResponse, "errorDescription", scenarioName.errorDescription)
 
         val balanceResponse =
           tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, scenarioName.outboundChildPaymentRef)
-        thenValidateResponseCode(balanceResponse, scenarioName.statusCode)
+        thenValidateResponseCodeAndSecurityHeader(balanceResponse, scenarioName.statusCode)
         checkJsonValue(balanceResponse, "errorCode", scenarioName.errorCode)
         checkJsonValue(balanceResponse, "errorDescription", scenarioName.errorDescription)
 
@@ -96,7 +96,7 @@ class TfcpNSIErrorValidations extends BaseSpec with CommonSpec with HttpClient {
           ccpPostcode,
           payeeType
         )
-        thenValidateResponseCode(paymentResponse, scenarioName.statusCode)
+        thenValidateResponseCodeAndSecurityHeader(paymentResponse, scenarioName.statusCode)
         checkJsonValue(paymentResponse, "errorCode", scenarioName.errorCode)
         checkJsonValue(paymentResponse, "errorDescription", scenarioName.errorDescription)
       }
