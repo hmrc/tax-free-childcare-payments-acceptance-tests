@@ -62,6 +62,20 @@ class AuthService(filename: Any) extends HttpClient {
        | "child_date_of_birth":"$childDOB"
        | }
     """.stripMargin
+  def linkPayloadInvalidJson(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    childDOB: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef" invalid json
+       | "outbound_child_payment_ref":"$outboundChildPayRef",
+       | "child_date_of_birth":"$childDOB"
+       | }
+    """.stripMargin
   def linkPayloadInvalidDataTypeOutboundChildPayRef(
     eppUniqueCusId: String,
     eppRegRef: String,
@@ -234,6 +248,18 @@ class AuthService(filename: Any) extends HttpClient {
        | "outbound_child_payment_ref":"$outboundChildPayRef"
        | }
     """.stripMargin
+  def balancePayloadInvalidJson(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String
+  ): String =
+    s"""
+       | {
+       | "epp_unique_customer_id":"$eppUniqueCusId",
+       | "epp_reg_reference":"$eppRegRef" invalid json
+       | "outbound_child_payment_ref":"$outboundChildPayRef"
+       | }
+    """.stripMargin
   def balancePayloadInvalidDataTypeOutboundChildPayRef(
     eppUniqueCusId: String,
     eppRegRef: String,
@@ -352,6 +378,26 @@ class AuthService(filename: Any) extends HttpClient {
        |  "epp_reg_reference": "$eppRegRef",
        |  "payment_amount": $paymentAmount,
        |  "ccp_reg_reference": "$ccpRegReference",
+       |  "ccp_postcode": "$ccpPostcode",
+       |  "payee_type": "$payeeType",
+       |  "outbound_child_payment_ref": "$outboundChildPayRef"
+       | }
+    """.stripMargin
+  def paymentPayloadInvalidJson(
+    eppUniqueCusId: String,
+    eppRegRef: String,
+    outboundChildPayRef: String,
+    paymentAmount: Int,
+    ccpRegReference: String,
+    ccpPostcode: String,
+    payeeType: String
+  ): String =
+    s"""
+       | {
+       |   "epp_unique_customer_id": "$eppUniqueCusId",
+       |  "epp_reg_reference": "$eppRegRef" invalid json
+       |  "payment_amount": $paymentAmount,
+       |  "ccp_reg_reference": "$ccpRegReference" invalid jason
        |  "ccp_postcode": "$ccpPostcode",
        |  "payee_type": "$payeeType",
        |  "outbound_child_payment_ref": "$outboundChildPayRef"

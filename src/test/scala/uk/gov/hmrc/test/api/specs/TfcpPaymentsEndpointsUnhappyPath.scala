@@ -662,5 +662,22 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       checkJsonValue(response, "errorCode", "ETFC3")
       checkJsonValue(response, "errorDescription", EXPECTED_502_ERROR_DESC)
     }
+    Scenario(s"Payments endpoint for invalid json body") {
+      val response =
+        tfcPaymentInvalidJson(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          ffResp.outboundChildPaymentRef,
+          paymentAmount,
+          ccpRegReference,
+          ccpPostcode,
+          payeeType
+        )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", "Invalid Json")
+    }
   }
 }
