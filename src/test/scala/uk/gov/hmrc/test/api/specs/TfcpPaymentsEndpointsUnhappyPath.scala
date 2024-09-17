@@ -677,7 +677,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(response, "errorDescription", "Invalid Json")
+      checkJsonValue(response, "errorDescription", "Invalid JSON")
     }
   }
 }

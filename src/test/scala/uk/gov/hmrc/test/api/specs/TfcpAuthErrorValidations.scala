@@ -34,7 +34,7 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
           childDOB
         )
       thenValidateResponseCode(response, 401)
-    response =
+      response =
         tfcBalanceWithoutAuthorization(correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 401)
       response = tfcPaymentWithoutAuthorization(
@@ -88,7 +88,7 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
         payeeType
       )
       thenValidateResponseCode(response, 401)
-   }
+    }
     Scenario(s"Endpoints with a token with affinity group Agent") {
       consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Agent")
       var response =
@@ -137,7 +137,7 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
         payeeType
       )
       thenValidateResponseCode(response, 401)
-   }
+    }
     Scenario(s"Endpoints with a invalid bearer token") {
       consignorToken = "this is invalid bearer token"
       var response =
@@ -164,6 +164,6 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
         payeeType
       )
       thenValidateResponseCode(response, 401)
-   }
+    }
   }
 }

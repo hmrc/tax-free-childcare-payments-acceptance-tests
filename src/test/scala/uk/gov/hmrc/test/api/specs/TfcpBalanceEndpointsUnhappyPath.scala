@@ -201,10 +201,16 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
     }
     Scenario(s"Verify Balance endpoint for invalid json body") {
       val response =
-        tfcBalanceInvalidJson(consignorToken, correlationId, eppUniqueCusId, eppRegRef, etfc3Resp.outboundChildPaymentRef)
+        tfcBalanceInvalidJson(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          etfc3Resp.outboundChildPaymentRef
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(response, "errorDescription", "Invalid Json")
+      checkJsonValue(response, "errorDescription", "Invalid JSON")
     }
   }
 }
