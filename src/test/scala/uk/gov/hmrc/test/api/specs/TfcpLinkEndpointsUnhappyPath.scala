@@ -286,5 +286,19 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "E0006")
       checkJsonValue(response, "errorDescription", "child_date_of_birth is in invalid format or missing")
     }
+    Scenario(s"Link with a payload with an invalid json body") {
+      val response =
+        tfcLinkInvalidJson(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          aaResp.outboundChildPaymentRef,
+          childDOB
+        )
+      thenValidateResponseCode(response, 400)
+      checkJsonValue(response, "errorCode", "E0000")
+      checkJsonValue(response, "errorDescription", "Invalid JSON")
+    }
   }
 }
