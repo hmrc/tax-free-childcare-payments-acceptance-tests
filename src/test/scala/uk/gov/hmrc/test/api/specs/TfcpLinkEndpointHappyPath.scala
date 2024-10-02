@@ -29,7 +29,8 @@ class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient
         bbResp,
         ccResp,
         ddResp,
-        ffResp
+        ffResp,
+        aaRespOutsideStub
       )
 
     scenarios.foreach { scenarioName =>

@@ -51,6 +51,19 @@ object UsersHappyPath {
     "1234567887654321",
     "2024-10-01"
   )
+  val aaRespOutsideStub: UsersHappyPath = UsersHappyPath(
+    "ABCD00000TFC",
+    200,
+    "Peter Pan",
+    "ACTIVE",
+    31415,
+    65,
+    66,
+    67,
+    68,
+    "1234567887654321",
+    "2024-10-01"
+  )
   val bbResp: UsersHappyPath = UsersHappyPath(
     "AABB00000TFC",
     200,
