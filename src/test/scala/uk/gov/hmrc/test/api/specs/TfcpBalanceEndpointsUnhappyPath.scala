@@ -18,21 +18,21 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
-import uk.gov.hmrc.test.api.models.UsersHappyPath.aaResp
+import uk.gov.hmrc.test.api.models.UsersHappyPath.AAAAResp
 
 class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("Connect to TFCP API Balance endpoints unhappy path") {
-    val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
+    val consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Individual")
     Scenario(s"Balance endpoints with payload missing correlation id") {
       val response =
-        tfcBalanceWithoutCorrelationId(consignorToken, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+        tfcBalanceWithoutCorrelationId(consignorToken, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
     }
     Scenario(s"Balance endpoints payload with an empty correlation id") {
-      val response = tfcBalance(consignorToken, "", eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      val response = tfcBalance(consignorToken, "", eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
@@ -43,20 +43,20 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
         123,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef
+        AAAAResp.outboundChildPaymentRef
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
     }
     Scenario(s"Balance endpoints payload with an invalid correlation id") {
-      val response = tfcBalance(consignorToken, "1234", eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      val response = tfcBalance(consignorToken, "1234", eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
     }
     Scenario(s"Balance endpoints with a payload with an empty EPP unique customer ID") {
-      val response = tfcBalance(consignorToken, correlationId, "", eppRegRef, aaResp.outboundChildPaymentRef)
+      val response = tfcBalance(consignorToken, correlationId, "", eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", "epp_unique_customer_id is in invalid format or missing")
@@ -67,7 +67,7 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
         correlationId,
         123,
         eppRegRef,
-        aaResp.outboundChildPaymentRef
+        AAAAResp.outboundChildPaymentRef
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
@@ -79,7 +79,7 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef
+        AAAAResp.outboundChildPaymentRef
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
@@ -87,14 +87,14 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
     }
     Scenario(s"Balance endpoints with a payload with an missing EPP unique customer ID") {
       val response =
-        tfcBalanceWithoutEPPUniqueCusID(consignorToken, correlationId, eppRegRef, aaResp.outboundChildPaymentRef)
+        tfcBalanceWithoutEPPUniqueCusID(consignorToken, correlationId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", "epp_unique_customer_id is in invalid format or missing")
 
     }
     Scenario(s"Balance endpoint payload with an empty EPP registration reference") {
-      val response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, "", aaResp.outboundChildPaymentRef)
+      val response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, "", AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
@@ -105,7 +105,7 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef
+        AAAAResp.outboundChildPaymentRef
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
@@ -117,7 +117,7 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
         correlationId,
         eppUniqueCusId,
         123,
-        aaResp.outboundChildPaymentRef
+        AAAAResp.outboundChildPaymentRef
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
@@ -125,21 +125,10 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
     }
     Scenario(s"Balance endpoint payload with an missing EPP registration reference") {
       val response =
-        tfcBalanceWithoutEppRegRef(consignorToken, correlationId, eppUniqueCusId, aaResp.outboundChildPaymentRef)
+        tfcBalanceWithoutEppRegRef(consignorToken, correlationId, eppUniqueCusId, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
-    }
-
-    Scenario(s"Balance endpoint payload with an unmatched Outbound child payment reference number in the stub") {
-      val response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "AAaa00000TFC")
-      thenValidateResponseCode(response, 500)
-      checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(
-        response,
-        "errorDescription",
-        "We encountered an error on our servers and did not process your request, please try again later."
-      )
     }
     val scenarios =
       List(
@@ -182,7 +171,7 @@ class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with Http
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef
+        AAAAResp.outboundChildPaymentRef
       )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0001")

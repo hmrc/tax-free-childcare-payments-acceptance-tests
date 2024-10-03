@@ -18,19 +18,19 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
-import uk.gov.hmrc.test.api.models.UsersHappyPath.{EEBAResp, EEZZResp, aaResp, aaRespOutsideStub, bbResp, ccResp, ddResp}
+import uk.gov.hmrc.test.api.models.UsersHappyPath.{AAAAResp, AABBResp, AACCResp, AADDResp, AAaaResp, EEBAResp, EEZZResp}
 
 class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Payment Endpoints happy path") {
-    val consignorToken    = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
+    val consignorToken    = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Individual")
     val scenarios         =
       List(
-        aaResp,
-        bbResp,
-        ccResp,
-        ddResp,
-        aaRespOutsideStub,
+        AAAAResp,
+        AABBResp,
+        AACCResp,
+        AADDResp,
+        AAaaResp,
         EEZZResp,
         EEBAResp
       )
@@ -70,16 +70,16 @@ class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpCl
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           postcode,
           payeeType
         )
         thenValidateResponseCode(response, 200)
-        checkJsonValue(response, "payment_reference", aaResp.paymentReference)
+        checkJsonValue(response, "payment_reference", AAAAResp.paymentReference)
         returnJsonValueIsDate(response, "estimated_payment_date")
-        checkJsonValue(response, "estimated_payment_date", aaResp.estimatedPaymentDate)
+        checkJsonValue(response, "estimated_payment_date", AAAAResp.estimatedPaymentDate)
       }
     }
   }

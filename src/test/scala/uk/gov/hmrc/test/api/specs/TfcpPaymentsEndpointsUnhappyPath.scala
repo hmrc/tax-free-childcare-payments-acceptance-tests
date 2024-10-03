@@ -18,18 +18,18 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
-import uk.gov.hmrc.test.api.models.UsersHappyPath.{aaResp, ffResp}
+import uk.gov.hmrc.test.api.models.UsersHappyPath.{AAAAResp, AAFFResp}
 
 class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("Connect to TFCP API Payments endpoints unhappy path") {
-    val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
+    val consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Individual")
     Scenario(s"Payments endpoints with payload missing correlation id") {
       val response = tfcPaymentWithoutCorrelationId(
         consignorToken,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -45,7 +45,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         "",
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -61,7 +61,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         123,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -77,7 +77,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         "1234",
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -93,7 +93,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         correlationId,
         "",
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -110,7 +110,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         correlationId,
         123,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -127,7 +127,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -143,7 +143,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         consignorToken,
         correlationId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -160,7 +160,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         correlationId,
         eppUniqueCusId,
         "",
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -176,7 +176,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -192,7 +192,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         correlationId,
         eppUniqueCusId,
         123,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -207,7 +207,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         consignorToken,
         correlationId,
         eppUniqueCusId,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -216,27 +216,6 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
-    }
-
-    Scenario(s"Payments endpoint payload with an unmatched Outbound child payment reference number in the stub") {
-      val response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegRef,
-        "AAaa00000TFC",
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 500)
-      checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(
-        response,
-        "errorDescription",
-        "We encountered an error on our servers and did not process your request, please try again later."
-      )
     }
     val scenarios =
       List(
@@ -306,7 +285,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -323,7 +302,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           "",
           ccpRegReference,
           ccpPostcode,
@@ -340,7 +319,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,
@@ -357,7 +336,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           "1234",
           ccpRegReference,
           ccpPostcode,
@@ -374,7 +353,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           0,
           ccpRegReference,
           ccpPostcode,
@@ -391,7 +370,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           -123,
           ccpRegReference,
           ccpPostcode,
@@ -408,7 +387,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           ccpRegReference,
           ccpPostcode,
           payeeType
@@ -424,7 +403,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           123,
           ccpPostcode,
@@ -441,7 +420,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,
@@ -458,7 +437,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           "",
           ccpPostcode,
@@ -475,7 +454,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpPostcode,
           payeeType
@@ -491,7 +470,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           123,
@@ -508,7 +487,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,
@@ -525,7 +504,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           payeeType
@@ -554,7 +533,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           postcode,
@@ -584,7 +563,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,
@@ -602,7 +581,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode
@@ -618,7 +597,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,
@@ -635,7 +614,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,
@@ -652,7 +631,7 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          ffResp.outboundChildPaymentRef,
+          AAFFResp.outboundChildPaymentRef,
           paymentAmount,
           ccpRegReference,
           ccpPostcode,

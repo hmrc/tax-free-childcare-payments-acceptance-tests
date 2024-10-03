@@ -38,7 +38,7 @@ case class UsersHappyPath(
   estimatedPaymentDate: String
 )
 object UsersHappyPath {
-  val aaResp: UsersHappyPath            = UsersHappyPath(
+  val AAAAResp: UsersHappyPath = UsersHappyPath(
     "AAAA00000TFC",
     200,
     "Peter Pan",
@@ -51,7 +51,7 @@ object UsersHappyPath {
     "1234567887654321",
     "2024-10-01"
   )
-  val EEZZResp: UsersHappyPath          = UsersHappyPath(
+  val EEZZResp: UsersHappyPath = UsersHappyPath(
     "EEZZ00000TFC",
     200,
     "Peter Pan",
@@ -64,7 +64,7 @@ object UsersHappyPath {
     "1234567887654321",
     "2024-10-01"
   )
-  val EEBAResp: UsersHappyPath          = UsersHappyPath(
+  val EEBAResp: UsersHappyPath = UsersHappyPath(
     "EEBA00000TFC",
     200,
     "Peter Pan",
@@ -77,8 +77,8 @@ object UsersHappyPath {
     "1234567887654321",
     "2024-10-01"
   )
-  val aaRespOutsideStub: UsersHappyPath = UsersHappyPath(
-    "ABCD00000TFC",
+  val AAaaResp: UsersHappyPath = UsersHappyPath(
+    "AAaa00000TFC",
     200,
     "Peter Pan",
     "ACTIVE",
@@ -90,7 +90,7 @@ object UsersHappyPath {
     "1234567887654321",
     "2024-10-01"
   )
-  val bbResp: UsersHappyPath            = UsersHappyPath(
+  val AABBResp: UsersHappyPath = UsersHappyPath(
     "AABB00000TFC",
     200,
     "Benjamin Button",
@@ -103,7 +103,7 @@ object UsersHappyPath {
     "1234567887654322",
     "2024-10-02"
   )
-  val ccResp: UsersHappyPath            = UsersHappyPath(
+  val AACCResp: UsersHappyPath = UsersHappyPath(
     "AACC00000TFC",
     200,
     "Christopher Columbus",
@@ -116,7 +116,7 @@ object UsersHappyPath {
     "1234567887654323",
     "2024-10-03"
   )
-  val ddResp: UsersHappyPath            = UsersHappyPath(
+  val AADDResp: UsersHappyPath = UsersHappyPath(
     "AADD00000TFC",
     200,
     "Donald Duck",
@@ -129,7 +129,7 @@ object UsersHappyPath {
     "1234567887654324",
     "2024-10-04"
   )
-  val ffResp: UsersHappyPath            = UsersHappyPath(
+  val AAFFResp: UsersHappyPath = UsersHappyPath(
     "AAFF00000TFC",
     200,
     "Fred Flintstone",
