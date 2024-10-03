@@ -18,19 +18,19 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
-import uk.gov.hmrc.test.api.models.UsersHappyPath.aaResp
+import uk.gov.hmrc.test.api.models.UsersHappyPath.AAAAResp
 
 class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("Connect to TFCP API Link endpoints unhappy path") {
-    val consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
+    val consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Individual")
     Scenario(s"Link endpoints with payload missing correlation id") {
       val response =
         tfcLinkWithoutCorrelationId(
           consignorToken,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
@@ -39,7 +39,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Link endpoints payload with an empty correlation id") {
       val response =
-        tfcLink(consignorToken, "", eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLink(consignorToken, "", eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
@@ -51,7 +51,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           123,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
@@ -60,14 +60,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Link endpoints payload with an invalid correlation id") {
       val response =
-        tfcLink(consignorToken, "1234", eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLink(consignorToken, "1234", eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "ETFC1")
       checkJsonValue(response, "errorDescription", "Correlation ID is in an invalid format or is missing")
     }
     Scenario(s"Link endpoints with a payload with an empty EPP unique customer ID") {
       val response =
-        tfcLink(consignorToken, correlationId, "", eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLink(consignorToken, correlationId, "", eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", "epp_unique_customer_id is in invalid format or missing")
@@ -79,7 +79,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           correlationId,
           123,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
@@ -93,7 +93,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
@@ -102,14 +102,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Link endpoints with a payload with an missing EPP unique customer ID") {
       val response =
-        tfcLinkWithoutEPPCusId(consignorToken, correlationId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLinkWithoutEPPCusId(consignorToken, correlationId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0004")
       checkJsonValue(response, "errorDescription", "epp_unique_customer_id is in invalid format or missing")
     }
     Scenario(s"Link endpoint payload with an empty EPP registration reference") {
       val response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, "", aaResp.outboundChildPaymentRef, childDOB)
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, "", AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
@@ -121,7 +121,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
@@ -135,7 +135,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           correlationId,
           eppUniqueCusId,
           123,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
@@ -148,26 +148,14 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           consignorToken,
           correlationId,
           eppUniqueCusId,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
     }
-
-    Scenario(s"Link endpoint payload with an unmatched Outbound child payment reference number in the stub") {
-      val response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, "AAaa00000TFC", childDOB)
-      thenValidateResponseCode(response, 500)
-      checkJsonValue(response, "errorCode", "E0000")
-      checkJsonValue(
-        response,
-        "errorDescription",
-        "We encountered an error on our servers and did not process your request, please try again later."
-      )
-    }
-    val scenarios =
+    val scenarios      =
       List(
         "",
         "AAAA00000TFC123",
@@ -217,7 +205,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
@@ -226,21 +214,28 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
     }
     Scenario(s"Link endpoint with a payload with an invalid child date of birth") {
       val response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, "childDOB")
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, "childDOB")
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0006")
       checkJsonValue(response, "errorDescription", "child_date_of_birth is in invalid format or missing")
     }
     Scenario(s"Link endpoint with a payload with an child date of birth different date format") {
       val response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, "23-05-2018")
+        tfcLink(
+          consignorToken,
+          correlationId,
+          eppUniqueCusId,
+          eppRegRef,
+          AAAAResp.outboundChildPaymentRef,
+          "23-05-2018"
+        )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0006")
       checkJsonValue(response, "errorDescription", "child_date_of_birth is in invalid format or missing")
     }
     Scenario(s"Link endpoint with a payload with an empty child date of birth") {
       val response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, "")
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, "")
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0006")
       checkJsonValue(response, "errorDescription", "child_date_of_birth is in invalid format or missing")
@@ -252,7 +247,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           123
         )
       thenValidateResponseCode(response, 400)
@@ -266,7 +261,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 400)
@@ -280,7 +275,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef
+          AAAAResp.outboundChildPaymentRef
         )
       thenValidateResponseCode(response, 400)
       checkJsonValue(response, "errorCode", "E0006")

@@ -18,36 +18,30 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
-import uk.gov.hmrc.test.api.models.UsersHappyPath.aaResp
+import uk.gov.hmrc.test.api.models.UsersHappyPath.AAAAResp
 
 class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("Connect to TFCP API endpoints unhappy path") {
-    var consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Individual")
+    var consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Individual")
     Scenario(s"Endpoints missing authorization header") {
       var response =
         tfcLinkWithoutAuthorizationHeader(
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
       response =
-        tfcBalanceWithoutAuthorization(correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+        tfcBalanceWithoutAuthorization(correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
       response = tfcPaymentWithoutAuthorization(
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
@@ -57,86 +51,62 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
     Scenario(s"Endpoints with a token with insufficient confidence level") {
       consignorToken = givenGetToken("AAAA12345TFC", 50, "Individual")
       var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
       response = tfcPayment(
         consignorToken,
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
         payeeType
       )
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
     Scenario(s"Endpoints with a token with affinity group Organisation") {
-      consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Organisation")
+      consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Organisation")
       var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
       response = tfcPayment(
         consignorToken,
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
         payeeType
       )
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
     Scenario(s"Endpoints with a token with affinity group Agent") {
-      consignorToken = givenGetToken(aaResp.outboundChildPaymentRef, 250, "Agent")
+      consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Agent")
       var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef, childDOB)
+        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
       response = tfcPayment(
         consignorToken,
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
         payeeType
       )
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
     Scenario(s"Endpoints with bearer token expired") {
       consignorToken =
@@ -147,32 +117,24 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
       response = tfcPayment(
         consignorToken,
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
         payeeType
       )
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
     Scenario(s"Endpoints with a invalid bearer token") {
       consignorToken = "this is invalid bearer token"
@@ -182,32 +144,24 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
           correlationId,
           eppUniqueCusId,
           eppRegRef,
-          aaResp.outboundChildPaymentRef,
+          AAAAResp.outboundChildPaymentRef,
           childDOB
         )
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, aaResp.outboundChildPaymentRef)
+      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
-
       response = tfcPayment(
         consignorToken,
         correlationId,
         eppUniqueCusId,
         eppRegRef,
-        aaResp.outboundChildPaymentRef,
+        AAAAResp.outboundChildPaymentRef,
         paymentAmount,
         ccpRegReference,
         ccpPostcode,
         payeeType
       )
       thenValidateResponseCode(response, 401)
-//      checkJsonValue(response, "errorCode", "UNAUTHORISED")
-//      checkJsonValue(response, "errorDescription", "Invalid authentication credentials")
     }
   }
 }

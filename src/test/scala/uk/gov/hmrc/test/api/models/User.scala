@@ -38,7 +38,7 @@ case class UsersHappyPath(
   estimatedPaymentDate: String
 )
 object UsersHappyPath {
-  val aaResp: UsersHappyPath = UsersHappyPath(
+  val AAAAResp: UsersHappyPath = UsersHappyPath(
     "AAAA00000TFC",
     200,
     "Peter Pan",
@@ -51,7 +51,46 @@ object UsersHappyPath {
     "1234567887654321",
     "2024-10-01"
   )
-  val bbResp: UsersHappyPath = UsersHappyPath(
+  val EEZZResp: UsersHappyPath = UsersHappyPath(
+    "EEZZ00000TFC",
+    200,
+    "Peter Pan",
+    "ACTIVE",
+    31415,
+    65,
+    66,
+    67,
+    68,
+    "1234567887654321",
+    "2024-10-01"
+  )
+  val EEBAResp: UsersHappyPath = UsersHappyPath(
+    "EEBA00000TFC",
+    200,
+    "Peter Pan",
+    "ACTIVE",
+    31415,
+    65,
+    66,
+    67,
+    68,
+    "1234567887654321",
+    "2024-10-01"
+  )
+  val AAaaResp: UsersHappyPath = UsersHappyPath(
+    "AAaa00000TFC",
+    200,
+    "Peter Pan",
+    "ACTIVE",
+    31415,
+    65,
+    66,
+    67,
+    68,
+    "1234567887654321",
+    "2024-10-01"
+  )
+  val AABBResp: UsersHappyPath = UsersHappyPath(
     "AABB00000TFC",
     200,
     "Benjamin Button",
@@ -64,7 +103,7 @@ object UsersHappyPath {
     "1234567887654322",
     "2024-10-02"
   )
-  val ccResp: UsersHappyPath = UsersHappyPath(
+  val AACCResp: UsersHappyPath = UsersHappyPath(
     "AACC00000TFC",
     200,
     "Christopher Columbus",
@@ -77,7 +116,7 @@ object UsersHappyPath {
     "1234567887654323",
     "2024-10-03"
   )
-  val ddResp: UsersHappyPath = UsersHappyPath(
+  val AADDResp: UsersHappyPath = UsersHappyPath(
     "AADD00000TFC",
     200,
     "Donald Duck",
@@ -90,7 +129,7 @@ object UsersHappyPath {
     "1234567887654324",
     "2024-10-04"
   )
-  val ffResp: UsersHappyPath = UsersHappyPath(
+  val AAFFResp: UsersHappyPath = UsersHappyPath(
     "AAFF00000TFC",
     200,
     "Fred Flintstone",
@@ -187,8 +226,6 @@ object User {
     "There is an issue with this TFC Account, please advise parent / carer to contact TFC customer Services"
   )
   val e0036Resp: User         = User("EEYZ00000TFC", 400, "E0036", "Error processing payment due to Payee bank details")
-  val e0040Resp: User         = User("EEZZ00000TFC", 500, "E0000", EXPECTED_500_ERROR_DESC)
-  val e0041Resp: User         = User("EEBA00000TFC", 500, "E0000", EXPECTED_500_ERROR_DESC)
   val e0042Resp: User         = User(
     "EEBC00000TFC",
     400,

@@ -25,11 +25,14 @@ class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient
 
     val scenarios =
       List(
-        aaResp,
-        bbResp,
-        ccResp,
-        ddResp,
-        ffResp
+        AAAAResp,
+        AABBResp,
+        AACCResp,
+        AADDResp,
+        AAFFResp,
+        AAaaResp,
+        EEZZResp,
+        EEBAResp
       )
 
     scenarios.foreach { scenarioName =>
