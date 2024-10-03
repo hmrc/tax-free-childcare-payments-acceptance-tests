@@ -18,7 +18,7 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
-import uk.gov.hmrc.test.api.models.UsersHappyPath.{aaResp, aaRespOutsideStub, bbResp, ccResp, ddResp, ffResp}
+import uk.gov.hmrc.test.api.models.UsersHappyPath.{EEBAResp, EEZZResp, aaResp, aaRespOutsideStub, bbResp, ccResp, ddResp, ffResp}
 
 class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
@@ -31,7 +31,9 @@ class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpCli
         ccResp,
         ddResp,
         ffResp,
-        aaRespOutsideStub
+        aaRespOutsideStub,
+        EEZZResp,
+        EEBAResp
       )
     scenarios.foreach { scenarioName =>
       Scenario(s"Verify Balance endpoint for predefined test cases: $scenarioName") {
