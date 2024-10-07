@@ -134,11 +134,11 @@ object UsersHappyPath {
     200,
     "Fred Flintstone",
     "ACTIVE",
-    38327,
-    85,
-    86,
-    87,
-    88,
+    4500,
+    5500,
+    5000,
+    9500,
+    8000,
     "ETFC3",
     "Bad Gateway"
   )
