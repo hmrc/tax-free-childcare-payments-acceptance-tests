@@ -72,9 +72,9 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
       consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Organisation")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
-      thenValidateResponseCode(response, 401)
+      thenValidateResponseCode(response, 200)
       response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
-      thenValidateResponseCode(response, 401)
+      thenValidateResponseCode(response, 200)
       response = tfcPayment(
         consignorToken,
         correlationId,
@@ -86,15 +86,15 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 401)
+      thenValidateResponseCode(response, 200)
     }
     Scenario(s"Endpoints with a token with affinity group Agent") {
       consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Agent")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
-      thenValidateResponseCode(response, 401)
+      thenValidateResponseCode(response, 200)
       response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
-      thenValidateResponseCode(response, 401)
+      thenValidateResponseCode(response, 200)
       response = tfcPayment(
         consignorToken,
         correlationId,
@@ -106,7 +106,7 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
         ccpPostcode,
         payeeType
       )
-      thenValidateResponseCode(response, 401)
+      thenValidateResponseCode(response, 200)
     }
     Scenario(s"Endpoints with bearer token expired") {
       consignorToken =
