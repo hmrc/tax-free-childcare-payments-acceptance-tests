@@ -23,7 +23,7 @@ import uk.gov.hmrc.test.api.models.UsersHappyPath.{AAAAResp, AABBResp, AACCResp,
 class TfcpPaymentsEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Payment Endpoints happy path") {
-    val consignorToken    = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Individual")
+    val consignorToken    = givenGetToken(AAAAResp.outboundChildPaymentRef, 200, "Individual")
     val scenarios         =
       List(
         AAAAResp,

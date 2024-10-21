@@ -23,7 +23,7 @@ import uk.gov.hmrc.test.api.models.UsersHappyPath.AAAAResp
 class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("Connect to TFCP API endpoints unhappy path") {
-    var consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Individual")
+    var consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 200, "Individual")
     Scenario(s"Endpoints missing authorization header") {
       var response =
         tfcLinkWithoutAuthorizationHeader(
@@ -89,7 +89,7 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
       thenValidateResponseCode(response, 401)
     }
     Scenario(s"Endpoints with a token with affinity group Organisation") {
-      consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Organisation")
+      consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 200, "Organisation")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 200)
@@ -109,7 +109,7 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
       thenValidateResponseCode(response, 200)
     }
     Scenario(s"Endpoints with a token with affinity group Agent") {
-      consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Agent")
+      consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 200, "Agent")
       var response =
         tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
       thenValidateResponseCode(response, 200)

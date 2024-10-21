@@ -23,7 +23,7 @@ import uk.gov.hmrc.test.api.models.UsersHappyPath.AAAAResp
 class TfcpBalanceEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("Connect to TFCP API Balance endpoints unhappy path") {
-    val consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 250, "Individual")
+    val consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 200, "Individual")
     Scenario(s"Balance endpoints with payload missing correlation id") {
       val response =
         tfcBalanceWithoutCorrelationId(consignorToken, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)

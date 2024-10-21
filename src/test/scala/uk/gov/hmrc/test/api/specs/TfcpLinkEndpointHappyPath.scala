@@ -37,7 +37,7 @@ class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient
 
     scenarios.foreach { scenarioName =>
       Scenario(s"Verify Link endpoint for predefined test cases: $scenarioName") {
-        val consignorToken = givenGetToken(scenarioName.outboundChildPaymentRef, 250, "Individual")
+        val consignorToken = givenGetToken(scenarioName.outboundChildPaymentRef, 200, "Individual")
         val response       =
           tfcLink(
             consignorToken,
