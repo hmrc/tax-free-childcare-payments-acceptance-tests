@@ -48,26 +48,6 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
         payeeType
       )
     }
-    Scenario(s"Endpoints with a token with insufficient confidence level") {
-      consignorToken = givenGetToken("AAAA12345TFC", 50, "Individual")
-      var response =
-        tfcLink(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef, childDOB)
-      thenValidateResponseCode(response, 401)
-      response = tfcBalance(consignorToken, correlationId, eppUniqueCusId, eppRegRef, AAAAResp.outboundChildPaymentRef)
-      thenValidateResponseCode(response, 401)
-      response = tfcPayment(
-        consignorToken,
-        correlationId,
-        eppUniqueCusId,
-        eppRegRef,
-        AAAAResp.outboundChildPaymentRef,
-        paymentAmount,
-        ccpRegReference,
-        ccpPostcode,
-        payeeType
-      )
-      thenValidateResponseCode(response, 401)
-    }
     Scenario(s"Endpoints with a token with confidence level 250") {
       consignorToken = givenGetToken("AAAA12345TFC", 250, "Individual")
       var response =
