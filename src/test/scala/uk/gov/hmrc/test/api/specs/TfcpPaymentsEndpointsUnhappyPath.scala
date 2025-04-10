@@ -642,4 +642,5 @@ class TfcpPaymentsEndpointsUnhappyPath extends BaseSpec with CommonSpec with Htt
       checkJsonValue(response, "errorDescription", EXPECTED_502_ERROR_DESC)
     }
   }
+
 }

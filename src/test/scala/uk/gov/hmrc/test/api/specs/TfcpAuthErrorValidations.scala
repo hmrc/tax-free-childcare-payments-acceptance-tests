@@ -184,4 +184,5 @@ class TfcpAuthErrorValidations extends BaseSpec with CommonSpec with HttpClient 
       thenValidateResponseCode(response, 401)
     }
   }
+
 }

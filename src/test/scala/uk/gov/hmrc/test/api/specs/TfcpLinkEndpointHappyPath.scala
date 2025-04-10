@@ -19,6 +19,7 @@ package uk.gov.hmrc.test.api.specs
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
 import uk.gov.hmrc.test.api.models.UsersHappyPath._
+
 class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Link Endpoint happy path for different outbound child reference") {
@@ -38,7 +39,7 @@ class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient
     scenarios.foreach { scenarioName =>
       Scenario(s"Verify Link endpoint for predefined test cases: $scenarioName") {
         val consignorToken = givenGetToken(scenarioName.outboundChildPaymentRef, 200, "Individual")
-        val response       =
+        val response =
           tfcLink(
             consignorToken,
             correlationId,
@@ -52,4 +53,5 @@ class TfcpLinkEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient
       }
     }
   }
+
 }

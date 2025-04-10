@@ -155,7 +155,7 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorCode", "E0002")
       checkJsonValue(response, "errorDescription", "epp_reg_reference is in invalid format or missing")
     }
-    val scenarios      =
+    val scenarios =
       List(
         "",
         "AAAA00000TFC123",
@@ -282,4 +282,5 @@ class TfcpLinkEndpointsUnhappyPath extends BaseSpec with CommonSpec with HttpCli
       checkJsonValue(response, "errorDescription", "child_date_of_birth is in invalid format or missing")
     }
   }
+
 }

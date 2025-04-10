@@ -29,4 +29,5 @@ class AuthHelper {
       authAPI.postLogin(outboundChildPaymentReference, confidenceLevel, affinityGroup)
     authServiceRequestResponse.header("Authorization").getOrElse(fail("Could not obtain auth bearer token"))
   }
+
 }
