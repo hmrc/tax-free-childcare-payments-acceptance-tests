@@ -29,7 +29,7 @@ trait HttpClient {
   implicit val actorSystem: ActorSystem = ActorSystem()
   val wsClient: StandaloneAhcWSClient   = StandaloneAhcWSClient()
   // lazy val client: StandaloneAhcWSClient = StandaloneAhcWSClient()
-  lazy val shouldProxyForZap: Boolean   = sys.props.get("zap.proxy").exists(_.toBoolean)
+  lazy val shouldProxyForZap: Boolean = sys.props.get("zap.proxy").exists(_.toBoolean)
 
   def standAloneWsRequestWithProxyIfConfigSet(standAloneWsRequest: StandaloneWSRequest): StandaloneWSRequest =
     if (shouldProxyForZap) {
@@ -39,7 +39,8 @@ trait HttpClient {
     } else {
       standAloneWsRequest
     }
-  implicit val ec: ExecutionContext                                                                          = ExecutionContext.global
+
+  implicit val ec: ExecutionContext = ExecutionContext.global
 
   def get(url: String, headers: (String, String)*): Future[StandaloneWSRequest#Self#Response] =
     standAloneWsRequestWithProxyIfConfigSet(
@@ -64,4 +65,5 @@ trait HttpClient {
     )
       .withHttpHeaders(headers: _*)
       .delete()
+
 }

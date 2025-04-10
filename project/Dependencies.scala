@@ -22,7 +22,6 @@ object Dependencies {
     "org.apache.pekko"       %% "pekko-serialization-jackson" % "1.0.3"  % Test,
     "org.apache.pekko"       %% "pekko-slf4j"                 % "1.0.3"  % Test,
     "org.apache.pekko"       %% "pekko-actor-typed"           % "1.0.3"  % Test
-
   )
 
 }

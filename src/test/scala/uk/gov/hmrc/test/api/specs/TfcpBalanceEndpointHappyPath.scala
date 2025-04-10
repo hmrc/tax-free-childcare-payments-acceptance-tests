@@ -18,13 +18,22 @@ package uk.gov.hmrc.test.api.specs
 
 import uk.gov.hmrc.test.api.client.HttpClient
 import uk.gov.hmrc.test.api.models.User._
-import uk.gov.hmrc.test.api.models.UsersHappyPath.{AAAAResp, AABBResp, AACCResp, AADDResp, AAFFResp, AAaaResp, EEBAResp, EEZZResp}
+import uk.gov.hmrc.test.api.models.UsersHappyPath.{
+  AAAAResp,
+  AABBResp,
+  AACCResp,
+  AADDResp,
+  AAFFResp,
+  AAaaResp,
+  EEBAResp,
+  EEZZResp
+}
 
 class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpClient {
 
   Feature("TFCP Balance Endpoint happy path") {
     val consignorToken = givenGetToken(AAAAResp.outboundChildPaymentRef, 200, "Individual")
-    val scenarios      =
+    val scenarios =
       List(
         AAAAResp,
         AABBResp,
@@ -49,4 +58,5 @@ class TfcpBalanceEndpointHappyPath extends BaseSpec with CommonSpec with HttpCli
       }
     }
   }
+
 }
